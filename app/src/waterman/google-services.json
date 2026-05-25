@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "964880982510",
+    "project_id": "unnati-iattendance",
+    "storage_bucket": "unnati-iattendance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:964880982510:android:5d712cb260a9809088eeff",
+        "android_client_info": {
+          "package_name": "com.i.unatti.attendanceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "964880982510-f1hje3tmkls8g701bs35h04h69a9952u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYv9vZ3TLNFG-tEi3-MKcb6g8wMmkqUfk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "964880982510-f1hje3tmkls8g701bs35h04h69a9952u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

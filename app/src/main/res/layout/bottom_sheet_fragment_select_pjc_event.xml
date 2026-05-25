@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="15dp"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constLay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_2"
+        android:fitsSystemWindows="true">
+
+        <TextView
+            android:id="@+id/txtViewSelect"
+            style="@style/kumbh.bold.white.18"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:gravity="center"
+            android:paddingVertical="5dp"
+            android:text="@string/label_events"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--=====================================================-->
+        <!--==== This for the Event ============-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtViewSelect"
+            tools:itemCount="1"
+            tools:listitem="@layout/row_item_select_pjc_event" />
+
+        <!--=====================================================-->
+        <!--==== This for the Payment follow up ============-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewStatus">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewPaymentTitle"
+                style="@style/kumbh.bold.black.16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/label_today_s_follow_up_for_payment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/viewLinePaymentFollowUp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/primary_light"
+                app:layout_constraintTop_toBottomOf="@id/txtViewPaymentTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewPartyNameHeader"
+                style="@style/kumbh.regular.black.12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/green_1"
+                android:gravity="center"
+                android:text="@string/label_party_name"
+                app:layout_constraintEnd_toStartOf="@id/txtViewInTimeHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewLinePaymentFollowUp"
+                app:layout_constraintWidth_percent="0.322" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewInTimeHeader"
+                style="@style/kumbh.regular.black.12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/green_1"
+                android:gravity="center"
+                android:text="@string/label_discussion"
+                app:layout_constraintEnd_toStartOf="@id/txtViewStatusHeader"
+                app:layout_constraintStart_toEndOf="@id/txtViewPartyNameHeader"
+                app:layout_constraintTop_toTopOf="@id/txtViewPartyNameHeader"
+                app:layout_constraintWidth_percent="0.322" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewStatusHeader"
+                style="@style/kumbh.regular.black.12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/green_1"
+                android:gravity="center"
+                android:text="@string/label_amount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txtViewInTimeHeader"
+                app:layout_constraintTop_toTopOf="@id/txtViewInTimeHeader"
+                app:layout_constraintWidth_percent="0.322" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPaymentFollowUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtViewPartyNameHeader"
+                tools:itemCount="2"
+                tools:listitem="@layout/row_item_payment_follow_up" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--=====================================================-->
+        <!--==== This for the Order follow up ============-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constPayment">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewOrderTitle"
+                style="@style/kumbh.bold.black.16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/label_today_s_follow_up_for_order"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/viewLineOrderFollowUp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/primary_light"
+                app:layout_constraintTop_toBottomOf="@id/txtViewOrderTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewPartyNameOrderHeader"
+                style="@style/kumbh.regular.black.12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/yellow"
+                android:gravity="center"
+                android:text="@string/label_party_name"
+                app:layout_constraintEnd_toStartOf="@id/txtViewDiscussionOrderHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewLineOrderFollowUp"
+                app:layout_constraintWidth_percent="0.49" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewDiscussionOrderHeader"
+                style="@style/kumbh.regular.black.12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/yellow"
+                android:gravity="center"
+                android:text="@string/label_discussion"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txtViewPartyNameOrderHeader"
+                app:layout_constraintTop_toTopOf="@id/txtViewPartyNameOrderHeader"
+                app:layout_constraintWidth_percent="0.49" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewOrderFollowUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtViewPartyNameOrderHeader"
+                tools:itemCount="2"
+                tools:listitem="@layout/row_item_order_follow_up" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--=====================================================-->
+        <!--==== This for the New Dealer Appointment ============-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constNewDealerAppointment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constOrder">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewNewDealerAppointmentTitle"
+                style="@style/kumbh.bold.black.16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/label_today_s_follow_up_for_new_dealer_appointment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/viewLineNewDealerAppointment"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/primary_light"
+                app:layout_constraintTop_toBottomOf="@id/txtViewNewDealerAppointmentTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewPartyNameNewDealerAppointmentHeader"
+                style="@style/kumbh.regular.black.12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/orange"
+                android:gravity="center"
+                android:text="@string/label_party_name"
+                app:layout_constraintEnd_toStartOf="@id/txtViewDiscussionNewDealerAppointmentHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewLineNewDealerAppointment"
+                app:layout_constraintWidth_percent="0.49" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewDiscussionNewDealerAppointmentHeader"
+                style="@style/kumbh.regular.black.12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/orange"
+                android:gravity="center"
+                android:text="@string/label_discussion"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txtViewPartyNameNewDealerAppointmentHeader"
+                app:layout_constraintTop_toTopOf="@id/txtViewPartyNameNewDealerAppointmentHeader"
+                app:layout_constraintWidth_percent="0.49" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewNewDealerAppointment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtViewPartyNameNewDealerAppointmentHeader"
+                tools:itemCount="2"
+                tools:listitem="@layout/row_item_new_dealer_appointment" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--=====================================================-->
+        <!--==== This for the Sub Dealer Appointment ============-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constSubDealerAppointment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constNewDealerAppointment">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewSubDealerAppointmentTitle"
+                style="@style/kumbh.bold.black.16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/label_today_s_follow_up_for_sub_dealer_appointment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/viewLineSubDealerAppointment"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/primary_light"
+                app:layout_constraintTop_toBottomOf="@id/txtViewSubDealerAppointmentTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewPartyNameSubDealerAppointmentHeader"
+                style="@style/kumbh.regular.black.12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/blue"
+                android:gravity="center"
+                android:text="@string/label_party_name"
+                app:layout_constraintEnd_toStartOf="@id/txtViewDiscussionSubDealerAppointmentHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewLineSubDealerAppointment"
+                app:layout_constraintWidth_percent="0.49" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewDiscussionSubDealerAppointmentHeader"
+                style="@style/kumbh.regular.black.12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/blue"
+                android:gravity="center"
+                android:text="@string/label_discussion"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txtViewPartyNameSubDealerAppointmentHeader"
+                app:layout_constraintTop_toTopOf="@id/txtViewPartyNameSubDealerAppointmentHeader"
+                app:layout_constraintWidth_percent="0.49" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewSubDealerVisit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtViewPartyNameSubDealerAppointmentHeader"
+                tools:itemCount="2"
+                tools:listitem="@layout/row_item_sub_dealer_visit" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--=====================================================-->
+        <!--==== This for the New Dealer Survey ============-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constNewDealerSurvey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constSubDealerAppointment"
+            app:layout_constraintVertical_bias="0">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewNewDealerSurveyTitle"
+                style="@style/kumbh.bold.black.16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/label_today_s_follow_up_for_new_dealer_survey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/viewLineNewDealerSurvey"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/primary_light"
+                app:layout_constraintTop_toBottomOf="@id/txtViewNewDealerSurveyTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewPartyNameNewDealerSurveyHeader"
+                style="@style/kumbh.regular.black.12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/pink"
+                android:gravity="center"
+                android:text="@string/label_party_name"
+                app:layout_constraintEnd_toStartOf="@id/txtViewDiscussionNewDealerSurveyHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewLineNewDealerSurvey"
+                app:layout_constraintWidth_percent="0.49" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewDiscussionNewDealerSurveyHeader"
+                style="@style/kumbh.regular.black.12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/pink"
+                android:gravity="center"
+                android:text="@string/label_discussion"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txtViewPartyNameNewDealerSurveyHeader"
+                app:layout_constraintTop_toTopOf="@id/txtViewPartyNameNewDealerSurveyHeader"
+                app:layout_constraintWidth_percent="0.49" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewNewDealerSurvey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtViewPartyNameNewDealerSurveyHeader"
+                tools:itemCount="2"
+                tools:listitem="@layout/row_item_new_dealer_survey" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <ProgressBar
+            android:id="@+id/progressBarStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_primary_rounded_18"
+            android:elevation="5dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/white"
+            android:indeterminateTintMode="src_in"
+            android:padding="10dp"
+            android:translationZ="5dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+

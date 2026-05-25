@@ -1,0 +1,269 @@
+<resources>
+    <string name="app_name">Delta iAttendance</string>
+    <string name="btn_login">Login</string>
+    <string name="tutorial_label_1">Keep up with your team’s Attendance</string>
+    <string name="tutorial_label_2">Organized record of your team statistics.</string>
+    <string name="tutorial_des_1">Easily take attendance of your team, no matter how big or small there are. Take this attendance manually, automatically or set a recurring attendance method.</string>
+    <string name="tutorial_des_2">Track all the members of your team, no matter how big or small they are. Have a detailed record of all time attendance records taken, all on your device.</string>
+    <string name="label_log_in">Log In</string>
+    <string name="place_holder_last_action">Last Action: %1$s</string>
+    <string name="hint_company_name">Company Name/Ip</string>
+    <string name="hint_email_address">Email Address</string>
+    <string name="hint_password">Password</string>
+    <string name="label_welcome_to_delta_iattendance">Welcome to Waterman iAttendance</string>
+    <string name="label_face_and_fingerprint">Face And Fingerprint</string>
+    <string name="label_forget_password">Forget Password? Help</string>
+    <string name="label_today_s_attendance">Today’s Attendance</string>
+    <string name="label_check_in">Check-In</string>
+    <string name="label_check_out">Check-Out</string>
+    <string name="label_within_range">Within Range</string>
+    <string name="label_no_text">--:--</string>
+    <string name="label_name">Name</string>
+    <string name="label_in_time">InTime</string>
+    <string name="label_status">Status</string>
+    <string name="label_outtime">OutTime</string>
+    <string name="label_last_action">Last Action : --</string>
+    <string name="label_absent">Absent</string>
+    <string name="label_present">Present</string>
+    <string name="label_leave">Leave</string>
+    <string name="toolbar_title_staff_attendance">Staff Attendance</string>
+    <string name="toolbar_title_project_journey_cycle">Project Journey Cycle</string>
+    <string name="label_last_5_day_records">Last 5 Day Records</string>
+    <string name="validation_no_network_connection_available">No network connection available</string>
+    <string name="validation_can_t_connect_to_the_server_check_your_internet">Can\'t connect to the server. Check your internet.</string>
+    <string name="validation_connection_timed_out_try_again">Connection timed out. Try again.</string>
+    <string name="hint_mobile_number">Mobile number</string>
+    <string name="hint_select_status">Select status</string>
+    <string name="toolbar_title_select_status">Select Status</string>
+    <string name="hint_remark">Remark</string>
+    <string name="btn_submit">Submit</string>
+    <string name="validation_message_under_development">Under development</string>
+    <string name="label_your_approval_code">Your Approval Code</string>
+    <string name="btn_share_it">Share It</string>
+    <string name="btn_logout">Logout</string>
+    <string name="label_events">Today\'s Events</string>
+
+    <string name="place_holder_pjc_event_station">Station : %1$s</string>
+    <string name="place_holder_pjc_event_agenda">Agenda : %1$s</string>
+    <string name="place_holder_name">Name : %1$s</string>
+
+    <string name="place_holder_pjc_user_name">User Name : %1$s</string>
+    <string name="place_holder_pjc_date">Date : %1$s</string>
+    <string name="place_holder_location">Location : %1$s</string>
+    <string name="place_holder_district">District : %1$s</string>
+    <string name="place_holder_plan">Plan : %1$s</string>
+    <string name="place_holder_remark">Remark : %1$s</string>
+    <string name="place_holder_status">Status : %1$s</string>
+    <string name="place_holder_reason">Reason : %1$s</string>
+    <string name="place_holder_total_expense">Total expense : %1$s</string>
+
+    <string name="place_holder_ln_no">Ln No : %1$s</string>
+    <string name="place_holder_date">Date : %1$s</string>
+    <string name="place_holder_from_location">From Loc : %1$s</string>
+    <string name="place_holder_to_location">To Loc : %1$s</string>
+    <string name="place_holder_from_time">From Time : %1$s</string>
+    <string name="place_holder_to_time">To Time : %1$s</string>
+    <string name="place_holder_mode">Mode : %1$s</string>
+    <string name="place_holder_amount">Amount : %1$s</string>
+    <string name="place_holder_place">Place : %1$s</string>
+    <string name="place_holder_item">Item : %1$s</string>
+
+    <string name="label_party_name">Party Name</string>
+    <string name="label_discussion">Discussion</string>
+    <string name="label_amount">Amount</string>
+    <string name="label_today_s_follow_up_for_order">Today\'s Follow Up For Order</string>
+    <string name="label_today_s_follow_up_for_payment">Today\'s Follow Up For Payment</string>
+    <string name="label_today_s_follow_up_for_new_dealer_appointment">Today\'s Follow Up For New Dealer Appointment</string>
+    <string name="label_today_s_follow_up_for_sub_dealer_appointment">Today\'s Follow Up For Sub Dealer Appointment</string>
+    <string name="label_today_s_follow_up_for_new_dealer_survey">Today\'s Follow Up For New Dealer Survey</string>
+    <string name="label_action_required_app_setup">Action Required</string>
+    <string name="toolbar_title_action_required">Action Required</string>
+    <string name="auto_start_instruction">
+    <![CDATA[
+    <b>Background Location Access Required</b><br/><br/>
+
+
+    To ensure accurate <b>background location tracking</b> after check-in,
+    please complete the steps below:<br/><br/>
+
+    <b>1. Battery Usage</b><br/>
+    Set battery usage to:<br/>
+    • <b>Unrestricted</b><br/>
+    • <b>Allow background activity</b><br/>
+    • <b>No restrictions</b><br/><br/>
+
+    <i>This is required to keep location tracking active in the background.</i><br/><br/>
+
+    <b>2. Enable Auto-start</b><br/>
+    Steps:<br/>
+    Settings → Apps → Auto-start/Background autostart → <b>Delta iAttendance</b> → Allow<br/><br/>
+
+    <b>3. Disable “Pause app activity if unused”</b><br/>
+    Make sure this option is <b>OFF</b>.<br/><br/>
+
+    <b>4. Location Permission</b><br/>
+    Set location permission to:<br/>
+    <b>Allow all the time</b><br/><br/>
+
+    <i>This ensures location is tracked after check-in even when the app is closed.</i><br/><br/>
+
+    <b>Important:</b><br/>
+    After completing all steps, please <b>reopen the Delta iAttendance application</b>.
+    ]]>
+</string>
+    <string name="dialog_title_enable_auto_start">Enable Auto-Start</string>
+
+
+    <string name="hint_date">Date</string>
+    <string name="hint_plan_for">Plan for</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_location">Location</string>
+    <string name="hint_district">District</string>
+    <string name="hint_reason">Reason</string>
+    <string name="tootlbar_title_plan">Plan</string>
+    <string name="dialog_title_select_date">Select Date</string>
+    <string name="toolbar_title_select_plan_for">Select Plan For</string>
+    <string name="toolbar_title_select_reason">Select Reason</string>
+    <string name="validation_please_select_plan_for_first">Please select plan for first</string>
+    <string name="validation_data_not_ready_yet">Data not ready yet</string>
+    <string name="toolbar_title_select_district">Select District</string>
+    <string name="hint_agenda">Agenda</string>
+    <string name="hint_dealer_name">Dealer Name</string>
+    <string name="hint_issue">Issue</string>
+    <string name="hint_initial_order_value">Initial order value</string>
+    <string name="hint_order_collected">Order collected</string>
+    <string name="hint_mention_specifics">Mention specifics</string>
+    <string name="hint_activity_type">Activity type</string>
+    <string name="hint_plan_data">Plan data</string>
+    <string name="hint_visit_with">Visit with?</string>
+    <string name="hint_sales_target">Sales target</string>
+    <string name="hint_collection_target">Collection target</string>
+    <string name="hint_other_discussions">Other discussions</string>
+    <string name="label_add_reason_data">Add Reason Data :</string>
+    <string name="toolbar_title_select">Select</string>
+    <string name="toolbar_title_pending_plan_for_tour">Pending Plan For Tour</string>
+    <string name="toolbar_title_plan_tour_list">Plan Tour List</string>
+    <string name="label_camera">Camera</string>
+    <string name="label_gallery">Gallery</string>
+    <string name="label_document_file">Document/File</string>
+    <string name="toolbar_title_unplan">Unplan</string>
+    <string name="toolbar_title_unplan_report">Unplan Report</string>
+    <string name="toolbar_title_tour_voucher">Tour Voucher</string>
+    <string name="label_from_date">From Date</string>
+    <string name="label_to_date">To Date</string>
+    <string name="hint_employee">Employee</string>
+    <string name="toobar_title_tour_voucher">Tour Voucher</string>
+    <string name="toolbar_title_select_employee">Select Employee</string>
+    <string name="validation_please_select_date">Please select date</string>
+    <string name="btn_no">No</string>
+    <string name="btn_yes">Yes</string>
+    <string name="toolbar_title_new_tour_voucher">New Tour Voucher</string>
+    <string name="label_new_tour_voucher">New Tour Voucher</string>
+    <string name="hint_from_date">From date</string>
+    <string name="hint_branch">Branch</string>
+    <string name="hint_employee_name">Employee name</string>
+    <string name="hint_work_type">Work type</string>
+    <string name="hint_activity_plan">Activity plan</string>
+    <string name="hint_customer_name">Customer name</string>
+    <string name="hint_city">City</string>
+    <string name="hint_visit_outcome">Visit outcome</string>
+    <string name="hint_sales">Sales</string>
+    <string name="hint_collection">Collection</string>
+    <string name="hint_shop_potential_per_year_pump">Shop potential per year(pump)</string>
+    <string name="hint_contact_person_name">Contact person name</string>
+    <string name="hint_contact_number">Contact number</string>
+    <string name="validation_please_select_from_date">Please select From Date</string>
+    <string name="validation_please_select_branch">Please select Branch</string>
+    <string name="validation_please_select_employee">Please select Employee</string>
+    <string name="validation_please_select_work_type">Please select Work Type</string>
+    <string name="validation_please_select_activity_plan">Please select Activity Plan</string>
+    <string name="validation_please_enter_customer_name">Please enter Customer Name</string>
+    <string name="validation_please_select_district">Please select District</string>
+    <string name="validation_please_select_city">Please select City</string>
+    <string name="validation_please_enter_visit_outcome">Please enter Visit Outcome</string>
+    <string name="validation_please_enter_sales_amount">Please enter Sales amount</string>
+    <string name="validation_please_enter_collection_amount">Please enter Collection amount</string>
+    <string name="validation_please_enter_shop_potential_per_year">Please enter Shop Potential per Year</string>
+    <string name="validation_please_enter_contact_number">Please enter Contact Number</string>
+    <string name="validation_please_enter_contact_person_name">Please enter Contact Person Name</string>
+    <string name="toolbar_title_ledger_report">Ledger Report</string>
+    <string name="toolbar_title_change_password">Change Password</string>
+    <string name="validation_please_enter_old_password">Please enter old password</string>
+    <string name="validation_please_enter_new_password">Please enter new password</string>
+    <string name="validaiton_new_password_should_be_different_from_old_password">New password should be different from old password</string>
+    <string name="toolbar_title_dealer_wise_report">Dealer Wise Report</string>
+    <string name="toolbar_title_district_wise_report">District Wise Report</string>
+    <string name="label_travel_person_details">Travel Person Details</string>
+    <string name="label_inter_city_travel">Inter City Travel</string>
+    <string name="toolbar_title_travel_entry">Travel Entry</string>
+    <string name="toolbar_title_travel_entry_form">Travel Entry Form</string>
+    <string name="label_ticket">Ticket</string>
+    <string name="btn_save_add"><![CDATA[Save & Add]]></string>
+    <string name="btn_save">Save</string>
+    <string name="btn_skip">Skip</string>
+    <string name="label_boarding">Boarding</string>
+    <string name="label_lodging">Lodging</string>
+    <string name="label_hotel_bill">Hotel Bill</string>
+    <string name="label_intra_city_conveyance">Intra City Conveyance</string>
+    <string name="label_miscellaneous">Miscellaneous</string>
+    <string name="label_bill">Bill</string>
+    <string name="label_travel_filter">Travel Filter</string>
+    <string name="btn_search_travel">Search travel</string>
+    <string name="toolbar_title_travel_list">Travel List</string>
+    <string name="toolbar_title_travel_list_form">Travel List Form</string>
+    <string name="label_travel_details">Travel Details</string>
+    <string name="label_boarding_details">Boarding Details</string>
+    <string name="label_lodging_details">Lodging Details</string>
+    <string name="label_conveyance_details">Conveyance Details</string>
+    <string name="label_miscellaneous_details">Miscellaneous Details</string>
+    <string name="validation_please_select_amount">Please select amount</string>
+    <string name="validation_please_enter_number_greater_than_0">Please enter number greater than 0</string>
+    <string name="validation_please_fill_any_one_travel_details">Please fill any one travel details</string>
+    <string name="label_inter_city_travel_details">Inter City Travel Details :</string>
+    <string name="btn_add">Add</string>
+    <string name="toolbar_title_travel_edit">Travel Edit</string>
+    <string name="toolbar_title_travel">Travel</string>
+    <string name="label_new_customer_dealer">New Customer/Dealer</string>
+    <string name="hint_enter_company_name">Enter company name</string>
+    <string name="hint_enter_city">Enter city</string>
+    <string name="hint_enter_contact_person_name">Enter contact person name</string>
+    <string name="hint_contact_person_mobile_no">Contact person mobile no</string>
+    <string name="hint_enter_contact_person_email">Enter contact person email</string>
+    <string name="hint_enter_remarks">Enter remarks</string>
+    <string name="label_dealer_entry_form">Dealer Entry Form</string>
+    <string name="label_firm_details">Firm Details</string>
+    <string name="hint_address">Address</string>
+    <string name="hint_state">State</string>
+    <string name="hint_firm_type">Firm Type</string>
+    <string name="label_proprietorship">Proprietorship</string>
+    <string name="label_constitution">Constitution</string>
+    <string name="label_partnership">Partnership</string>
+    <string name="label_private_ltd">Private Ltd</string>
+    <string name="label_contact_details_1">Contact Details : 1</string>
+    <string name="label_contact_details_2">Contact Details : 2</string>
+    <string name="label_contact_details_3">Contact Details : 3</string>
+    <string name="hint_contact_name">Contact Name</string>
+    <string name="hint_contact_designation">Contact Designation</string>
+    <string name="hint_contact_mobile_no">Contact Mobile No</string>
+    <string name="hint_contact_other_mobile_no">Contact Other Mobile No</string>
+    <string name="hint_contact_email_id">Contact Email Id</string>
+    <string name="hint_birth_date">Birth Date</string>
+    <string name="hint_anniversary_date">Anniversary Date</string>
+    <string name="btn_add_">Add +</string>
+    <string name="btn_less">Less -</string>
+    <string name="label_gst_type">GST Type</string>
+    <string name="hint_select_gst">Select GST</string>
+    <string name="label_add_visiting_card">Add Visiting Card</string>
+    <string name="label_dealer_photo">Dealer Photo</string>
+    <string name="toolbar_tile_dealer_entry_form">Dealer Entry Form</string>
+    <string name="label_select_branch">Select Branch</string>
+    <string name="hint_pincode">Pincode</string>
+    <string name="label_dealer_report_filter">Dealer Report Filter</string>
+    <string name="btn_search_dealer">Search Dealer</string>
+    <string name="label_dealer_list_form">Dealer List Form</string>
+    <string name="label_stock_details">Stock Details</string>
+    <string name="label_select_location">Select Location</string>
+    <string name="label_my_portfolio">My Portfolio</string>
+    <string name="toolbar_title_my_portfolio">My Portfolio</string>
+
+</resources>

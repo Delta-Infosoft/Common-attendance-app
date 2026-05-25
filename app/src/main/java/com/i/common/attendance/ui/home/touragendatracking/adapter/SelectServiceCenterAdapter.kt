@@ -1,0 +1,55 @@
+package com.i.common.attendance.ui.home.touragendatracking.adapter
+
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.i.common.attendance.databinding.RowItemSelectStatusBinding
+import com.i.common.attendance.network.response.TourAgendaTrackingServiceCenter
+
+class SelectServiceCenterAdapter(
+    private val onItemClick: (TourAgendaTrackingServiceCenter) -> Unit
+) : ListAdapter<TourAgendaTrackingServiceCenter, SelectServiceCenterAdapter.ViewHolder>(DiffCallback()) {
+
+    inner class ViewHolder(
+        private val binding: RowItemSelectStatusBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(data: TourAgendaTrackingServiceCenter) = with(binding) {
+            txtViewStatus.text = data.Name
+
+            root.setOnClickListener {
+                onItemClick(data)
+            }
+        }
+    }
+    override fun submitList(list: List<TourAgendaTrackingServiceCenter>?) {
+        super.submitList(list)
+        Log.d("STATE_ADAPTER", "List size: ${list?.size}")
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(
+            RowItemSelectStatusBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.bind(getItem(position))
+    }
+
+    class DiffCallback : DiffUtil.ItemCallback<TourAgendaTrackingServiceCenter>() {
+        override fun areItemsTheSame(oldItem: TourAgendaTrackingServiceCenter, newItem: TourAgendaTrackingServiceCenter): Boolean {
+            return oldItem.SubDealerId == newItem.SubDealerId
+        }
+
+        override fun areContentsTheSame(oldItem: TourAgendaTrackingServiceCenter, newItem: TourAgendaTrackingServiceCenter): Boolean {
+            return oldItem == newItem
+        }
+    }
+}

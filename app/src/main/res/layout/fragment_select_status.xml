@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--===================================================-->
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextStatus"
+        style="@style/BaseEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:drawableStart="@drawable/ic_company"
+        android:drawablePadding="12dp"
+        android:drawableTint="@color/gray"
+        android:editable="false"
+        android:clickable="false"
+        android:layout_marginTop="10dp"
+        android:focusable="false"
+        android:hint="@string/hint_select_status"
+        android:paddingVertical="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextRemark"
+        style="@style/BaseEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:drawableStart="@drawable/ic_email"
+        android:drawablePadding="12dp"
+        android:paddingVertical="18dp"
+        android:hint="@string/hint_remark"
+        android:imeOptions="actionDone"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@id/editTextStatus"
+        app:layout_constraintStart_toStartOf="@id/editTextStatus"
+        app:layout_constraintTop_toBottomOf="@id/editTextStatus" />
+
+    <!--===================================================-->
+    <!--===== THis Card View For Unnati Only=========-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewCheckInDetailsUnnati"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        app:cardCornerRadius="12dp"
+        android:visibility="gone"
+        android:layout_marginHorizontal="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextRemark"
+        app:cardElevation="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Total Target -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewTotalTarget"
+                style="@style/kumbh.regular.black.14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="15dp"
+                tools:text="Total Target : 50000"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Achievement -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewAchievement"
+                style="@style/kumbh.regular.black.14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                tools:text="Achievement : 25000"
+                app:layout_constraintEnd_toEndOf="@id/txtViewTotalTarget"
+                app:layout_constraintStart_toStartOf="@id/txtViewTotalTarget"
+                app:layout_constraintTop_toBottomOf="@id/txtViewTotalTarget" />
+
+            <!-- Outstanding -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewOutstanding"
+                style="@style/kumbh.regular.black.14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="15dp"
+                tools:text="Outstanding : 10000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/txtViewAchievement"
+                app:layout_constraintStart_toStartOf="@id/txtViewAchievement"
+                app:layout_constraintTop_toBottomOf="@id/txtViewAchievement" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSubmit"
+        style="@style/button_primary_rounded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/primary"
+        android:text="@string/btn_submit"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewCheckInDetailsUnnati"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBarPJC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_primary_rounded_18"
+        android:elevation="5dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/white"
+        android:indeterminateTintMode="src_in"
+        android:padding="10dp"
+        android:translationZ="5dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

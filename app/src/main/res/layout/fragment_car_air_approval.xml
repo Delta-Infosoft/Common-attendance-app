@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Date -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayDate"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtDate"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:hint="Date" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Voucher No -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayVoucherNo"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayDate"
+                app:layout_constraintStart_toStartOf="@id/txtLayDate"
+                app:layout_constraintTop_toBottomOf="@id/txtLayDate">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtVoucherNo"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Voucher No" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Punch No -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayPunchNo"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayVoucherNo"
+                app:layout_constraintStart_toStartOf="@id/txtLayVoucherNo"
+                app:layout_constraintTop_toBottomOf="@id/txtLayVoucherNo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtPunchNo"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:hint="Punch No" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Department -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayDepartment"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayPunchNo"
+                app:layout_constraintStart_toStartOf="@id/txtLayPunchNo"
+                app:layout_constraintTop_toBottomOf="@id/txtLayPunchNo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtDepartment"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Department" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Designation -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayDesignation"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayDepartment"
+                app:layout_constraintStart_toStartOf="@id/txtLayDepartment"
+                app:layout_constraintTop_toBottomOf="@id/txtLayDepartment">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtDesignation"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:hint="Designation" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Team -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayTeam"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayDesignation"
+                app:layout_constraintStart_toStartOf="@id/txtLayDesignation"
+                app:layout_constraintTop_toBottomOf="@id/txtLayDesignation">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtTeam"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Team" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Cities + City Type -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayCities"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="2dp"
+                app:endIconDrawable="@drawable/ic_arrow_drop_down"
+                app:endIconMode="custom"
+                app:endIconTint="@color/primary"
+                app:layout_constraintEnd_toStartOf="@id/txtLayCityType"
+                app:layout_constraintStart_toStartOf="@id/txtLayTeam"
+                app:layout_constraintTop_toBottomOf="@id/txtLayTeam">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtCities"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="Cities"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayCityType"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                app:endIconDrawable="@drawable/ic_arrow_drop_down"
+                app:endIconMode="custom"
+                app:endIconTint="@color/primary"
+                app:layout_constraintBottom_toBottomOf="@id/txtLayCities"
+                app:layout_constraintEnd_toEndOf="@id/txtLayTeam"
+                app:layout_constraintStart_toEndOf="@id/txtLayCities"
+                app:layout_constraintTop_toTopOf="@id/txtLayCities">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtCityType"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="City Type"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Journey Dates -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayJourneyFrom"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="2dp"
+                app:layout_constraintEnd_toStartOf="@id/txtLayJourneyTo"
+                app:layout_constraintStart_toStartOf="@id/txtLayCities"
+                app:layout_constraintTop_toBottomOf="@id/txtLayCities">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtJourneyFrom"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:hint="Journey From Date" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayJourneyTo"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                app:layout_constraintBottom_toBottomOf="@id/txtLayJourneyFrom"
+                app:layout_constraintEnd_toEndOf="@id/txtLayTeam"
+                app:layout_constraintStart_toEndOf="@id/txtLayJourneyFrom"
+                app:layout_constraintTop_toTopOf="@id/txtLayJourneyFrom">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtJourneyTo"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:hint="Journey To Date" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- From Place -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayFromPlace"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayJourneyTo"
+                app:layout_constraintStart_toStartOf="@id/txtLayJourneyFrom"
+                app:layout_constraintTop_toBottomOf="@id/txtLayJourneyFrom">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtFromPlace"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="From Place" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- To Place -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayToPlace"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayFromPlace"
+                app:layout_constraintStart_toStartOf="@id/txtLayFromPlace"
+                app:layout_constraintTop_toBottomOf="@id/txtLayFromPlace">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtToPlace"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="To Place" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Travelling By -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayTravelling"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:endIconDrawable="@drawable/ic_arrow_drop_down"
+                app:endIconMode="custom"
+                app:endIconTint="@color/primary"
+                app:layout_constraintEnd_toEndOf="@id/txtLayToPlace"
+                app:layout_constraintStart_toStartOf="@id/txtLayFromPlace"
+                app:layout_constraintTop_toBottomOf="@id/txtLayToPlace">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtTravelling"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="Travelling by"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Per KM -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayPerKm"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayTravelling"
+                app:layout_constraintStart_toStartOf="@id/txtLayTravelling"
+                app:layout_constraintTop_toBottomOf="@id/txtLayTravelling">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtPerKm"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Per KM Rate"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Total KM -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayTotalKm"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayPerKm"
+                app:layout_constraintStart_toStartOf="@id/txtLayPerKm"
+                app:layout_constraintTop_toBottomOf="@id/txtLayPerKm">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtTotalKm"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Total Kms"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Total Amount -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayTotalAmount"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayTotalKm"
+                app:layout_constraintStart_toStartOf="@id/txtLayTotalKm"
+                app:layout_constraintTop_toBottomOf="@id/txtLayTotalKm">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtTotalAmount"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Total Amount"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Submit -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSubmit"
+                style="@style/button_primary_rounded"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="@string/btn_submit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtLayTotalAmount" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBarPJC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_primary_rounded_18"
+        android:elevation="5dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/white"
+        android:indeterminateTintMode="src_in"
+        android:padding="10dp"
+        android:translationZ="5dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</FrameLayout>

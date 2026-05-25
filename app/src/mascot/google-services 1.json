@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "993302401565",
+    "project_id": "mascot-attendance",
+    "storage_bucket": "mascot-attendance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993302401565:android:4cb4410766e79bd6eb6cf4",
+        "android_client_info": {
+          "package_name": "com.i.mascot.attendanceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993302401565-knsq5lkfe2pj8cm6mglvdeb97joqjic1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpWqHchiczwXfOsdd-1aF981rHtadenZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993302401565-knsq5lkfe2pj8cm6mglvdeb97joqjic1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

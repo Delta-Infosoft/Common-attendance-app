@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineStart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineEnd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constMonth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_primary_rounded_18"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/calenderBackIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/ic_calender_arrow_back"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/calenderNextIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/ic_calender_arrow_next"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tctViewMonthName"
+            style="@style/kumbh.bold.white.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="20dp"
+            android:text="MARCH 2026"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constPlanner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toBottomOf="@id/constMonth">
+
+        <!-- =================== HIGHLIGHT ROW 1 =================== -->
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flowHighlight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="
+            sundayGroup,
+            holidayGroup,
+            selectedGroup,
+            inactiveGroup"
+            app:flow_horizontalGap="8dp"
+            app:flow_verticalGap="8dp"
+            app:flow_wrapMode="chain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Sunday -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sundayGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvSundayIcon"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@drawable/bg_oval_red"
+                android:gravity="center"
+                android:text="S"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Sunday"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@id/tvSundayIcon"
+                app:layout_constraintStart_toEndOf="@id/tvSundayIcon"
+                app:layout_constraintTop_toTopOf="@id/tvSundayIcon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Holiday -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/holidayGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvHolidayIcon"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@drawable/bg_oval_blue"
+                android:gravity="center"
+                android:text="H"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Holiday"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@id/tvHolidayIcon"
+                app:layout_constraintStart_toEndOf="@id/tvHolidayIcon"
+                app:layout_constraintTop_toTopOf="@id/tvHolidayIcon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Selected -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/selectedGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvSelectedIcon"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@color/primary"
+                android:gravity="center"
+                android:text="S"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Selected"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@id/tvSelectedIcon"
+                app:layout_constraintStart_toEndOf="@id/tvSelectedIcon"
+                app:layout_constraintTop_toTopOf="@id/tvSelectedIcon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Inactive -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/inactiveGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvInactiveIcon"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@color/gray_1"
+                android:gravity="center"
+                android:text="I"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Inactive"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@id/tvInactiveIcon"
+                app:layout_constraintStart_toEndOf="@id/tvInactiveIcon"
+                app:layout_constraintTop_toTopOf="@id/tvInactiveIcon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- =================== HIGHLIGHT ROW 2 =================== -->
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flowHighlight2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:constraint_referenced_ids="
+            planGroup,
+            dropPlanGroup"
+            app:flow_horizontalGap="8dp"
+            app:flow_wrapMode="chain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/flowHighlight" />
+
+        <!-- Plan -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/planGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvPlanIcon"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@color/green_1"
+                android:gravity="center"
+                android:text="P"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Plan"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@id/tvPlanIcon"
+                app:layout_constraintStart_toEndOf="@id/tvPlanIcon"
+                app:layout_constraintTop_toTopOf="@id/tvPlanIcon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Drop Plan -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dropPlanGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvDropIcon"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@color/yellow"
+                android:gravity="center"
+                android:text="D"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Drop Plan"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@id/tvDropIcon"
+                app:layout_constraintStart_toEndOf="@id/tvDropIcon"
+                app:layout_constraintTop_toTopOf="@id/tvDropIcon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="15dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toBottomOf="@id/constPlanner">
+
+        <com.sickmartian.calendarview.MonthView
+            xmlns:calendar_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/monthView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            calendar_view:activeBackgroundColor="@color/white"
+            calendar_view:activeTextColor="@color/gray_3"
+            calendar_view:currentDayDecorationSize="16dp"
+            calendar_view:currentDayTextColor="@color/black"
+            calendar_view:inactiveBackgroundColor="@color/gray_2"
+            calendar_view:inactiveTextColor="@color/gray"
+            calendar_view:overflowColor="#5154ea"
+            calendar_view:overflowHeight="2dp"
+            calendar_view:selectedBackgroundColor="@color/primary"
+            calendar_view:separateDaysVertically="true"
+            calendar_view:separatorColor="@color/gray"
+            calendar_view:showOverflow="false"
+            calendar_view:textSize="12sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/btnFloatingCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:elevation="5dp"
+        android:padding="15dp"
+        android:translationZ="5dp"
+        android:tint="@color/white"
+        android:background="@drawable/bg_primary_rounded_18"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_fab_add"/>
+
+    <ProgressBar
+        android:id="@+id/progressBarPJC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_primary_rounded_18"
+        android:elevation="5dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/white"
+        android:indeterminateTintMode="src_in"
+        android:padding="10dp"
+        android:translationZ="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

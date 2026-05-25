@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    android:elevation="2dp"
+    android:outlineAmbientShadowColor="@android:color/transparent"
+    android:outlineSpotShadowColor="@android:color/transparent"
+    android:translationZ="5dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtViewEmpId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="9999 - Gunjan Godhani" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtDate"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_date"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/primary"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtViewEmpId"
+            tools:text="15-Mar-25" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtViewEmpName"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_user"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/primary"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="@id/txtDate"
+            app:layout_constraintStart_toStartOf="@id/txtDate"
+            app:layout_constraintTop_toBottomOf="@id/txtDate"
+            tools:text="Gunajn Sharma" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtCategoryName"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_company"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/primary"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="@id/txtViewEmpName"
+            app:layout_constraintStart_toStartOf="@id/txtViewEmpName"
+            app:layout_constraintTop_toBottomOf="@id/txtViewEmpName"
+            tools:text="System Engineer" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtViewPunchId"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_call"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/primary"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="@id/txtCategoryName"
+            app:layout_constraintStart_toStartOf="@id/txtCategoryName"
+            app:layout_constraintTop_toBottomOf="@id/txtCategoryName"
+            tools:text="Rejected" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtViewPointDiscussion"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_info"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/primary"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="@id/txtViewPunchId"
+            app:layout_constraintStart_toStartOf="@id/txtViewPunchId"
+            app:layout_constraintTop_toBottomOf="@id/txtViewPunchId"
+            tools:text="Rejected" />
+
+        <!-- Divider -->
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="#DDDDDD"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtViewPointDiscussion" />
+
+        <!-- Timeline Icon -->
+        <FrameLayout
+            android:id="@+id/imgTimeline"
+            android:layout_width="15dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_line_edge_curved"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtViewPointDiscussion">
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/bg_shape_round_white"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="3dp"
+                android:background="@drawable/bg_shape_round_white"
+                app:tint="@color/white" />
+
+        </FrameLayout>
+
+        <!-- From Location -->
+        <TextView
+            android:id="@+id/tvFromLocation"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            tools:text="Kadapah - 09:00 AM"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgTimeline"
+            app:layout_constraintTop_toTopOf="@id/imgTimeline" />
+
+        <!-- To Location -->
+        <TextView
+            android:id="@+id/tvToLocation"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            tools:text="Kadapah - 11:57 PM"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgTimeline"
+            app:layout_constraintTop_toBottomOf="@id/tvFromLocation" />
+
+        <!-- Divider -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="#DDDDDD"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgTimeline" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btnApprove"
+            style="@style/kumbh.regular.white.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_primary_rounded_18"
+            android:backgroundTint="@color/green_1"
+            android:backgroundTintMode="src_atop"
+            android:gravity="center"
+            android:paddingVertical="10dp"
+            android:text="@string/btn_approve"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnDisApprove"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btnDisApprove"
+            style="@style/kumbh.regular.white.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:background="@drawable/bg_primary_rounded_18"
+            android:backgroundTint="@color/pink"
+            android:backgroundTintMode="src_atop"
+            android:gravity="center"
+            android:paddingVertical="10dp"
+            android:text="@string/btn_disapprove"
+            app:layout_constraintBottom_toBottomOf="@id/btnApprove"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnApprove"
+            app:layout_constraintTop_toTopOf="@id/btnApprove" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

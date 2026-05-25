@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    fragment_gps_photo.xml
+    Mirrors the layout structure of gps_activity_camera.xml from GpsPhotoActivity.java.
+
+    View IDs referenced in GpsPhotoFragment.kt:
+      view_finder       – CameraX PreviewView (live camera feed)
+      ivCapturedPhoto   – shows the photo after capture
+      tvLocation        – reverse-geocoded address / coordinates
+      tvDateTime        – current date + time
+      tvSiteName        – site name passed in as argument
+      llCapturePhoto    – bottom bar with capture button (visible during preview)
+      llRetakePhoto     – bottom bar with Retake / Save button (visible after capture)
+      retakeText        – label on the Retake/Save button
+      flContainer       – FrameLayout wrapping the whole camera area (for overlay drawing)
+      layoutGpsDetails  – LinearLayout holding location + time text (stamped onto bitmap)
+      progressBar       – shown while processing image in background
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/flContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <!-- ── Live camera preview ── -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/view_finder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- ── Captured photo (hidden until photo is taken) ── -->
+    <ImageView
+        android:id="@+id/ivCapturedPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:scaleType="fitCenter"
+        android:contentDescription="Captured GPS photo" />
+
+    <!-- ── GPS info overlay bar (bottom of viewfinder, also stamped onto bitmap) ── -->
+    <LinearLayout
+        android:id="@+id/layoutGpsDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="60dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="8dp"
+        android:background="#99000000">
+
+        <TextView
+            android:id="@+id/tvSiteName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:text="Site : " />
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:layout_marginTop="4dp"
+            android:text="Location: Fetching..." />
+
+        <TextView
+            android:id="@+id/tvDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:layout_marginTop="2dp"
+            android:text="Time : " />
+
+    </LinearLayout>
+
+    <!-- ── Processing indicator ── -->
+   <!-- <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:indeterminateTint="@android:color/white" />-->
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_primary_rounded_18"
+        android:elevation="5dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/white"
+        android:indeterminateTintMode="src_in"
+        android:padding="10dp"
+        android:translationZ="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- ── Capture button bar (shown during live preview) ── -->
+    <LinearLayout
+        android:id="@+id/llCapturePhoto"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/gray">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/ic_camera"
+            app:tint="@color/white"
+            android:contentDescription="Take GPS photo"
+            android:padding="8dp" />
+
+    </LinearLayout>
+
+    <!-- ── Retake / Save button bar (shown after capture) ── -->
+    <LinearLayout
+        android:id="@+id/llRetakePhoto"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/gray"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/retakeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Retake"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+
+    <cache-path
+        name="cache"
+        path="." />
+
+    <external-files-path
+        name="ledger_pdf"
+        path="MascotiAttendance/CreatePDF/" />
+
+    <external-files-path
+        name="external_files"
+        path="Pictures/" />
+
+
+    <external-cache-path
+        name="external_cache"
+        path="." />
+
+</paths>

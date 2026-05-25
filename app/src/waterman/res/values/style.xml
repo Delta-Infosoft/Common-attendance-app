@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--========================================================================================-->
+    <!--=========================This for the all the font family===============================-->
+    <style name="kumbh.bold" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/kumbh_sans_bold</item>
+    </style>
+
+    <style name="kumbh.light" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/kumbh_sans_light</item>
+    </style>
+
+    <style name="kumbh.regular" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/kumbh_sans_regular</item>
+    </style>
+
+    <style name="kumbh.medium" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/kumbh_sans_medium</item>
+    </style>
+
+    <!--========================================================================================-->
+    <!--=========================This for the color===============================-->
+
+    <style name="kumbh.bold.primary" parent="kumbh.bold">
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="kumbh.bold.white" parent="kumbh.bold">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="kumbh.bold.black" parent="kumbh.bold">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--=========================================================-->
+    <!--===================== Regular ============================-->
+
+    <style name="kumbh.regular.white" parent="kumbh.regular">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="kumbh.regular.gray" parent="kumbh.regular">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="kumbh.regular.black" parent="kumbh.regular">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--=========================================================-->
+    <!--===================== Medium ============================-->
+
+    <style name="kumbh.medium.gray_3" parent="kumbh.medium">
+        <item name="android:textColor">@color/gray_3</item>
+    </style>
+
+
+    <!--========================================================================================-->
+    <!--=========================This for the size===============================-->
+
+    <style name="kumbh.bold.white.24" parent="kumbh.bold.white">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="kumbh.bold.white.18" parent="kumbh.bold.white">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="kumbh.bold.white.14" parent="kumbh.bold.white">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="kumbh.bold.black.16" parent="kumbh.bold.black">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="kumbh.bold.black.22" parent="kumbh.bold.black">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="kumbh.bold.black.24" parent="kumbh.bold.black">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="kumbh.bold.primary.18" parent="kumbh.bold.primary">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!--=========================================================-->
+    <!--===================== Regular ============================-->
+    <style name="kumbh.regular.white.24" parent="kumbh.regular.white">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="kumbh.regular.white.22" parent="kumbh.regular.white">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="kumbh.regular.white.18" parent="kumbh.regular.white">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="kumbh.regular.white.14" parent="kumbh.regular.white">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="kumbh.regular.white.12" parent="kumbh.regular.white">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="kumbh.regular.gray.14" parent="kumbh.regular.gray">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="kumbh.regular.black.20" parent="kumbh.regular.black">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="kumbh.regular.black.18" parent="kumbh.regular.black">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="kumbh.regular.black.16" parent="kumbh.regular.black">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="kumbh.regular.black.14" parent="kumbh.regular.black">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="kumbh.regular.black.12" parent="kumbh.regular.black">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!--=========================================================-->
+    <!--===================== Medium ============================-->
+    <style name="kumbh.medium.gray_3.18" parent="kumbh.medium.gray_3">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="kumbh.medium.gray_3.14" parent="kumbh.medium.gray_3">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
+</resources>

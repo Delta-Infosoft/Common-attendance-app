@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginVertical="5dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtViewName"
+        style="@style/kumbh.regular.white.14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="Delta"
+        app:layout_constraintEnd_toStartOf="@id/txtViewInTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.24" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtViewInTime"
+        style="@style/kumbh.regular.white.14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:lineSpacingExtra="5dp"
+        tools:text="26/07/19\n11:59:59 PM"
+        app:layout_constraintEnd_toStartOf="@id/txtViewStatus"
+        app:layout_constraintStart_toEndOf="@id/txtViewName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.24" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtViewStatus"
+        style="@style/kumbh.regular.white.14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="P"
+        app:layout_constraintEnd_toStartOf="@id/txtViewOutTime"
+        app:layout_constraintStart_toEndOf="@id/txtViewInTime"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.24" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtViewOutTime"
+        style="@style/kumbh.regular.white.14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:lineSpacingExtra="5dp"
+        tools:text="26/07/19\n11:59:59 PM"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/txtViewStatus"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

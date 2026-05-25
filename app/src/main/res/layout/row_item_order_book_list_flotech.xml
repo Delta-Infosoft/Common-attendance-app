@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Top Red Header -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtViewCustomerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Customer Name" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtViewQty"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_company"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/primary"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toStartOf="@id/txtViewDeliveryDate"
+            app:layout_constraintStart_toStartOf="@id/txtViewCustomerName"
+            app:layout_constraintTop_toBottomOf="@id/txtViewCustomerName"
+            tools:text="125" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtViewDeliveryDate"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_date"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/primary"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="@id/txtViewQty"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/txtViewQty"
+            app:layout_constraintTop_toTopOf="@id/txtViewQty"
+            tools:text="25-02-2026" />
+
+        <!-- Report Text -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvReport"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:drawableStart="@drawable/ic_toggle_hide"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="Report"
+            app:layout_constraintStart_toStartOf="@id/txtViewQty"
+            app:layout_constraintTop_toBottomOf="@id/txtViewDeliveryDate" />
+
+        <!-- Total Amount -->
+        <TextView
+            android:id="@+id/tvTotal"
+            style="@style/kumbh.bold.black.16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:gravity="end"
+            android:text="Total : 8310 ₹"
+            android:textColor="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvReport"
+            app:layout_constraintTop_toTopOf="@id/tvReport" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            style="@style/kumbh.bold.black.16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="12dp"
+            android:background="@color/secondary"
+            android:paddingHorizontal="5dp"
+            android:text="OPEN"
+            android:textColor="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTotal" />
+
+        <!-- Bottom Spacing -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvStatus" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

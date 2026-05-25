@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayDate"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtDate"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="@string/label_from_date"
+                    android:inputType="none"
+                    tools:text="22-Jan-2026" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayStartTime"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintEnd_toStartOf="@id/txtLayEndTime"
+                app:layout_constraintStart_toStartOf="@id/txtLayDate"
+                app:layout_constraintTop_toBottomOf="@id/txtLayDate">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtStartTime"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="@string/hint_start_time"
+                    android:inputType="none"
+                    tools:text="12:01 PM" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayEndTime"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtLayStartTime"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txtLayStartTime"
+                app:layout_constraintTop_toTopOf="@id/txtLayStartTime">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtEndTime"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="@string/hint_end_time"
+                    android:inputType="none"
+                    tools:text="12:01 PM" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayFromPlace"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayDate"
+                app:layout_constraintStart_toStartOf="@id/txtLayDate"
+                app:layout_constraintTop_toBottomOf="@id/txtLayStartTime">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtFromPlace"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_from_place"
+                    android:inputType="text"
+                    tools:text="Gunjan Godhani" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayToPlace"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayDate"
+                app:layout_constraintStart_toStartOf="@id/txtLayFromPlace"
+                app:layout_constraintTop_toBottomOf="@id/txtLayFromPlace">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtToPlace"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_to_place"
+                    android:inputType="text"
+                    tools:text="Gunjan Godhani" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayDealerCategory"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:endIconDrawable="@drawable/ic_arrow_drop_down"
+                app:endIconMode="custom"
+                app:endIconTint="@color/primary"
+                app:layout_constraintEnd_toEndOf="@id/txtLayToPlace"
+                app:layout_constraintStart_toStartOf="@id/txtLayToPlace"
+                app:layout_constraintTop_toBottomOf="@id/txtLayToPlace">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtDealerCategory"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="@string/hint_dealer_category"
+                    android:inputType="none"
+                    tools:text="Car" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayDealerName"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayDealerCategory"
+                app:layout_constraintStart_toStartOf="@id/txtLayDealerCategory"
+                app:layout_constraintTop_toBottomOf="@id/txtLayDealerCategory">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtDealerName"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_dealer_name"
+                    android:inputType="text"
+                    tools:text="Car" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayDistrict"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:endIconDrawable="@drawable/ic_arrow_drop_down"
+                app:endIconMode="custom"
+                app:endIconTint="@color/primary"
+                app:layout_constraintEnd_toEndOf="@id/txtLayDealerName"
+                app:layout_constraintStart_toStartOf="@id/txtLayDealerName"
+                app:layout_constraintTop_toBottomOf="@id/txtLayDealerName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtDistrict"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="@string/hint_district"
+                    android:inputType="none"
+                    tools:text="Junagadh" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayTaluka"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayDistrict"
+                app:layout_constraintStart_toStartOf="@id/txtLayDistrict"
+                app:layout_constraintTop_toBottomOf="@id/txtLayDistrict">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtTaluka"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/taluka"
+                    android:inputType="text"
+                    tools:text="Car" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayMarketCenterName"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayTaluka"
+                app:layout_constraintStart_toStartOf="@id/txtLayTaluka"
+                app:layout_constraintTop_toBottomOf="@id/txtLayTaluka">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtMarketCenterName"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_market_center_name"
+                    android:inputType="text"
+                    tools:text="Car" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayMobileNo"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayMarketCenterName"
+                app:layout_constraintStart_toStartOf="@id/txtLayMarketCenterName"
+                app:layout_constraintTop_toBottomOf="@id/txtLayMarketCenterName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtMobileNo"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_mobile_no"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    tools:text="Car" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewFollowUpFor"
+                style="@style/kumbh.regular.black.20"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/label_follow_up_for"
+                app:layout_constraintEnd_toEndOf="@id/txtLayMobileNo"
+                app:layout_constraintStart_toStartOf="@id/txtLayMobileNo"
+                app:layout_constraintTop_toBottomOf="@id/txtLayMobileNo" />
+
+            <LinearLayout
+                android:id="@+id/layoutFollowUpOptions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_edit_text_white_rounded_15"
+                android:orientation="vertical"
+                android:padding="12dp"
+                app:layout_constraintEnd_toEndOf="@id/txtViewFollowUpFor"
+                app:layout_constraintStart_toStartOf="@id/txtViewFollowUpFor"
+                app:layout_constraintTop_toBottomOf="@id/txtViewFollowUpFor">
+
+                <CheckBox
+                    android:id="@+id/cbDiscountDiscussion"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/label_discount_discussion" />
+
+                <CheckBox
+                    android:id="@+id/cbSchemeDiscussion"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/label_scheme_discussion" />
+
+                <CheckBox
+                    android:id="@+id/cbSalesPromotion"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/label_sales_promotional_activity" />
+
+                <CheckBox
+                    android:id="@+id/cbStockPlanning"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/label_stock_planning" />
+
+                <CheckBox
+                    android:id="@+id/cbServiceRepair"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/label_service_or_repairing" />
+
+                <CheckBox
+                    android:id="@+id/cbNewDealerAppointment"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/label_new_dealer_appointment" />
+
+                <CheckBox
+                    android:id="@+id/cbSubDealerVisit"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/label_sub_dealer_visit" />
+
+                <CheckBox
+                    android:id="@+id/cbNewDealerSurvey"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/label_new_dealer_survey" />
+
+                <CheckBox
+                    android:id="@+id/cbOrderDiscussion"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/label_order_discussion" />
+
+                <CheckBox
+                    android:id="@+id/cbPaymentDiscussion"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/label_payment_discussion" />
+
+            </LinearLayout>
+
+            <!--====================================================-->
+
+            <LinearLayout
+                android:id="@+id/constDynamic"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/txtLayMobileNo"
+                app:layout_constraintStart_toStartOf="@id/txtLayMobileNo"
+                app:layout_constraintTop_toBottomOf="@id/layoutFollowUpOptions" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayCommonDiscussion"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayMarketCenterName"
+                app:layout_constraintStart_toStartOf="@id/txtLayMarketCenterName"
+                app:layout_constraintTop_toBottomOf="@id/constDynamic">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtCommonDiscussion"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_common_discussion"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    tools:text="Car" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--==================================================-->
+            <!--THis is for the Attached Documents-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearAttachDocument"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:visibility="gone"
+                android:background="@drawable/bg_edit_text_white_rounded_15"
+                app:layout_constraintEnd_toStartOf="@id/linearAttachPhoto"
+                app:layout_constraintStart_toStartOf="@id/txtLayCommonDiscussion"
+                app:layout_constraintTop_toBottomOf="@id/txtLayCommonDiscussion">
+
+                <!-- Upload Icon -->
+                <ImageView
+                    android:id="@+id/imgAttachDocument"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_file"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <!-- Upload Text -->
+                <TextView
+                    android:id="@+id/imageUploadName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="13dp"
+                    android:gravity="center"
+                    android:text="Upload Attached\nDocument/File"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgAttachDocument"
+                    tools:ignore="HardcodedText" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--==================================================-->
+            <!--THis is for the Photo List Documents-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearAttachPhoto"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:visibility="gone"
+                android:background="@drawable/bg_edit_text_white_rounded_15"
+                app:layout_constraintEnd_toEndOf="@id/txtLayCommonDiscussion"
+                app:layout_constraintStart_toEndOf="@id/linearAttachDocument"
+                app:layout_constraintTop_toTopOf="@id/linearAttachDocument">
+
+                <!-- Upload Photo Icon -->
+                <ImageView
+                    android:id="@+id/imgUpload"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_photo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <!-- Upload Photo Text -->
+                <TextView
+                    android:id="@+id/tvUploadPhoto"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="13dp"
+                    android:gravity="center"
+                    android:text="Upload Image From\nCamera/Gallery"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgUpload"
+                    tools:ignore="HardcodedText" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/lylAttachmentPhotoListRow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/txtLayCommonDiscussion"
+                app:layout_constraintStart_toStartOf="@id/txtLayCommonDiscussion"
+                app:layout_constraintTop_toBottomOf="@id/linearAttachPhoto" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSubmit"
+                style="@style/button_primary_rounded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginVertical="20dp"
+                android:text="@string/btn_submit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lylAttachmentPhotoListRow" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBarPJC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_primary_rounded_18"
+        android:elevation="5dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/white"
+        android:indeterminateTintMode="src_in"
+        android:padding="10dp"
+        android:translationZ="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</FrameLayout>
+

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtViewLogin"
+            style="@style/kumbh.bold.black.24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/label_log_in"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextCompanyName"
+            style="@style/BaseEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:drawableStart="@drawable/ic_company"
+            android:drawablePadding="12dp"
+            android:inputType="number|textNoSuggestions"
+            android:digits="0123456789."
+            android:drawableTint="@color/gray"
+            android:hint="@string/hint_company_name"
+            android:layout_marginTop="15dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtViewLogin" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextMobileNo"
+            style="@style/BaseEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="15dp"
+            android:drawableStart="@drawable/ic_email"
+            android:drawablePadding="12dp"
+            android:hint="@string/hint_mobile_number"
+            android:visibility="visible"
+            android:maxLength="10"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextCompanyName" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextPassword"
+            style="@style/BaseEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:drawableStart="@drawable/ic_password"
+            android:drawablePadding="12dp"
+            android:hint="@string/hint_password"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/editTextMobileNo"
+            app:layout_constraintStart_toStartOf="@id/editTextMobileNo"
+            app:layout_constraintTop_toBottomOf="@id/editTextMobileNo" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgViewPasswordToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_toggle_hide"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/editTextPassword"
+            app:layout_constraintEnd_toEndOf="@id/editTextPassword"
+            app:layout_constraintTop_toTopOf="@id/editTextPassword" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tctViewForgotPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+            android:text="@string/label_forget_password"
+            app:layout_constraintEnd_toEndOf="@id/editTextMobileNo"
+            app:layout_constraintStart_toStartOf="@id/editTextMobileNo"
+            app:layout_constraintTop_toBottomOf="@id/editTextMobileNo" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtViewLabel"
+            style="@style/kumbh.bold.black.22"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/label_welcome_to_delta_iattendance"
+            app:layout_constraintEnd_toEndOf="@id/editTextMobileNo"
+            app:layout_constraintStart_toStartOf="@id/editTextMobileNo"
+            app:layout_constraintTop_toBottomOf="@id/tctViewForgotPassword" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constViewApprovalCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintBottom_toTopOf="@id/btnLogin"
+            android:background="@drawable/bg_edit_text_white_rounded_15"
+            app:layout_constraintEnd_toEndOf="@id/editTextMobileNo"
+            app:layout_constraintStart_toStartOf="@id/editTextMobileNo"
+            app:layout_constraintTop_toBottomOf="@id/txtViewLabel">
+
+            <!-- TextInputLayout -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewApprovalCode"
+                style="@style/kumbh.bold.black.16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/label_your_approval_code"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextApprovalCode"
+                style="@style/BaseEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:drawableStart="@drawable/ic_email"
+                android:drawablePadding="12dp"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:cursorVisible="false"
+                android:longClickable="true"
+                android:textIsSelectable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:hint="@string/label_your_approval_code"
+                app:layout_constraintEnd_toEndOf="@id/txtViewApprovalCode"
+                app:layout_constraintStart_toStartOf="@id/txtViewApprovalCode"
+                app:layout_constraintTop_toBottomOf="@id/txtViewApprovalCode" />
+
+
+            <!-- Share Button Layout -->
+
+           <!-- <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtShare"
+                style="@style/button_primary_rounded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:paddingHorizontal="15dp"
+                android:text="@string/btn_share_it"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextApprovalCode" />-->
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLogin"
+            style="@style/button_primary_rounded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginVertical="20dp"
+            android:backgroundTint="@color/primary"
+            android:text="@string/btn_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constViewApprovalCode"
+            app:layout_constraintVertical_bias="1" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_primary_rounded_18"
+            android:elevation="5dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/white"
+            android:indeterminateTintMode="src_in"
+            android:padding="10dp"
+            android:translationZ="5dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

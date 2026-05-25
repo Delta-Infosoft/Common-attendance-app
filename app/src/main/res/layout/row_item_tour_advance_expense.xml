@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Top Red Header -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvEmpNameName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            tools:text="Dealer Name"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:drawableTint="@color/white"
+            android:drawableEnd="@drawable/ic_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtViewDate"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_date"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/primary"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="@id/tvEmpNameName"
+            app:layout_constraintStart_toStartOf="@id/tvEmpNameName"
+            app:layout_constraintTop_toBottomOf="@id/tvEmpNameName"
+            tools:text="11-March-2026" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtAdvanceAmount"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_amount"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/primary"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="@id/txtViewDate"
+            app:layout_constraintStart_toStartOf="@id/txtViewDate"
+            app:layout_constraintTop_toBottomOf="@id/txtViewDate"
+            tools:text="5000" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtRemark"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_remarkd"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/primary"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/txtAdvanceAmount"
+            app:layout_constraintStart_toStartOf="@id/txtAdvanceAmount"
+            app:layout_constraintTop_toBottomOf="@id/txtAdvanceAmount"
+            tools:text="Test remark" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

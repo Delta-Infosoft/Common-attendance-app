@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    android:outlineAmbientShadowColor="@android:color/transparent"
+    android:outlineSpotShadowColor="@android:color/transparent"
+    android:translationZ="5dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtViewEmpId"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_user"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/primary"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="9999" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtViewEmpName"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_user"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/primary"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="@id/txtViewEmpId"
+            app:layout_constraintStart_toStartOf="@id/txtViewEmpId"
+            app:layout_constraintTop_toBottomOf="@id/txtViewEmpId"
+            tools:text="Gunajn Sharma" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtViewWeekOffDate"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_date"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/primary"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="@id/txtViewEmpName"
+            app:layout_constraintStart_toStartOf="@id/txtViewEmpName"
+            app:layout_constraintTop_toBottomOf="@id/txtViewEmpName"
+            tools:text="27/8/25" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtViewReason"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_info"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/primary"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="@id/txtViewWeekOffDate"
+            app:layout_constraintStart_toStartOf="@id/txtViewWeekOffDate"
+            app:layout_constraintTop_toBottomOf="@id/txtViewWeekOffDate"
+            tools:text="Rejected" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btnApprove"
+            style="@style/kumbh.regular.white.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_primary_rounded_18"
+            android:backgroundTint="@color/green_2"
+            android:backgroundTintMode="src_atop"
+            android:gravity="center"
+            android:paddingVertical="10dp"
+            android:text="@string/btn_approve"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnDisApprove"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtViewReason" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btnDisApprove"
+            style="@style/kumbh.regular.white.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:background="@drawable/bg_primary_rounded_18"
+            android:backgroundTint="@color/pink"
+            android:backgroundTintMode="src_atop"
+            android:gravity="center"
+            android:paddingVertical="10dp"
+            android:text="@string/btn_disapprove"
+            app:layout_constraintBottom_toBottomOf="@id/btnApprove"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnApprove"
+            app:layout_constraintTop_toTopOf="@id/btnApprove" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

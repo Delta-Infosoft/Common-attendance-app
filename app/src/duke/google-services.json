@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "516259898739",
+    "project_id": "waterman-iattendance",
+    "storage_bucket": "waterman-iattendance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516259898739:android:a7f2ce95f1ec0980d19106",
+        "android_client_info": {
+          "package_name": "com.i.waterman.attendanceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516259898739-ptk12br59p3bo9ka5ef9esh1urcaiudm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg9AJUtHh2BDO0zB44qE9bFR61VocMGLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516259898739-ptk12br59p3bo9ka5ef9esh1urcaiudm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

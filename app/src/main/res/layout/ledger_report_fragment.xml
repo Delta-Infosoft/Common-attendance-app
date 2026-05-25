@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="4dp"
+        android:layout_marginHorizontal="10dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Top Red Header -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewPartyName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/primary"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="Mascot Pump LTD - Kanpur"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewClosingBalance"
+                style="@style/kumbh.regular.black.14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Closing Balance"
+                app:layout_constraintEnd_toStartOf="@id/txtViewAmountCr"
+                app:layout_constraintStart_toStartOf="@id/txtViewPartyName"
+                app:layout_constraintTop_toBottomOf="@id/txtViewPartyName" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewAmount"
+                style="@style/kumbh.regular.black.14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:text="₹ 0.00"
+                android:textColor="@color/red_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/txtViewAmountDr"
+                app:layout_constraintStart_toStartOf="@id/txtViewPartyName"
+                app:layout_constraintTop_toBottomOf="@id/txtViewClosingBalance" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewAmountCr"
+                style="@style/kumbh.regular.black.14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="₹ 0.00"
+                android:textColor="@color/green_1"
+                app:layout_constraintBottom_toBottomOf="@id/txtViewClosingBalance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txtViewClosingBalance"
+                app:layout_constraintTop_toTopOf="@id/txtViewClosingBalance" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewAmountDr"
+                style="@style/kumbh.regular.black.14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="₹ 0.00"
+                android:textColor="@color/red_1"
+                app:layout_constraintBottom_toBottomOf="@id/txtViewAmount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txtViewAmount"
+                app:layout_constraintTop_toTopOf="@id/txtViewAmount" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constViewExport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="@id/cardViewMain"
+        app:layout_constraintStart_toStartOf="@id/cardViewMain"
+        app:layout_constraintTop_toBottomOf="@id/cardViewMain">
+
+        <!-- PDF Create -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnPDFView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="3dp"
+            android:src="@drawable/ic_pdf"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnPDFView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- PDF View -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnPDFViewEyes"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:padding="3dp"
+            android:src="@drawable/ic_view"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/btnPDFView"
+            app:layout_constraintStart_toEndOf="@id/btnPDFView"
+            app:layout_constraintTop_toTopOf="@id/btnPDFView"
+            app:tint="@color/primary" />
+
+        <!-- Excel -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnExcel"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_excel"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/btnPDFViewEyes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/btnPDFViewEyes"
+            app:layout_constraintTop_toTopOf="@id/btnPDFViewEyes"
+            app:tint="@color/primary" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCloseFilter"
+            style="@style/button_primary_rounded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:text="@string/btn_close_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constViewFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constViewExport">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtLayFromDate"
+            style="@style/CommonTextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            app:layout_constraintEnd_toStartOf="@id/txtLayToDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtFromDate"
+                style="@style/CommonTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:hint="@string/label_from_date"
+                android:inputType="none"
+                tools:text="22-Jan-2026" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtLayToDate"
+            style="@style/CommonTextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/txtLayFromDate"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtToDate"
+                style="@style/CommonTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:hint="@string/label_to_date"
+                android:inputType="none"
+                tools:text="22-Jan-2026" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtLayDistrict"
+            style="@style/CommonTextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:endIconDrawable="@drawable/ic_arrow_drop_down"
+            app:endIconMode="custom"
+            app:endIconTint="@color/primary"
+            app:layout_constraintEnd_toEndOf="@id/txtLayToDate"
+            app:layout_constraintStart_toStartOf="@id/txtLayFromDate"
+            app:layout_constraintTop_toBottomOf="@id/txtLayFromDate">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtDistrict"
+                style="@style/CommonTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:inputType="none"
+                android:hint="@string/hint_district"
+                tools:text="Junagadh" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtLayCustomerName"
+            style="@style/CommonTextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:endIconDrawable="@drawable/ic_arrow_drop_down"
+            app:endIconMode="custom"
+            app:endIconTint="@color/primary"
+            app:layout_constraintEnd_toEndOf="@id/txtLayToDate"
+            app:layout_constraintStart_toStartOf="@id/txtLayFromDate"
+            app:layout_constraintTop_toBottomOf="@id/txtLayDistrict">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtCustomerName"
+                style="@style/CommonTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_customer_name"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:inputType="none"
+                tools:text="Car" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtLayEmployeeName"
+            style="@style/CommonTextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@id/txtLayToDate"
+            app:layout_constraintStart_toStartOf="@id/txtLayFromDate"
+            app:layout_constraintTop_toBottomOf="@id/txtLayCustomerName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtEmployeeName"
+                style="@style/CommonTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_employee_name"
+                android:inputType="text"
+                tools:text="Car" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtLayDivision"
+            style="@style/CommonTextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@id/txtLayToDate"
+            app:layout_constraintStart_toStartOf="@id/txtLayFromDate"
+            app:layout_constraintTop_toBottomOf="@id/txtLayEmployeeName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtDivision"
+                style="@style/CommonTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_employee_name"
+                android:inputType="text"
+                tools:text="Car" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnFilter"
+            style="@style/button_primary_rounded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginVertical="10dp"
+            android:text="@string/btn_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtLayDivision" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewLedgerReport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/row_item_ledger_report_date"
+        app:layout_constraintTop_toBottomOf="@id/constViewFilter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/progressBarHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_primary_rounded_18"
+        android:elevation="15dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/white"
+        android:indeterminateTintMode="src_in"
+        android:padding="10dp"
+        android:translationZ="15dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

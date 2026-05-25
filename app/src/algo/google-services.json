@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "252043828699",
+    "project_id": "algo-iattendance",
+    "storage_bucket": "algo-iattendance.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252043828699:android:00eca5edcb16e0605adbfe",
+        "android_client_info": {
+          "package_name": "com.i.algo.iattendanceapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHJYk6U4aIbMlGooESR4nj483fIsnrYxI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

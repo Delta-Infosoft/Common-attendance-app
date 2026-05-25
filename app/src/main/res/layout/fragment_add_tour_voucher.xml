@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayFromDate"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                app:layout_constraintEnd_toStartOf="@id/txtLayToDate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtFromDate"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="@string/label_from_date"
+                    android:inputType="none"
+                    tools:text="22-Jan-2026" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayToDate"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txtLayFromDate"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtToDate"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="@string/label_to_date"
+                    android:inputType="none"
+                    tools:text="22-Jan-2026" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayFromPlace"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayToDate"
+                app:layout_constraintStart_toStartOf="@id/txtLayFromDate"
+                app:layout_constraintTop_toBottomOf="@id/txtLayFromDate">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtFromPlace"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="From place"
+                    android:inputType="none"
+                    tools:text="Gunjan Godhani" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayToPlace"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayToDate"
+                app:layout_constraintStart_toStartOf="@id/txtLayFromDate"
+                app:layout_constraintTop_toBottomOf="@id/txtLayFromPlace">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtToPlace"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="To place"
+                    android:inputType="none"
+                    tools:text="Gunjan Godhani" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayStartTime"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toStartOf="@id/txtLayEndTime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtLayToPlace">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtStartTime"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="Start time"
+                    android:inputType="none"
+                    tools:text="12:01 PM" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayEndTime"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txtLayStartTime"
+                app:layout_constraintTop_toTopOf="@id/txtLayStartTime">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtEndTime"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="End time"
+                    android:inputType="none"
+                    tools:text="12:01 PM" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayNightHold"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:endIconMode="custom"
+                app:endIconTint="@color/primary"
+                app:layout_constraintEnd_toEndOf="@id/txtLayToDate"
+                app:layout_constraintStart_toStartOf="@id/txtLayFromDate"
+                app:layout_constraintTop_toBottomOf="@id/txtLayStartTime">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtNightHold"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="Night hold"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:id="@+id/radioGroupNightHold"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="6dp"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:paddingVertical="8dp"
+                android:weightSum="4"
+                app:layout_constraintBottom_toBottomOf="@id/txtLayNightHold"
+                app:layout_constraintEnd_toEndOf="@id/txtLayNightHold"
+                app:layout_constraintStart_toStartOf="@id/txtLayNightHold"
+                app:layout_constraintTop_toTopOf="@id/txtLayNightHold">
+
+                <RadioButton
+                    android:id="@+id/radioButtonYes"
+                    style="@style/kumbh.regular.black.14"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_flat_selector"
+                    android:button="@android:color/transparent"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="Yes"
+                    android:textColor="@color/radio_flat_text_selector" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonNo"
+                    style="@style/kumbh.regular.black.14"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_flat_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="No"
+                    android:textColor="@color/radio_flat_text_selector" />
+
+            </RadioGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayTravellingBy"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:endIconDrawable="@drawable/ic_arrow_drop_down"
+                app:endIconMode="custom"
+                app:endIconTint="@color/primary"
+                app:layout_constraintEnd_toEndOf="@id/radioGroupNightHold"
+                app:layout_constraintStart_toStartOf="@id/radioGroupNightHold"
+                app:layout_constraintTop_toBottomOf="@id/radioGroupNightHold">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtTravellingBy"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="Travelling by"
+                    android:inputType="none"
+                    tools:text="Car" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayFareAmount"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayTravellingBy"
+                app:layout_constraintStart_toStartOf="@id/txtLayTravellingBy"
+                app:layout_constraintTop_toBottomOf="@id/txtLayTravellingBy">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtFareAmount"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Fare amount"
+                    android:maxLength="7"
+                    android:inputType="numberDecimal"
+                    tools:text="Car" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayAutoCharges"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayFareAmount"
+                app:layout_constraintStart_toStartOf="@id/txtLayFareAmount"
+                app:layout_constraintTop_toBottomOf="@id/txtLayFareAmount">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtAutoCharges"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Auto charges"
+                    android:maxLength="7"
+                    android:inputType="numberDecimal"
+                    tools:text="Car" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayAutoChargesDetails"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayAutoCharges"
+                app:layout_constraintStart_toStartOf="@id/txtLayAutoCharges"
+                app:layout_constraintTop_toBottomOf="@id/txtLayAutoCharges">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtAutoChargesDetails"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Auto charges details"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayLodging"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayAutoChargesDetails"
+                app:layout_constraintStart_toStartOf="@id/txtLayAutoChargesDetails"
+                app:layout_constraintTop_toBottomOf="@id/txtLayAutoChargesDetails">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtLodging"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Lodging"
+                    android:maxLength="7"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayDailyAllowance"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayLodging"
+                app:layout_constraintStart_toStartOf="@id/txtLayLodging"
+                app:layout_constraintTop_toBottomOf="@id/txtLayLodging">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtDailyAllowance"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="7"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayOtherExpense"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayDailyAllowance"
+                app:layout_constraintStart_toStartOf="@id/txtLayDailyAllowance"
+                app:layout_constraintTop_toBottomOf="@id/txtLayDailyAllowance">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtOtherExpense"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Other expense"
+                    android:maxLength="7"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayExtraExpenseDetails"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayOtherExpense"
+                app:layout_constraintStart_toStartOf="@id/txtLayOtherExpense"
+                app:layout_constraintTop_toBottomOf="@id/txtLayOtherExpense">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtExtraExpenseDetails"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Extra expense details"
+                    android:inputType="textMultiLine"
+                    android:minLines="2" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewTotalExpense"
+                style="@style/kumbh.bold.black.22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayExtraExpenseDetails"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toStartOf="@id/txtLayExtraExpenseDetails"
+                app:layout_constraintTop_toBottomOf="@id/txtLayExtraExpenseDetails"
+                tools:text="Total expense : 120" />
+
+            <!--==================================================-->
+            <!--THis is for the Attached Documents-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearAttachDocument"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_edit_text_white_rounded_15"
+                app:layout_constraintEnd_toStartOf="@id/linearAttachPhoto"
+                app:layout_constraintStart_toStartOf="@id/txtLayExtraExpenseDetails"
+                app:layout_constraintTop_toBottomOf="@id/txtViewTotalExpense">
+
+                <!-- Upload Icon -->
+                <ImageView
+                    android:id="@+id/imgAttachDocument"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_file"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <!-- Upload Text -->
+                <TextView
+                    android:id="@+id/imageUploadName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="13dp"
+                    android:gravity="center"
+                    android:text="Upload Attached\nDocument/File"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgAttachDocument"
+                    tools:ignore="HardcodedText" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--==================================================-->
+            <!--THis is for the Photo List Documents-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearAttachPhoto"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/bg_edit_text_white_rounded_15"
+                app:layout_constraintEnd_toEndOf="@id/txtLayExtraExpenseDetails"
+                app:layout_constraintStart_toEndOf="@id/linearAttachDocument"
+                app:layout_constraintTop_toTopOf="@id/linearAttachDocument">
+
+                <!-- Upload Photo Icon -->
+                <ImageView
+                    android:id="@+id/imgUpload"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_photo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <!-- Upload Photo Text -->
+                <TextView
+                    android:id="@+id/tvUploadPhoto"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="13dp"
+                    android:gravity="center"
+                    android:text="Upload Image From\nCamera/Gallery"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgUpload"
+                    tools:ignore="HardcodedText" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/lylAttachmentPhotoListRow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/txtLayExtraExpenseDetails"
+                app:layout_constraintStart_toStartOf="@id/txtLayExtraExpenseDetails"
+                app:layout_constraintTop_toBottomOf="@id/linearAttachPhoto" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSubmit"
+                style="@style/button_primary_rounded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginVertical="20dp"
+                android:text="@string/btn_submit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lylAttachmentPhotoListRow" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBarPJC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_primary_rounded_18"
+        android:elevation="5dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/white"
+        android:indeterminateTintMode="src_in"
+        android:padding="10dp"
+        android:translationZ="5dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</FrameLayout>
+

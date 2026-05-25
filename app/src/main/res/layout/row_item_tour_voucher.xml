@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Top Red Header -->
+        <TextView
+            android:id="@+id/tvDateRange"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="31-Jan-2026 --> 31-Jan-2026"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Timeline Icon -->
+
+        <FrameLayout
+            android:id="@+id/imgTimeline"
+            android:layout_width="15dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_line_edge_curved"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDateRange">
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/bg_shape_round_white"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="3dp"
+                android:background="@drawable/bg_shape_round_white"
+                app:tint="@color/white" />
+
+        </FrameLayout>
+
+        <!-- From Location -->
+        <TextView
+            android:id="@+id/tvFromLocation"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Kadapah - 09:00 AM"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgTimeline"
+            app:layout_constraintTop_toTopOf="@id/imgTimeline" />
+
+        <!-- To Location -->
+        <TextView
+            android:id="@+id/tvToLocation"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="Kadapah - 11:57 PM"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgTimeline"
+            app:layout_constraintTop_toBottomOf="@id/tvFromLocation" />
+
+        <!-- Divider -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="#DDDDDD"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgTimeline" />
+
+        <!-- Bus Text -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBus"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="5dp"
+            android:drawableStart="@drawable/ic_location"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="Bus"
+            app:layout_constraintStart_toStartOf="@id/divider"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <!-- Report Text -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvReport"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="5dp"
+            android:drawableStart="@drawable/ic_toggle_hide"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="Report"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvBus" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvEdit"
+            style="@style/kumbh.regular.black.14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:drawableStart="@drawable/ic_edit"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toEndOf="@id/tvReport"
+            app:layout_constraintTop_toBottomOf="@id/tvBus" />
+
+        <!-- Total Amount -->
+        <TextView
+            android:id="@+id/tvTotal"
+            style="@style/kumbh.bold.black.16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:text="Total : 8310 ₹"
+            android:textColor="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvReport" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            style="@style/kumbh.bold.black.16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="12dp"
+            android:background="@color/secondary"
+            android:paddingHorizontal="5dp"
+            android:text="OPEN"
+            android:textColor="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTotal" />
+
+        <!-- Bottom Spacing -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvStatus" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

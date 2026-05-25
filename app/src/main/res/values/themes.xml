@@ -1,0 +1,21 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.CommonAttendance" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+        <!-- AppCompat cursor -->
+        <item name="android:textCursorDrawable">@drawable/edittext_cursor</item>
+        <!-- ✅ ANDROID 15 OVERLAP FIX -->
+        <item
+            name="android:windowOptOutEdgeToEdgeEnforcement"
+            tools:targetApi="35">
+            true
+        </item>
+    </style>
+
+    <style name="Theme.CommonAttendance" parent="Base.Theme.CommonAttendance" />
+    <style name="MyDatePickerTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorAccent">@color/primary</item>
+    </style>
+</resources>
