@@ -17,7 +17,6 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.i.common.attendance.R
 import com.i.common.attendance.base.BaseFragment
 import com.i.common.attendance.databinding.FragmentTourVoucherBinding
-import com.i.common.attendance.network.request.EmployeeRequest
 import com.i.common.attendance.network.request.TourVoucherRequest
 import com.i.common.attendance.ui.home.activity.HomeActivity
 import com.i.common.attendance.ui.home.tourvoucher.adapter.TourVoucherListAdapter
@@ -170,10 +169,20 @@ class TourVoucherListFragment : BaseFragment() {
 
         datePicker.addOnPositiveButtonClickListener { selection ->
 
-            val sdf = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
-            val selectedDate = sdf.format(Date(selection))
+            val formatter = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+            val selectedDate = formatter.format(Date(selection))
+
+            val fromDate = formatter.parse(binding.txtFromDate.text.toString())
+            val toDate = formatter.parse(binding.txtToDate.text.toString())
+            val pickedDate = formatter.parse(selectedDate)
 
             if(isFromDate){
+
+                if (toDate != null && pickedDate != null && pickedDate.after(toDate)) {
+                    showToast("From date cannot be greater than To date")
+                    return@addOnPositiveButtonClickListener
+                }
+
                 binding.txtFromDate.setText(selectedDate)
                 if(txtFromDate.getTrimmedText().isNotEmpty() && txtToDate.getTrimmedText().isNotEmpty()){
                     val user = shredPref.getUser()
@@ -186,6 +195,12 @@ class TourVoucherListFragment : BaseFragment() {
                     )
                 }
             }else{
+
+                if (fromDate != null && pickedDate != null && pickedDate.before(fromDate)) {
+                    showToast("To date cannot be less than From date")
+                    return@addOnPositiveButtonClickListener
+                }
+
                 binding.txtToDate.setText(selectedDate)
                 if(txtFromDate.getTrimmedText().isNotEmpty() && txtToDate.getTrimmedText().isNotEmpty()){
                     val user = shredPref.getUser()
@@ -245,6 +260,7 @@ class TourVoucherListFragment : BaseFragment() {
 
                 is TourVoucherUiState.ApiError -> {
                     hideLoader()
+                    tourVoucherListAdapter.submitList(emptyList()) // Clear list
                     showToast(state.message)
                 }
 

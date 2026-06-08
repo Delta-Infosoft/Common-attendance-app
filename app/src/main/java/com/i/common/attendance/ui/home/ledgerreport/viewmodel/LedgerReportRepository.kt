@@ -10,7 +10,7 @@ import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Named
 
-class LedgerReportRepository @Inject constructor(@Named("MASCOT") private val apiService: ApiService) {
+class LedgerReportRepository @Inject constructor(@Named("FLAVOR_API") private val apiService: ApiService) {
     suspend fun getCustomer(request: GetCustomerRequest): Response<GetCustomerResponse> {
         return apiService.getCustomer(request.toMultipartBody())
     }

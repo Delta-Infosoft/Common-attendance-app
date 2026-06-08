@@ -39,14 +39,25 @@
         app:layout_constraintGuide_percent="0.95" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtAppVersion"
+        style="@style/kumbh.regular.black.10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="App Version: 1.0"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtViewEmpName"
-        style="@style/kumbh.regular.black.14"
+        style="@style/kumbh.regular.black.12"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
         app:layout_constraintStart_toStartOf="@id/guideLineStart"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtAppVersion"
         tools:text="Gunnjan Godhani" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -54,7 +65,7 @@
         style="@style/kumbh.regular.black.14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="2dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
         app:layout_constraintStart_toStartOf="@id/guideLineStart"
@@ -203,6 +214,168 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <!--===================================================-->
+    <!--===== THis Card View For Unnati Only=========-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardViewSummary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        android:layout_marginTop="5dp"
+        app:cardElevation="4dp"
+        android:visibility="gone"
+        android:background="@drawable/bg_home_check_in_out_rounded"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toBottomOf="@id/constCheckInCheckOut">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginVertical="10dp">
+
+            <!-- Today's Summary -->
+            <!--<androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtTodaySummary"
+                style="@style/kumbh.bold.white.14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="Today's\nSummary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!-- Scans -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutScans"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintWidth_default="spread"
+                app:layout_constraintHorizontalWeight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/layoutVerified"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontalChainStyle="spread">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtScanCount"
+                    style="@style/kumbh.bold.black.14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="10000"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtScansLabel"
+                    style="@style/kumbh.regular.white.14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Achievement"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtScanCount" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Verified -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutVerified"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintWidth_default="spread"
+                app:layout_constraintHorizontalWeight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/layoutRejected"
+                app:layout_constraintStart_toEndOf="@id/layoutScans"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtVerifiedCount"
+                    style="@style/kumbh.bold.black.14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="10000000"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtVerifiedLabel"
+                    style="@style/kumbh.regular.white.14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Target"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtVerifiedCount" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Rejected -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutRejected"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintWidth_default="spread"
+                app:layout_constraintHorizontalWeight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/layoutVerified"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtRejectedCount"
+                    style="@style/kumbh.bold.black.14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="10000000"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtRejectedLabel"
+                    style="@style/kumbh.regular.white.14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Outstanding"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtRejectedCount" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtViewLast5DayRecord"
         style="@style/kumbh.bold.black.22"
@@ -215,7 +388,7 @@
         android:text="@string/label_last_5_day_records"
         app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
         app:layout_constraintStart_toStartOf="@id/guideLineStart"
-        app:layout_constraintTop_toBottomOf="@id/constCheckInCheckOut" />
+        app:layout_constraintTop_toBottomOf="@id/cardViewSummary" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

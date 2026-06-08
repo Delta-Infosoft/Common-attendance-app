@@ -72,6 +72,10 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="kumbh.bold.black.14" parent="kumbh.bold.black">
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="kumbh.bold.black.16" parent="kumbh.bold.black">
         <item name="android:textSize">16sp</item>
     </style>

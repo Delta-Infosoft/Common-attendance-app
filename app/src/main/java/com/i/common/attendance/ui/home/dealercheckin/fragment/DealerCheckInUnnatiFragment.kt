@@ -38,7 +38,6 @@ import com.i.common.attendance.ui.home.dealercheckin.viewmodel.DealerCheckInStat
 import com.i.common.attendance.ui.home.dealercheckin.viewmodel.PromotionalActivityViewModel
 import com.i.common.attendance.ui.home.tourvoucher.viewmodel.AttachmentType
 import com.i.common.attendance.utils.Constants
-import com.i.common.attendance.utils.Constants.getTodayDateFormatted
 import com.i.common.attendance.utils.Constants.setSafeOnClickListener
 import com.i.common.attendance.utils.EncryptedPrefHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -163,6 +162,10 @@ class DealerCheckInUnnatiFragment : BaseFragment() {
         }
 
         txtDealerCategory.setSafeOnClickListener {
+            if(selectedImageUri == null){
+                showToast("Please select GPS photo")
+                return@setSafeOnClickListener
+            }
             val list = dailyTourViewModel.cachedDealerCategoryList ?: return@setSafeOnClickListener
             SelectDailyTourDealerCategoryBottomSheetFragment.newInstance(list)
                 .apply {
@@ -212,6 +215,12 @@ class DealerCheckInUnnatiFragment : BaseFragment() {
         }
 
         txtDealerName.setSafeOnClickListener {
+            if(selectedImageUri == null){
+                showToast("Please select GPS photo")
+                txtDealerName.clearFocus()
+                Constants.hideKeyboard(it)
+                return@setSafeOnClickListener
+            }
             val list = dailyTourViewModel.cachedDealerNameList ?: return@setSafeOnClickListener
             SelectDailyTourDealerNameBottomSheetFragment.newInstance(list)
                 .apply {

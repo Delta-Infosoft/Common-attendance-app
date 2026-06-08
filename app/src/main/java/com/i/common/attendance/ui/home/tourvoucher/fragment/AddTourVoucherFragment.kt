@@ -20,12 +20,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.i.common.attendance.BuildConfig
 import com.i.common.attendance.R
 import com.i.common.attendance.base.BaseFragment
@@ -62,6 +64,9 @@ import com.i.common.attendance.utils.Constants.removeTrailingZeros
 import com.i.common.attendance.utils.Constants.setSafeOnClickListener
 import com.i.common.attendance.utils.EncryptedPrefHelper
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -85,7 +90,7 @@ class AddTourVoucherFragment: BaseFragment() {
     var noOfDays: Int = 0
     private var expenseRights = ""
     private var expenseId = ""
-
+    private var isCompressing = false
 
     // -------------------- CAMERA --------------------
     private val cameraLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
@@ -126,7 +131,7 @@ class AddTourVoucherFragment: BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (BuildConfig.FLAVOR != "flotech" && BuildConfig.FLAVOR != "singla" && BuildConfig.FLAVOR != "algo" && BuildConfig.FLAVOR != "mascot " && BuildConfig.FLAVOR != "unnati ") {
+        if (BuildConfig.FLAVOR != "flotech" && BuildConfig.FLAVOR != "singla" && BuildConfig.FLAVOR != "algo" && BuildConfig.FLAVOR != "mascot" && BuildConfig.FLAVOR != "unnati") {
             tourVoucherViewmodel.loadTravelingByList(request = TravelingByRequest(type = "TravelBy"))
         }
 
@@ -189,7 +194,7 @@ class AddTourVoucherFragment: BaseFragment() {
         }
 
         val hintText =
-            if (BuildConfig.FLAVOR == "unnati") {
+            if (BuildConfig.FLAVOR == "unnati" || BuildConfig.FLAVOR == "mascot") {
                 "Daily allowance"
             } else {
                 "Food allowance"
@@ -228,10 +233,18 @@ class AddTourVoucherFragment: BaseFragment() {
         }
 
         txtFromDate.setSafeOnClickListener {
-            openDatePicker(true,noOfDays)
+            if(BuildConfig.FLAVOR == "mascot"){
+                openDatePicker(true)
+            }else{
+                openDatePicker(true,noOfDays)
+            }
         }
         txtToDate.setSafeOnClickListener {
-            openDatePicker(false,noOfDays)
+            if(BuildConfig.FLAVOR == "mascot"){
+                openDatePicker(false)
+            }else{
+                openDatePicker(false,noOfDays)
+            }
         }
 
         txtStartTime.setSafeOnClickListener {
@@ -253,6 +266,12 @@ class AddTourVoucherFragment: BaseFragment() {
         }
 
         btnSubmit.setSafeOnClickListener {
+            // ✅ Block submit if compression still running
+            if (isCompressing) {
+                showToast("Please wait, file is being processed...")
+                return@setSafeOnClickListener
+            }
+
             if (!validateFormWithToast()) {
                 return@setSafeOnClickListener
             }
@@ -332,56 +351,139 @@ class AddTourVoucherFragment: BaseFragment() {
      * openInputStream() on a FileProvider URI from the same app.
      */
     private fun handleCameraFile(file: File, type: AttachmentType) {
-        // Expose as a Uri so the rest of the request pipeline can use it
-        selectedImageUri = Uri.fromFile(file)
+        Log.d("FileUpload", "📷 Camera file: ${file.name}, size: ${file.length() / 1024} KB")
+        isCompressing = true
+        showLoader()
+        lifecycleScope.launch(Dispatchers.IO) {
+            val finalFile = compressImageToFile(file)
+            Log.d("FileUpload", "✅ Camera after compress: ${finalFile.name}, size: ${finalFile.length() / 1024} KB")
+            withContext(Dispatchers.Main) {
+                isCompressing = false
+                hideLoader()
+                selectedImageUri = Uri.fromFile(finalFile)
+                Log.d("FileUpload", "📌 selectedImageUri set (camera): $selectedImageUri")
 
-        val mimeType = "image/jpeg"
-        val item = UploadAttachmentItem(
-            fileName = file.name,
-            filePath = file.absolutePath,
-            fileType = mimeType,
-            attachmentType = type.name
-        )
+                val item = UploadAttachmentItem(
+                    fileName = finalFile.name,
+                    filePath = finalFile.absolutePath,
+                    fileType = "image/jpeg",
+                    attachmentType = type.name
+                )
 
-        photoList.clear()
-        photoList.add(item)
-        showPhotoList()
-    }
-
-    // -------------------- CORE UPLOAD HANDLER --------------------
-    private fun handleSelectedUri(uri: Uri, type: AttachmentType) {
-
-        val context = requireContext()
-
-        // store latest selected uri
-        selectedImageUri = uri
-
-        val fileName = getFileNameFromUri(context, uri)
-        val mimeType = context.contentResolver.getType(uri) ?: ""
-        val cacheFile = uriToCacheFile(context, uri)
-
-        val item = UploadAttachmentItem(
-            fileName = fileName,
-            filePath = cacheFile.absolutePath,
-            fileType = mimeType,
-            attachmentType = type.name
-        )
-
-        when (type) {
-
-            AttachmentType.PHOTO -> {
-                photoList.clear()   // keep only 1 item
+                photoList.clear()
                 photoList.add(item)
                 showPhotoList()
             }
+        }
+    }
 
-            AttachmentType.FILE -> {
-                documentList.clear()   // keep only 1 item
-                documentList.add(item)
-                showDocumentList()
+    private fun handleSelectedUri(uri: Uri, type: AttachmentType) {
+        Log.d("FileUpload", "🖼️ handleSelectedUri called, type: $type, uri: $uri")
+        val context = requireContext()
+
+        val fileName = getFileNameFromUri(context, uri)
+        val mimeType = context.contentResolver.getType(uri) ?: ""
+
+        isCompressing = true
+        showLoader()
+        lifecycleScope.launch(Dispatchers.IO) {
+            val cacheFile = uriToCacheFile(context, uri)
+            Log.d("FileUpload", "📁 cacheFile: ${cacheFile.name}, size: ${cacheFile.length() / 1024} KB")
+
+            val finalFile = if (type == AttachmentType.PHOTO) {
+                val compressed = compressImageToFile(cacheFile)
+                Log.d("FileUpload", "✅ After compress: ${compressed.name}, size: ${compressed.length() / 1024} KB")
+                compressed
+            } else {
+                Log.d("FileUpload", "📄 Document — skipping compression")
+                cacheFile
             }
 
-            AttachmentType.AUDIO -> Unit
+            withContext(Dispatchers.Main) {
+                isCompressing = false
+                hideLoader()
+                selectedImageUri = Uri.fromFile(finalFile)
+                Log.d("FileUpload", "📌 selectedImageUri set (gallery/doc): $selectedImageUri")
+
+                val item = UploadAttachmentItem(
+                    fileName = fileName,
+                    filePath = finalFile.absolutePath,
+                    fileType = mimeType,
+                    attachmentType = type.name
+                )
+
+                when (type) {
+                    AttachmentType.PHOTO -> {
+                        photoList.clear()
+                        photoList.add(item)
+                        showPhotoList()
+                    }
+                    AttachmentType.FILE -> {
+                        documentList.clear()
+                        documentList.add(item)
+                        showDocumentList()
+                    }
+                    AttachmentType.AUDIO -> Unit
+                }
+            }
+        }
+    }
+
+    private fun compressImageToFile(sourceFile: File, maxSizeKb: Int = 3072): File {
+        Log.d("FileUpload", "🔍 compressImageToFile called: ${sourceFile.name}, size: ${sourceFile.length() / 1024} KB, limit: $maxSizeKb KB")
+
+        if (sourceFile.length() <= maxSizeKb * 1024) {
+            Log.d("FileUpload", "⏭️ Skipping compression — already under ${maxSizeKb} KB")
+            return sourceFile
+        }
+
+        return try {
+            val outputFile = File(requireContext().cacheDir, "compressed_${System.currentTimeMillis()}.jpg")
+
+            val boundsOptions = android.graphics.BitmapFactory.Options().apply {
+                inJustDecodeBounds = true
+            }
+            android.graphics.BitmapFactory.decodeFile(sourceFile.absolutePath, boundsOptions)
+            Log.d("FileUpload", "📐 Original dimensions: ${boundsOptions.outWidth}x${boundsOptions.outHeight}")
+
+            var inSampleSize = 1
+            val maxDimension = 1920
+            if (boundsOptions.outHeight > maxDimension || boundsOptions.outWidth > maxDimension) {
+                val halfHeight = boundsOptions.outHeight / 2
+                val halfWidth = boundsOptions.outWidth / 2
+                while (halfHeight / inSampleSize >= maxDimension || halfWidth / inSampleSize >= maxDimension) {
+                    inSampleSize *= 2
+                }
+            }
+            Log.d("FileUpload", "📉 inSampleSize: $inSampleSize")
+
+            val decodeOptions = android.graphics.BitmapFactory.Options().apply {
+                this.inSampleSize = inSampleSize
+            }
+
+            val bitmap = android.graphics.BitmapFactory.decodeFile(sourceFile.absolutePath, decodeOptions)
+            if (bitmap == null) {
+                Log.e("FileUpload", "❌ Bitmap decode returned null — returning original")
+                return sourceFile
+            }
+
+            var quality = 90
+            do {
+                outputFile.outputStream().use { out ->
+                    bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, quality, out)
+                }
+                Log.d("FileUpload", "🔄 Compressed at quality $quality → ${outputFile.length() / 1024} KB")
+                quality -= 10
+            } while (outputFile.length() > maxSizeKb * 1024 && quality > 10)
+
+            bitmap.recycle()
+
+            Log.d("FileUpload", "✅ Final compressed file: ${outputFile.name}, size: ${outputFile.length() / 1024} KB")
+            outputFile
+
+        } catch (e: Exception) {
+            Log.e("FileUpload", "❌ Compression exception — returning original. Error: ${e.message}")
+            sourceFile
         }
     }
 
@@ -514,6 +616,38 @@ class AddTourVoucherFragment: BaseFragment() {
         }
     }
 
+    private fun openDatePicker(isFromDate: Boolean) {
+
+        val today = MaterialDatePicker.todayInUtcMilliseconds()
+
+        val constraints = CalendarConstraints.Builder()
+            .setValidator(DateValidatorPointBackward.now()) // Allow only today & past dates
+            .build()
+
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText(getString(R.string.dialog_title_select_date))
+            .setSelection(today)
+            .setCalendarConstraints(constraints)
+            .build()
+
+        datePicker.show(childFragmentManager, "DATE_PICKER")
+
+        datePicker.addOnPositiveButtonClickListener { selection ->
+
+            val selectedDate = SimpleDateFormat(
+                "dd-MMM-yyyy",
+                Locale.getDefault()
+            ).format(Date(selection))
+
+            if (isFromDate) {
+                binding.txtFromDate.setText(selectedDate)
+            } else {
+                binding.txtToDate.setText(selectedDate)
+            }
+
+            checkPJCEntry(selectedDate)
+        }
+    }
 
     private fun openTimePicker(isFromTime: Boolean) {
 

@@ -10,7 +10,7 @@
     <string name="hint_company_name">Company Name/Ip</string>
     <string name="hint_email_address">Email Address</string>
     <string name="hint_password">Password</string>
-    <string name="label_welcome_to_delta_iattendance">Welcome to Flotech iAttendance</string>
+    <string name="label_welcome_to_delta_iattendance">Welcome to Flotech iAttendance Pro</string>
     <string name="label_face_and_fingerprint">Face And Fingerprint</string>
     <string name="label_forget_password">Forget Password? Help</string>
     <string name="label_today_s_attendance">Today’s Attendance</string>

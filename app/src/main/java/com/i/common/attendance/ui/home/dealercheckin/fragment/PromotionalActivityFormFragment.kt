@@ -179,7 +179,7 @@ class PromotionalActivityFormFragment : BaseFragment() {
             bottomSheet.show(childFragmentManager, "MediaPicker")
         }
         txtMonth.setSafeOnClickListener {
-            val list = attendanceReportViewmodel.getCachedMonthList()
+            val list = attendanceReportViewmodel.getCachedMonthList()?.reversed()
             val bottomSheet =
                 list?.let { it1 -> SelectMonthBottomSheetFragment.Companion.newInstance(it1) }
             bottomSheet?.setDismissCallback { selected ->

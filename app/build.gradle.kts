@@ -35,6 +35,20 @@ android {
             )
         }
     }
+    signingConfigs {
+        create("release") {
+            storeFile = file("D:\\Android key store credentials\\deltakeystore.jks")
+            storePassword = "delta@ipl123"
+            keyAlias = "deltainfosoft"
+            keyPassword = "delta@ipl123"
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("release")
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -53,8 +67,12 @@ android {
         }
         create("unnati") {
             dimension = "app"
-            applicationId = "com.i.waterman.attendanceapp"
-            resValue("string", "app_name", "C Unnati Att")
+            applicationId = "com.i.unatti.attendanceapp.pro"
+
+            versionCode = 1
+            versionName = "1.0"
+
+            resValue("string", "app_name", "Unnati iHR Pro")
             buildConfigField("String", "BASE_PATH", "\"Unnati/DeltaAttendanceAPI/\"")
         }
         create("duke") {
@@ -65,26 +83,42 @@ android {
         }
         create("flotech") {
             dimension = "app"
-            applicationId = "com.i.waterman.attendanceapp"
-            resValue("string", "app_name", "C Flotech Att")
+            applicationId = "com.i.flotech.iattendanceapp.pro"
+
+            versionCode = 1
+            versionName = "1.0"
+
+            resValue("string", "app_name", "Flotech iAttendance Pro")
             buildConfigField("String", "BASE_PATH", "\"Flotech/DeltaAttendanceAPI/\"")
         }
         create("singla") {
             dimension = "app"
             applicationId = "com.i.singla.iattendanceapp"
+
+            versionCode = 3
+            versionName = "1.0.2"
+
             resValue("string", "app_name", "Singla iAttendance")
             buildConfigField("String", "BASE_PATH", "\"DeltaAttendanceAPI/\"")
         }
         create("algo") {
             dimension = "app"
             applicationId = "com.i.algo.iattendanceapp"
+
+            versionCode = 1
+            versionName = "1.0"
+
             resValue("string", "app_name", "Algo iAttendance")
             buildConfigField("String", "BASE_PATH", "\"ALGO/DeltaAttendanceAPI/\"")
         }
         create("mascot") {
             dimension = "app"
-            applicationId = "com.i.unatti.attendanceapp"
-            resValue("string", "app_name", "Mascot iAttendance")
+            applicationId = "com.i.mascot.attendanceapp.pro"
+
+            versionCode = 1
+            versionName = "1.0"
+
+            resValue("string", "app_name", "Mascot iAttendance Pro")
             buildConfigField("String", "BASE_PATH", "\"Mascot/DeltaAttendanceAPI/\"")
         }
     }
@@ -157,8 +191,14 @@ dependencies {
     /*pdf*/
     implementation("com.itextpdf:itextg:5.5.10")
 
+    /*This for the GPS based picture click UNNATI*/
     implementation("androidx.camera:camera-core:1.6.1")
     implementation("androidx.camera:camera-camera2:1.6.1")
     implementation("androidx.camera:camera-lifecycle:1.6.1")
     implementation("androidx.camera:camera-view:1.6.1")
+
+    /*This for the force update from the google*/
+    implementation("com.google.android.play:app-update:2.1.0")
+    implementation("com.google.android.play:app-update-ktx:2.1.0")
+
 }

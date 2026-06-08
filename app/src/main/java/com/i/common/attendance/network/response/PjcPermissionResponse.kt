@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName
 data class PjcPermissionResponse(
     val status: String?,
     val message: String?,
-    val result: List<PjcPermissionResult>?
+    //val result: List<PjcPermissionResult>?
+    var result: Any? = null
+
 )
 data class PjcPermissionResult(
     @SerializedName("Column1") val column1: String? = null,

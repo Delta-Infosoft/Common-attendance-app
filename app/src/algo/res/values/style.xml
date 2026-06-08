@@ -134,6 +134,10 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="kumbh.regular.black.10" parent="kumbh.regular.black">
+        <item name="android:textSize">10sp</item>
+    </style>
+
     <!--=========================================================-->
     <!--===================== Medium ============================-->
     <style name="kumbh.medium.gray_3.18" parent="kumbh.medium.gray_3">

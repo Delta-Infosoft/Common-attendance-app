@@ -24,6 +24,7 @@ import com.i.common.attendance.network.response.EmployeeModel
 import com.i.common.attendance.network.response.GetAttechmentTourVoucherRequest
 import com.i.common.attendance.network.response.NameDropdownItem
 import com.i.common.attendance.network.response.PJCEntryItem
+import com.i.common.attendance.network.response.PjcPermissionResult
 import com.i.common.attendance.network.response.TourVoucherItem
 import com.i.common.attendance.network.response.TravelingByItem
 import com.i.common.attendance.network.response.UploadAttachmentItem
@@ -727,7 +728,7 @@ class TourVoucherViewModel @Inject constructor(
 
                 when (body.status) {
 
-                    "200" -> {
+                   /* "200" -> {
 
                         val list = body.result ?: emptyList()
                         if (list.isEmpty()) {
@@ -737,6 +738,27 @@ class TourVoucherViewModel @Inject constructor(
 
                         val permission = list.first()
 
+                        _pjcPermissionState.value = PjcPermissionUiState.Success(permission)
+                    }*/
+                    "200" -> {
+                        val list = when (val res = body.result) {
+                            is List<*> -> {
+                                res.mapNotNull { item ->
+                                    (item as? LinkedTreeMap<*, *>)?.let {
+                                        Gson().fromJson(Gson().toJson(it), PjcPermissionResult::class.java)
+                                    }
+                                }
+                            }
+
+                            else -> emptyList()
+                        }
+
+                        if (list.isEmpty()) {
+                            _pjcPermissionState.value = PjcPermissionUiState.Empty(body.message ?: "No permission data found")
+                            return@launch
+                        }
+
+                        val permission = list.first()
                         _pjcPermissionState.value = PjcPermissionUiState.Success(permission)
                     }
 

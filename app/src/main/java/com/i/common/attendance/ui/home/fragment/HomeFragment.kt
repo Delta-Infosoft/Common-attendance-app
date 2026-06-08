@@ -505,6 +505,7 @@ class HomeFragment : BaseFragment() {
         Log.e("getAppVersion", Constants.getAppVersion(requireContext()))
     }
     private fun setUpInitData() = with(binding) {
+        txtAppVersion.text = getString(R.string.place_holder_label_app_version, Constants.getAppVersion(requireContext()))
         txtViewTodayDate.text = Constants.getCurrentFormattedDate()
         txtViewEmpName.text = sharedPref.getUser()?.UsersName ?: "Employee"
 
@@ -514,6 +515,11 @@ class HomeFragment : BaseFragment() {
 
         if (!isLocationEnabled()) {
             showEnableLocationDialog()
+        }
+
+        txtViewLast5DayRecord.text = when (BuildConfig.FLAVOR) {
+            "flotech" -> "Last 10 Day Records"
+            else -> getString(R.string.label_last_5_day_records)
         }
     }
     private fun listenForStatusResult() {

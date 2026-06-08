@@ -36,13 +36,17 @@ import java.util.Date
 import java.util.Locale
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.i.common.attendance.BuildConfig
 import com.i.common.attendance.ui.home.ledgerreport.adapter.LedgerReportAdapter
+import com.i.common.attendance.utils.EncryptedPrefHelper
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LedgerReportFragment : BaseFragment() {
 
     private lateinit var binding: LedgerReportFragmentBinding
     private val ledgerReportViewModel: LedgerReportViewModel by viewModels()
+    @Inject lateinit var sharedPref: EncryptedPrefHelper
     private val ledgerReportAdapter by lazy {
         LedgerReportAdapter()
     }
@@ -170,9 +174,19 @@ class LedgerReportFragment : BaseFragment() {
     // ─────────────────────────────────────────────────────────────────────────
 
     private fun callCustomerApi() {
-        ledgerReportViewModel.loadCustomerList(
-            GetCustomerRequest(customerName = "", districtId = "", cityId = "")
+        val request = GetCustomerRequest(
+            customerName = "",
+            districtId = "",
+            cityId = "",
+            empId = if (BuildConfig.FLAVOR == "flotech") {
+                sharedPref.getUser()?.EmpID
+            } else {
+                null
+            }
         )
+
+        ledgerReportViewModel.loadCustomerList(request)
+
     }
 
     private fun callLedgerPdfApi() {
@@ -221,14 +235,35 @@ class LedgerReportFragment : BaseFragment() {
                     hideLoader()
                     val first = state.data.firstOrNull()
                     pdfViewLink = ""
-                    currentBalanceRaw = first?.DrAmt?.toDoubleOrNull() ?: 0.0
+                    //currentBalanceRaw = first?.DrAmt?.toDoubleOrNull() ?: 0.0
 
-                    txtViewAmount.text = "₹${first?.DrAmt?.takeIf { it.isNotBlank() } ?: "0.00"} Dr"
+                    // Dynamic totals
+                    val totalDr = state.data.sumOf { item ->
+                        item.DrAmt?.toDoubleOrNull() ?: 0.0
+                    }
+
+                    val totalCr = state.data.sumOf { item ->
+                        item.CrAmt?.toDoubleOrNull() ?: 0.0
+                    }
+
+                    val balance = totalDr - totalCr
+                    currentBalanceRaw = balance
+
+                    // Formatter
+                    fun Double.formatAmount(): String {
+                        return "%,.2f".format(this)
+                    }
+
+                    /*txtViewAmount.text = "₹${first?.DrAmt?.takeIf { it.isNotBlank() } ?: "0.00"} Dr"
                     txtViewAmountDr.text =
                         "₹${first?.DrAmt?.takeIf { it.isNotBlank() } ?: "0.00"} Dr"
                     txtViewAmountCr.text =
-                        "₹${first?.CrAmt?.takeIf { it.isNotBlank() } ?: "0.00"} Cr"
+                        "₹${first?.CrAmt?.takeIf { it.isNotBlank() } ?: "0.00"} Cr"*/
 
+                    // Bind UI
+                    txtViewAmount.text = "₹${balance.formatAmount()} ${if (balance >= 0) "Dr" else "Cr"}"
+                    txtViewAmountDr.text = "₹${totalDr.formatAmount()} Dr"
+                    txtViewAmountCr.text = "₹${totalCr.formatAmount()} Cr"
                     ledgerReportAdapter.submitList(state.data)
 
                     callLedgerPdfShowApi()      // chain to show-pdf call

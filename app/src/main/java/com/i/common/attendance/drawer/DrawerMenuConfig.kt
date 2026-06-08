@@ -94,6 +94,25 @@ object DrawerMenuConfig {
         MenuItem.TOUR_ADVANCE_EXPENSE       to R.string.label_tour_advance_expense,
     )
 
+    // ── ADD THIS below menuItemLabel ──────────────────────────────────────────
+    private val flotechMenuItemLabel: Map<MenuItem, Int> = mapOf(
+        MenuItem.PJC_CALENDAR  to R.string.toolbar_title_tour_plan,          // "Tour Plan"
+        MenuItem.DAILY_TOUR    to R.string.toolbar_title_daily_tour_report,  // "Daily Tour Report"
+    )
+
+
+    /**
+     * Returns the label resource for [item] respecting the current [flavor].
+     * Falls back to the default [menuItemLabel] for any unregistered override.
+     */
+    fun labelFor(flavor: String, item: MenuItem): Int {
+        val overrides = when (flavor) {
+            "flotech" -> flotechMenuItemLabel
+            else      -> emptyMap()
+        }
+        return overrides[item] ?: menuItemLabel[item] ?: R.string.label_action_required_app_setup
+    }
+
     // ── Flavor menus ──────────────────────────────────────────────────────────
     // Each list is the EXACT current production sequence for that flavor,
     // derived from the XML layout order + handleDrawerByFlavor() visibility flags.
@@ -158,11 +177,13 @@ object DrawerMenuConfig {
         MenuItem.TOUR_VOUCHER,
         MenuItem.NEW_CUSTOMER_DEALER,
         MenuItem.MY_PORTFOLIO,
+        MenuItem.LEDGER_REPORT,
         MenuItem.LOCATION_LOG,
         MenuItem.ORDER_BOOK,
         MenuItem.OUTSTANDING_REPORT,
         MenuItem.SALES_REPORT,
-    )
+        MenuItem.PRIVACY_POLICY,
+        )
 
     private val singlaAlgoItems = listOf(
         MenuItem.ACTION_REQUIRED,
@@ -174,7 +195,8 @@ object DrawerMenuConfig {
         MenuItem.MY_PORTFOLIO,
         MenuItem.LOCATION_LOG,
         MenuItem.ATTENDANCE_REPORT,
-    )
+        MenuItem.PRIVACY_POLICY,
+        )
 
     private val mascotItems = listOf(
         MenuItem.ACTION_REQUIRED,
@@ -184,7 +206,8 @@ object DrawerMenuConfig {
         MenuItem.NEW_CUSTOMER_DEALER,
         MenuItem.MY_PORTFOLIO,
         MenuItem.LEDGER_REPORT,
-    )
+        MenuItem.PRIVACY_POLICY,
+        )
 
     private val flavorMenuItems: Map<String, List<MenuItem>> = mapOf(
         "waterman" to watermanItems,

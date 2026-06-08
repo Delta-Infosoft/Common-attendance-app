@@ -28,7 +28,7 @@ object LocationNotification {
         return NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle("Attendance Tracking in Progress")
             .setContentText("Location tracking is being tracked in background. Please checkout to end tracking.")
-            .setSmallIcon(R.drawable.ic_email)
+            .setSmallIcon(R.mipmap.ic_launcher_round)
             .setOngoing(true)
             .setCategory(Notification.CATEGORY_SERVICE)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

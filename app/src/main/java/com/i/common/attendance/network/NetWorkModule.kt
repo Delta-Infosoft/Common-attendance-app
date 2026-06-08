@@ -1,6 +1,7 @@
 package com.i.common.attendance.network
 
 import android.content.Context
+import com.i.common.attendance.BuildConfig
 import com.i.common.attendance.network.service.ApiService
 import com.i.common.attendance.utils.EncryptedPrefHelper
 import com.i.common.attendance.utils.URLFactory
@@ -234,6 +235,19 @@ object NetWorkModule {
             .build()
 
 
+    // Add this Retrofit provider (after your existing FLOTECH one)
+    @Singleton
+    @Provides
+    @Named("FLOTECH_ACCOUNT")
+    fun provideFlotechAccountRetrofit(
+        @Named("FLOTECH_CLIENT") okHttpClient: OkHttpClient
+    ): Retrofit =
+        Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(URLFactory.Url.BASE_URL_FLOTECH_DELTA_ACCOUNT)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
     /* -------------------------------- */
     /* API SERVICES                     */
     /* -------------------------------- */
@@ -272,5 +286,25 @@ object NetWorkModule {
     fun provideUnnatiLocalHostApiService(
         @Named("UNNATI_LOCALHOST") retrofit: Retrofit
     ): ApiService = retrofit.create(ApiService::class.java)
+
+    // Add this ApiService provider
+    @Singleton
+    @Provides
+    @Named("FLOTECH_ACCOUNT")
+    fun provideFlotechAccountApiService(
+        @Named("FLOTECH_ACCOUNT") retrofit: Retrofit
+    ): ApiService = retrofit.create(ApiService::class.java)
+
+
+    // Add this flavor-switching provider
+    @Singleton
+    @Provides
+    @Named("FLAVOR_API")
+    fun provideFlavorApiService(
+        @Named("MASCOT") mascotApi: ApiService,
+        @Named("FLOTECH_ACCOUNT") flotechAccountApi: ApiService
+    ): ApiService {
+        return if (BuildConfig.FLAVOR == "flotech") flotechAccountApi else mascotApi
+    }
 
 }

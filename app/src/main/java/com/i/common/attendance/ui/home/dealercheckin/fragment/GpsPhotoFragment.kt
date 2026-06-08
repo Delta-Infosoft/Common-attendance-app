@@ -525,13 +525,21 @@ class GpsPhotoFragment : Fragment() {
 
         val locationRequest = LocationRequest.Builder(
             Priority.PRIORITY_HIGH_ACCURACY,
-            UPDATE_INTERVAL_MS
-        ).setMinUpdateIntervalMillis(FASTEST_INTERVAL_MS)
+            2000L // every 2 sec
+        ) .setMinUpdateIntervalMillis(1000L)
+            .setWaitForAccurateLocation(true) // IMPORTANT
+            .setMaxUpdateDelayMillis(0L)
             .build()
 
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(result: LocationResult) {
                 val loc = result.lastLocation ?: return
+                // Ignore inaccurate locations
+                if (loc.accuracy > 15f) {
+                    Log.d(TAG, "Skipping inaccurate location: ${loc.accuracy}m")
+                    return
+                }
+
                 finalLat = loc.latitude.toString()
                 finalLon = loc.longitude.toString()
                 isLocationReady = true          // ← GPS fix received
@@ -548,7 +556,7 @@ class GpsPhotoFragment : Fragment() {
             )
             isRequestingLocationUpdates = true
 
-            // Seed from last known location immediately
+           /* // Seed from last known location immediately
             fusedLocationClient.lastLocation.addOnSuccessListener { loc ->
                 if (loc != null && !isLocationReady) {
                     finalLat = loc.latitude.toString()
@@ -556,7 +564,7 @@ class GpsPhotoFragment : Fragment() {
                     isLocationReady = true      // ← last-known counts as ready
                     updateLocationUI(loc.latitude, loc.longitude)
                 }
-            }
+            }*/
         } catch (e: SecurityException) {
             Log.e(TAG, "Location permission revoked: ${e.message}")
         } catch (e: Exception) {

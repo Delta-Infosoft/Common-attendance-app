@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -13,12 +14,19 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.play.core.appupdate.AppUpdateInfo
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.appupdate.AppUpdateOptions
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.i.common.attendance.BuildConfig
 import com.i.common.attendance.R
 import com.i.common.attendance.base.BaseActivity
@@ -26,26 +34,25 @@ import com.i.common.attendance.databinding.ActivityHomeBinding
 import com.i.common.attendance.drawer.DrawerMenuAdapter
 import com.i.common.attendance.ui.authentication.activity.AuthenticationActivity
 import com.i.common.attendance.ui.home.attendancereport.fragment.AttendanceReportFragment
+import com.i.common.attendance.ui.home.carairapproval.fragment.CarAirApprovalFragment
+import com.i.common.attendance.ui.home.carairapproval.fragment.CarAirApprovalListFragment
 import com.i.common.attendance.ui.home.dailytour.fragment.DailyTourListFragment
+import com.i.common.attendance.ui.home.dealercheckin.fragment.DealerCheckInUnnatiFragment
+import com.i.common.attendance.ui.home.dealercheckin.fragment.PromotionalActivityFormFragment
 import com.i.common.attendance.ui.home.dealerwisereport.data.FacetType
 import com.i.common.attendance.ui.home.dealerwisereport.fragment.DealerWiseTargetEntryFragment
 import com.i.common.attendance.ui.home.dealerwisereport.viewmodel.FacetUiState
 import com.i.common.attendance.ui.home.dealerwisereport.viewmodel.ReportViewModel
 import com.i.common.attendance.ui.home.fragment.ActionRequiredFragment
 import com.i.common.attendance.ui.home.fragment.HomeFragment
-import com.i.common.attendance.ui.home.myportfolio.fragment.MyPortfolioFragment
-import com.i.common.attendance.ui.home.newcustomerdealer.fragment.NewCustomerDealerFragment
-import com.i.common.attendance.ui.home.pjc.fragment.PjcFragment
-import com.i.common.attendance.ui.home.carairapproval.fragment.CarAirApprovalFragment
-import com.i.common.attendance.ui.home.carairapproval.fragment.CarAirApprovalListFragment
-import com.i.common.attendance.ui.home.dealercheckin.fragment.DealerCheckInUnnatiFragment
-import com.i.common.attendance.ui.home.dealercheckin.fragment.PromotionalActivityFormFragment
 import com.i.common.attendance.ui.home.leave.fragment.AddLeaveUnnatiFragment
 import com.i.common.attendance.ui.home.leave.fragment.LeaveApprovalListUnnatiFragment
 import com.i.common.attendance.ui.home.leave.fragment.ViewLeaveListUnnatiFragment
 import com.i.common.attendance.ui.home.ledgerreport.fragment.LedgerReportFragment
+import com.i.common.attendance.ui.home.myportfolio.fragment.MyPortfolioFragment
+import com.i.common.attendance.ui.home.newcustomerdealer.fragment.NewCustomerDealerFragment
 import com.i.common.attendance.ui.home.orderbook.fragment.OrderBookFragment
-import com.i.common.attendance.ui.home.touradvanceexpense.fragment.AddTourAdvanceExpenseFragment
+import com.i.common.attendance.ui.home.pjc.fragment.PjcFragment
 import com.i.common.attendance.ui.home.touradvanceexpense.fragment.TourAdvanceExpenseFragment
 import com.i.common.attendance.ui.home.touragendatracking.fragment.TourAgendaTrackingFragment
 import com.i.common.attendance.ui.home.touragendatracking.fragment.WeekOffApprovalListDukeFragment
@@ -76,13 +83,28 @@ class HomeActivity : BaseActivity() {
     @Inject
     lateinit var sharedPref: EncryptedPrefHelper
 
+    private lateinit var appUpdateManager: AppUpdateManager
+
     // ─── Drawer adapter ───────────────────────────────────────────────────────
     private lateinit var drawerMenuAdapter: DrawerMenuAdapter
+
+    private val updateLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.StartIntentSenderForResult()
+        ) {
+            // Immediate update handles flow.
+            // If user backs out, we'll check again on resume.
+        }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        appUpdateManager = AppUpdateManagerFactory.create(this)
+
+        checkForUpdate()
 
         if (!checkLocationPermission() || !checkBatteryOptimization()) {
             binding.toolbarHome.visibility = View.GONE
@@ -186,13 +208,16 @@ class HomeActivity : BaseActivity() {
     fun isNewDealerSubDealerVisible(isVisible: Boolean) {
         updateDrawerMenu(DrawerMenuConfig.MenuItem.NEW_CUSTOMER_DEALER, isVisible)
     }
+
     fun isActivityListActivityVisible(isVisible: Boolean) {
         updateDrawerMenu(DrawerMenuConfig.MenuItem.ACTIVITY, isVisible)
         updateDrawerMenu(DrawerMenuConfig.MenuItem.LIST_ACTIVITY, isVisible)
     }
+
     fun isTeamAttendanceVisible(isVisible: Boolean) {
         updateDrawerMenu(DrawerMenuConfig.MenuItem.STAFF_ATTENDANCE, isVisible)
     }
+
     /**
      * Central click dispatcher for every drawer menu item.
      * Add a new item here when you add it to DrawerMenuConfig.
@@ -266,9 +291,9 @@ class HomeActivity : BaseActivity() {
                 val mobileNo = sharedPref.getUser()?.MobileNo ?: ""
                 val url = when (BuildConfig.FLAVOR) {
                     "flotech" -> "https://aws.deltasoftware.in/Flotech/DeltaiAttendance/Map/Map.aspx?MobileNo=$mobileNo&LoginFrom=APP"
-                    "singla"  -> "http://103.168.19.137/DeltaiAttendance/Map/Map.aspx?MobileNo=$mobileNo&LoginFrom=APP"
-                    "algo"    -> "https://aws.deltasoftware.in/ALGO/DeltaiAttendance/Map/Map.aspx?MobileNo=$mobileNo&LoginFrom=APP"
-                    else      -> return // safety: should not reach here for other flavors
+                    "singla" -> "http://103.168.19.137/DeltaiAttendance/Map/Map.aspx?MobileNo=$mobileNo&LoginFrom=APP"
+                    "algo" -> "https://aws.deltasoftware.in/ALGO/DeltaiAttendance/Map/Map.aspx?MobileNo=$mobileNo&LoginFrom=APP"
+                    else -> return // safety: should not reach here for other flavors
                 }
                 provideWebView("Location Logs", url)
             }
@@ -306,8 +331,19 @@ class HomeActivity : BaseActivity() {
             DrawerMenuConfig.MenuItem.LOCAL_SOLAR_SURVEY_FORM ->
                 provideWebView("Form", "https://docs.google.com/forms/d/e/1FAIpQLSeByGMdFGjYUhj6LugarfNe0f3RuqZfJkn15nZqosOUpHomjQ/viewform?usp=header")
 
-            DrawerMenuConfig.MenuItem.PRIVACY_POLICY ->
-                provideWebView("Privacy Policy", "") // replace with actual URL
+            DrawerMenuConfig.MenuItem.PRIVACY_POLICY -> {
+                val url = when (BuildConfig.FLAVOR) {
+                    "waterman" -> "https://your-waterman-policy-url"
+                    "unnati" -> "https://your-unnati-policy-url"
+                    "duke" -> "https://gist.github.com/ap30delta/26be2772fed599b67310ed0db53424e8#file-duke-iattendance-privacy-policy"
+                    "flotech" -> "https://gist.githubusercontent.com/gunjandelta12/851d04f17b17efae36cf8da6f5bd7efa/raw/a0dcbc58c094c943d5b63a0012d7c82bcc7ea7ce/gistfile1.txt"
+                    "singla" -> "https://gist.githubusercontent.com/gunjandelta12/7fdc00a70b7f2e7223016c1fed2af892/raw/f7eaf88c0c9d381e74ec57bad36ae1cf314985c1/gistfile1.txt"
+                    "algo" -> "https://gist.githubusercontent.com/gunjandelta12/1fb57c5bbeeafc14fb547bd7c7c60022/raw/703465b3c37545d2e520320b87e36379ab776153/gistfile1.txt"
+                    "mascot" -> "https://gist.githubusercontent.com/gunjandelta12/57555222cd7ee04d60f4448693a2a7bd/raw/39d7e3b06b554009a710ee0643cae38e1876b4d9/gistfile1.txt"
+                    else -> return
+                }
+                provideWebView("Privacy Policy", url)
+            }
 
             DrawerMenuConfig.MenuItem.STAFF_ATTENDANCE -> {
                 // TODO: uncomment when StaffAttendanceFragment is ready
@@ -404,10 +440,12 @@ class HomeActivity : BaseActivity() {
                     startActivity(intent)
                     finish()
                 }
+
                 is LogoutState.Error -> {
                     hideLoader()
                     showToast(state.message)
                 }
+
                 else -> Unit
             }
         }
@@ -549,14 +587,74 @@ class HomeActivity : BaseActivity() {
                 is FacetUiState.Success -> {
                     hideLoader()
                     when (state.type) {
-                        FacetType.DISTRICT_WISE -> provideWebView("District Wise Report", state.reportUrl)
-                        FacetType.DEALER_WISE   -> provideWebView("Dealer Wise Report", state.reportUrl)
+                        FacetType.DISTRICT_WISE -> provideWebView(
+                            "District Wise Report",
+                            state.reportUrl
+                        )
+
+                        FacetType.DEALER_WISE -> provideWebView(
+                            "Dealer Wise Report",
+                            state.reportUrl
+                        )
                     }
                 }
-                is FacetUiState.ApiError     -> { hideLoader(); showToast(state.message) }
-                is FacetUiState.NetworkError -> { hideLoader(); showToast(state.message) }
+
+                is FacetUiState.ApiError -> {
+                    hideLoader(); showToast(state.message)
+                }
+
+                is FacetUiState.NetworkError -> {
+                    hideLoader(); showToast(state.message)
+                }
+
                 else -> Unit
             }
         }
     }
+
+    /*===========================================================================================*/
+    /* IN App Update Flow*/
+
+    private fun checkForUpdate() {
+        appUpdateManager.appUpdateInfo
+            .addOnSuccessListener { appUpdateInfo ->
+                val updateAvailable =
+                    appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                val immediateAllowed = appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+                if (updateAvailable && immediateAllowed) {
+                    startImmediateUpdate(appUpdateInfo)
+                }
+            }.addOnFailureListener {
+                Log.e("InAppUpdate", it.message ?: "Update check failed")
+            }
+    }
+
+    private fun startImmediateUpdate(appUpdateInfo: AppUpdateInfo) {
+        try {
+            appUpdateManager.startUpdateFlowForResult(
+                appUpdateInfo,
+                updateLauncher,
+                AppUpdateOptions.defaultOptions(
+                    AppUpdateType.IMMEDIATE
+                )
+            )
+        } catch (e: IntentSender.SendIntentException) {
+            e.printStackTrace()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        appUpdateManager.appUpdateInfo
+            .addOnSuccessListener { appUpdateInfo ->
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                    startImmediateUpdate(appUpdateInfo)
+                }
+            }
+            .addOnFailureListener {
+                Log.e("InAppUpdate", it.message ?: "Update check failed")
+            }
+    }
+
+
 }

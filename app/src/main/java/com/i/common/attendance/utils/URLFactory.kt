@@ -12,6 +12,7 @@ object URLFactory {
         const val BASE_URL_UNNATI_LOCAL_HOST = "http://localhost:13605/"
 
         const val BASE_URL_MASCOT_DELTA_ACCOUNT: String = "https://mascot.nishainfotech.com:90/DeltaiAccount/API/" //Live
+        const val BASE_URL_FLOTECH_DELTA_ACCOUNT: String = "http://flotech.deltaierp.com:91//DeltaiAccount/API/"  //Live
 
         /*========================================================================================*/
         /* ================= AUTH ================= */

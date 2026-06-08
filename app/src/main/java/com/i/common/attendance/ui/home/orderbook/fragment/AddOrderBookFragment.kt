@@ -20,9 +20,11 @@ import com.i.common.attendance.ui.home.orderbook.viewmodel.GetRateUiState
 import com.i.common.attendance.ui.home.orderbook.viewmodel.InsertOrderEntryUiState
 import com.i.common.attendance.ui.home.orderbook.viewmodel.OrderBookViewModel
 import com.i.common.attendance.utils.EncryptedPrefHelper
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlin.getValue
 
+@AndroidEntryPoint
 class AddOrderBookFragment : BaseFragment() {
     private lateinit var binding : FragmentAddOrderBookDetailsBinding
     @Inject lateinit var sharedPref: EncryptedPrefHelper

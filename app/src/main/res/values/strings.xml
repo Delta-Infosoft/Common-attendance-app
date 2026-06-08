@@ -25,6 +25,7 @@
     <string name="label_status">Status</string>
     <string name="label_outtime">OutTime</string>
     <string name="label_last_action">Last Action : --</string>
+    <string name="place_holder_label_app_version">App Version: %1$s</string>
     <string name="label_absent">Absent</string>
     <string name="label_present">Present</string>
     <string name="label_leave">Leave</string>
@@ -80,6 +81,8 @@
     <string name="label_today_s_follow_up_for_new_dealer_survey">Today\'s Follow Up For New Dealer Survey</string>
     <string name="label_action_required_app_setup">Action Required</string>
     <string name="toolbar_title_action_required">Action Required</string>
+    <string name="toolbar_title_tour_plan">Tour Plan</string>
+    <string name="toolbar_title_daily_tour_report">Daily Tour Report</string>
     <string name="auto_start_instruction">
     <![CDATA[
     <b>Background Location Access Required</b><br/><br/>
@@ -302,7 +305,7 @@
     <string name="toolbar_title_forms">Forms</string>
     <string name="toolbar_title_kusum_survey_form">Kusum Survey Form</string>
     <string name="toolbar_title_local_solar_survey_form">Local Solar Survey Form</string>
-    <string name="toolbar_title_privacy_policy">Local Solar Survey Form</string>
+    <string name="toolbar_title_privacy_policy">Privacy Policy</string>
     <string name="label_leave_approval">Leave Approval</string>
     <string name="toolbar_title_activity">Activity</string>
     <string name="toolbar_title_list_activity">List Activity</string>

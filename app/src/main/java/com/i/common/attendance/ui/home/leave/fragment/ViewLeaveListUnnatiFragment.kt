@@ -144,11 +144,38 @@ class ViewLeaveListUnnatiFragment : BaseFragment() {
         datePicker.show(childFragmentManager, "DATE_PICKER")
 
         datePicker.addOnPositiveButtonClickListener { selection ->
-            val selectedDate = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
-                .format(Date(selection))
 
-            if (isFromDate) binding.txtFromDate.setText(selectedDate)
-            else            binding.txtToDate.setText(selectedDate)
+            val formatter = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+
+            val selectedDate = formatter.format(Date(selection))
+
+            val fromDate =
+                formatter.parse(binding.txtFromDate.text.toString())
+
+            val toDate =
+                formatter.parse(binding.txtToDate.text.toString())
+
+            val pickedDate =
+                formatter.parse(selectedDate)
+
+            if (isFromDate) {
+
+                if (toDate != null && pickedDate != null && pickedDate.after(toDate)) {
+                    showToast("From date cannot be greater than To date")
+                    return@addOnPositiveButtonClickListener
+                }
+
+                binding.txtFromDate.setText(selectedDate)
+
+            } else {
+
+                if (fromDate != null && pickedDate != null && pickedDate.before(fromDate)) {
+                    showToast("To date cannot be less than From date")
+                    return@addOnPositiveButtonClickListener
+                }
+
+                binding.txtToDate.setText(selectedDate)
+            }
 
             initApiCall()
         }

@@ -478,7 +478,7 @@ class AddDailyTourDetailsFlotechFragment : BaseFragment() {
                 .format(Date(selection))
 
             binding.txtDate.setText(formattedDate)
-            //checkPJCEntry()
+            checkPJCEntry()
         }
     }
     /*======================================================================================*/

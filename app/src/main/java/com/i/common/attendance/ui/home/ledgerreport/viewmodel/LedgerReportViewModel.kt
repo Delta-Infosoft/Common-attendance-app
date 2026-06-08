@@ -47,10 +47,22 @@ class LedgerReportViewModel @Inject constructor(
                 when (body.status) {
 
                     "200" -> {
-                        val list = body.result ?: emptyList()
+
+                        val list = if (
+                            body.result != null &&
+                            body.result.isJsonArray
+                        ) {
+                            Gson().fromJson<List<CustomerData>>(
+                                body.result.asJsonArray,
+                                object : TypeToken<List<CustomerData>>() {}.type
+                            )
+                        } else {
+                            emptyList()
+                        }
 
                         if (list.isEmpty()) {
-                            _customerState.value = CustomerUiState.ApiError(body.message ?: "No customer found")
+                            _customerState.value =
+                                CustomerUiState.ApiError(body.message ?: "No customer found")
                         } else {
                             cachedCustomerList = list
                             _customerState.value = CustomerUiState.Success(list)
@@ -58,11 +70,13 @@ class LedgerReportViewModel @Inject constructor(
                     }
 
                     "209" -> {
-                        _customerState.value = CustomerUiState.ApiError(body.message ?: "No Record Found")
+                        _customerState.value =
+                            CustomerUiState.ApiError(body.message ?: "No Record Found")
                     }
 
                     else -> {
-                        _customerState.value = CustomerUiState.ApiError(body.message ?: "Something went wrong")
+                        _customerState.value =
+                            CustomerUiState.ApiError(body.message ?: "Something went wrong")
                     }
                 }
 

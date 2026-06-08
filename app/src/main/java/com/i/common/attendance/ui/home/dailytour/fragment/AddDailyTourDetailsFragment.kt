@@ -25,7 +25,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.CompositeDateValidator
 import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -40,6 +42,7 @@ import com.i.common.attendance.network.request.DailyTourAddDetailsRequest
 import com.i.common.attendance.network.request.DailyTourDealerCategoryRequest
 import com.i.common.attendance.network.request.DailyTourDealerNameRequest
 import com.i.common.attendance.network.request.DailyTourDistrictRequest
+import com.i.common.attendance.network.request.GetCustomerRequest
 import com.i.common.attendance.network.request.PjcDateRequest
 import com.i.common.attendance.network.response.UploadAttachmentItem
 import com.i.common.attendance.ui.home.activity.HomeActivity
@@ -48,6 +51,9 @@ import com.i.common.attendance.ui.home.dailytour.viewmodel.DealerCategoryState
 import com.i.common.attendance.ui.home.dailytour.viewmodel.DealerNameState
 import com.i.common.attendance.ui.home.dailytour.viewmodel.DistrictState
 import com.i.common.attendance.ui.home.dailytour.viewmodel.InsertDailyDetailsState
+import com.i.common.attendance.ui.home.ledgerreport.fragment.SelectCustomerNameBottomSheetFragment
+import com.i.common.attendance.ui.home.ledgerreport.viewmodel.CustomerUiState
+import com.i.common.attendance.ui.home.ledgerreport.viewmodel.LedgerReportViewModel
 import com.i.common.attendance.ui.home.pjc.fragment.PjcInsertPlanFragment
 import com.i.common.attendance.ui.home.tourvoucher.data.CommonSelect
 import com.i.common.attendance.ui.home.tourvoucher.data.MediaPickType
@@ -58,6 +64,7 @@ import com.i.common.attendance.ui.home.tourvoucher.viewmodel.BackDateRightUiStat
 import com.i.common.attendance.ui.home.tourvoucher.viewmodel.CheckPJCEntryUiState
 import com.i.common.attendance.ui.home.tourvoucher.viewmodel.PjcPermissionUiState
 import com.i.common.attendance.ui.home.tourvoucher.viewmodel.TourVoucherViewModel
+import com.i.common.attendance.utils.Constants
 import com.i.common.attendance.utils.Constants.getTrimmedText
 import com.i.common.attendance.utils.Constants.isEmpty
 import com.i.common.attendance.utils.Constants.setSafeOnClickListener
@@ -77,6 +84,8 @@ class AddDailyTourDetailsFragment : BaseFragment() {
     @Inject
     lateinit var shredPref: EncryptedPrefHelper
     private val dailyTourViewModel: DailyTourViewModel by viewModels()
+    private val ledgerReportViewModel: LedgerReportViewModel by viewModels()
+
     private val tourVoucherViewmodel: TourVoucherViewModel by viewModels()
     private val fieldOrder = listOf(
         "NEW_DEALER_APPOINTMENT",
@@ -173,6 +182,7 @@ class AddDailyTourDetailsFragment : BaseFragment() {
         observeBackDateRight()
         observeDealerCategory()
         observeDealerName()
+        observeCustomerState()
         observeDistrict()
         observeInsertData()
     }
@@ -272,13 +282,20 @@ class AddDailyTourDetailsFragment : BaseFragment() {
                 ) {
                     val user = shredPref.getUser()
 
-                    // Call API only when category changes
-                    dailyTourViewModel.getDealerName(
-                        DailyTourDealerNameRequest(
-                            empId = user?.EmpID ?: "",
-                            dealerType = selected.Text ?: ""
+                    if(BuildConfig.FLAVOR == "mascot"){
+                        ledgerReportViewModel.loadCustomerList(
+                            GetCustomerRequest(customerName = "", districtId = "", cityId = "")
                         )
-                    )
+                    }else{
+                        // Call API only when category changes
+                        dailyTourViewModel.getDealerName(
+                            DailyTourDealerNameRequest(
+                                empId = user?.EmpID ?: "",
+                                dealerType = selected.Text ?: ""
+                            )
+                        )
+                    }
+
 
                     txtDealerName.apply {
                         isFocusable = false
@@ -313,14 +330,25 @@ class AddDailyTourDetailsFragment : BaseFragment() {
             bottomSheet?.show(childFragmentManager, "SelectPlanFor")
         }
         txtDealerName.setSafeOnClickListener {
-            val list = dailyTourViewModel.cachedDealerNameList
-            val bottomSheet = list?.let { it1 ->
-                SelectDailyTourDealerNameBottomSheetFragment.Companion.newInstance(it1)
+            if(BuildConfig.FLAVOR == "mascot"){
+                val list = ledgerReportViewModel.getCachedCustomerList() ?: return@setSafeOnClickListener
+                SelectCustomerNameBottomSheetFragment.newInstance(list).also { sheet ->
+                        sheet.setDismissCallback { selected ->
+                            Constants.hideKeyboard(it)
+                            txtDealerName.setText(selected.Name)
+                        }
+                    }
+                    .show(childFragmentManager, "SelectPlanFor")
+            }else{
+                val list = dailyTourViewModel.cachedDealerNameList
+                val bottomSheet = list?.let { it1 ->
+                    SelectDailyTourDealerNameBottomSheetFragment.Companion.newInstance(it1)
+                }
+                bottomSheet?.setDismissCallback { selected ->
+                    txtDealerName.setText(selected.Name)
+                }
+                bottomSheet?.show(childFragmentManager, "SelectPlanFor")
             }
-            bottomSheet?.setDismissCallback { selected ->
-                txtDealerName.setText(selected.Name)
-            }
-            bottomSheet?.show(childFragmentManager, "SelectPlanFor")
         }
         txtDistrict.setSafeOnClickListener {
             val list = dailyTourViewModel.cachedDistrictList
@@ -704,10 +732,14 @@ class AddDailyTourDetailsFragment : BaseFragment() {
 
         val minDate = calendar.timeInMillis
 
+        val validators = arrayListOf<CalendarConstraints.DateValidator>(
+            DateValidatorPointForward.from(minDate), // Minimum allowed date
+            DateValidatorPointBackward.now()         // Maximum allowed date = Today
+        )
         val constraints = CalendarConstraints.Builder()
             .setStart(minDate)     // ✅ Min date (Today - noOfDays)
             .setEnd(today)         // ✅ Max date (Today)
-            .setValidator(DateValidatorPointBackward.now())
+            .setValidator(CompositeDateValidator.allOf(validators))
             .build()
 
         val datePicker = MaterialDatePicker.Builder.datePicker()
@@ -722,9 +754,10 @@ class AddDailyTourDetailsFragment : BaseFragment() {
             val selectedDate =
                 SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(Date(selection))
             binding.txtDate.setText(selectedDate)
-            if (BuildConfig.FLAVOR != "mascot") {
+            checkPJCEntry()
+           /* if (BuildConfig.FLAVOR != "mascot") {
                 checkPJCEntry()
-            }
+            }*/
         }
     }
 
@@ -964,6 +997,20 @@ class AddDailyTourDetailsFragment : BaseFragment() {
                 }
 
                 else -> {}
+            }
+        }
+    }
+
+    private fun observeCustomerState() {
+        ledgerReportViewModel.customerState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is CustomerUiState.Idle        -> Unit
+                is CustomerUiState.Loading     -> showLoader()
+                is CustomerUiState.Success     -> {
+                    hideLoader()
+                }
+                is CustomerUiState.ApiError    -> { hideLoader(); showToast(state.message) }
+                is CustomerUiState.NetworkError -> { hideLoader(); showToast(state.message) }
             }
         }
     }

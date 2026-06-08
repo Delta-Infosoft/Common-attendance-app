@@ -14,22 +14,22 @@ import com.i.common.attendance.network.request.GetPjcRequest
 import com.i.common.attendance.network.request.GetSqlQueryForDropdownParamRequest
 import com.i.common.attendance.network.request.InsertPjcEventRequest
 import com.i.common.attendance.network.request.ReasonListParamsRequest
-import com.i.common.attendance.network.response.GetDistrictPjcList
-import com.i.common.attendance.network.response.LoadDropDownList
-import com.i.common.attendance.network.response.PlanForList
-import com.i.common.attendance.network.response.ReasonList
-import com.i.common.attendance.network.response.ReasonListParamsList
 import com.i.common.attendance.network.request.ReasonRequest
 import com.i.common.attendance.network.response.EventsCalModel
+import com.i.common.attendance.network.response.GetDistrictPjcList
 import com.i.common.attendance.network.response.HolidayWeekOffDto
 import com.i.common.attendance.network.response.HolidayWeekOffModel
 import com.i.common.attendance.network.response.HolidayWeekOffResponse
+import com.i.common.attendance.network.response.LoadDropDownList
 import com.i.common.attendance.network.response.PJCItem
 import com.i.common.attendance.network.response.PartyRemarkDto
 import com.i.common.attendance.network.response.PaymentFollowUpDto
 import com.i.common.attendance.network.response.PjcEventDto
 import com.i.common.attendance.network.response.PjcEventFullData
 import com.i.common.attendance.network.response.PjcResponse
+import com.i.common.attendance.network.response.PlanForList
+import com.i.common.attendance.network.response.ReasonList
+import com.i.common.attendance.network.response.ReasonListParamsList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -133,11 +133,13 @@ class CalendarViewModel @Inject constructor(
                 val body = response.body()
                 if (!response.isSuccessful || body == null) {
                     _pjcEventState.value = PjcEventState.Error("${response.code()} Server Error")
+                    _pjcEventState.value = PjcEventState.Idle
                     return@launch
                 }
 
                 if (body.status != "200") {
                     _pjcEventState.value = PjcEventState.Error(body.message)
+                    _pjcEventState.value = PjcEventState.Idle
                     return@launch
                 }
 
@@ -145,9 +147,11 @@ class CalendarViewModel @Inject constructor(
 
                 if (parsed.pjcEvents.isEmpty() && parsed.orderFollowUps.isEmpty() && parsed.paymentFollowUps.isEmpty() && parsed.newDealerAppointmentFollowUps.isEmpty() && parsed.subDealerVisitFollowUps.isEmpty() && parsed.newDealerSurvey.isEmpty()) {
                     _pjcEventState.value = PjcEventState.Error("No events found")
+                    _pjcEventState.value = PjcEventState.Idle
                 } else {
                     // currently UI consumes only PJC events
                     _pjcEventState.value = PjcEventState.Success(parsed)
+                    _pjcEventState.value = PjcEventState.Idle
                 }
 
             } catch (e: Exception) {
@@ -172,11 +176,13 @@ class CalendarViewModel @Inject constructor(
                 val body = response.body()
                 if (!response.isSuccessful || body == null) {
                     _pjcEventStateFollowUp.value = PjcEventState.Error("${response.code()} Server Error")
+                    _pjcEventStateFollowUp.value = PjcEventState.Idle
                     return@launch
                 }
 
                 if (body.status != "200") {
                     _pjcEventStateFollowUp.value = PjcEventState.Error(body.message)
+                    _pjcEventStateFollowUp.value = PjcEventState.Idle
                     return@launch
                 }
 
@@ -184,18 +190,20 @@ class CalendarViewModel @Inject constructor(
 
                 if (parsed.pjcEvents.isEmpty() && parsed.orderFollowUps.isEmpty() && parsed.paymentFollowUps.isEmpty() && parsed.newDealerAppointmentFollowUps.isEmpty() && parsed.subDealerVisitFollowUps.isEmpty() && parsed.newDealerSurvey.isEmpty()) {
                     _pjcEventStateFollowUp.value = PjcEventState.Error("No events found")
+                    _pjcEventStateFollowUp.value = PjcEventState.Idle
                 } else {
                     // currently UI consumes only PJC events
                     _pjcEventStateFollowUp.value = PjcEventState.Success(parsed)
+                    _pjcEventStateFollowUp.value = PjcEventState.Idle
                 }
 
             } catch (e: Exception) {
                 FirebaseCrashlytics.getInstance().recordException(e)
                 _pjcEventStateFollowUp.value = PjcEventState.Error("Something went wrong")
+                _pjcEventStateFollowUp.value = PjcEventState.Idle
             }
         }
     }
-
     // ----------------------------------------------------
     // PlanForList
     // ----------------------------------------------------

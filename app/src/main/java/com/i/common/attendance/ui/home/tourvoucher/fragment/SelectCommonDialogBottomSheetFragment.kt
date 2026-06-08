@@ -37,6 +37,7 @@ class SelectCommonDialogBottomSheetFragment : BottomSheetDialogFragment() {
         return BottomSheetDialog(requireContext(), theme).apply {
             setCanceledOnTouchOutside(false)
             setCancelable(false)
+            behavior.isDraggable = false
         }
     }
 

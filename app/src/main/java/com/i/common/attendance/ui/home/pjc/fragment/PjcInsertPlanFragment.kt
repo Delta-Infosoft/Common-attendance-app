@@ -97,7 +97,7 @@ class PjcInsertPlanFragment : BaseFragment() {
         txtLayCoverUncover.visibility = if (showCoverUncover) View.VISIBLE else View.GONE
         radioGroupCoverUncover.visibility = if (showCoverUncover) View.VISIBLE else View.GONE
 
-        if (BuildConfig.FLAVOR == "algo") {
+        if (BuildConfig.FLAVOR == "algo" || BuildConfig.FLAVOR == "mascot") {
             val currentDate = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH).format(Date())
             binding.txtDate.setText(currentDate)
         }
@@ -350,6 +350,45 @@ class PjcInsertPlanFragment : BaseFragment() {
                     serverMonth = serverDateTime.monthValue
                 }
 
+                /*is GetServerTimeState.Success -> {
+                    hideLoader()
+
+                    val fallbackFormats = listOf(
+                        "dd-MMM-yyyy hh:mm:ss a",      // 29-May-2026 06:15:09 PM
+                        "M/d/yyyy hh:mm:ss a",         // 5/29/2026 6:15:09 PM
+                        "M/d/yyyy HH:mm:ss",           // 5/29/2026 18:15:09
+                        "dd/MMM/yyyy HH:mm:ss a",      // 29/May/2026 18:15:09 PM
+                        "dd-MMM-yyyy HH:mm:ss a",      // 29-May-2026 18:15:09 PM
+                        "dd/MMM/yyyy hh:mm:ss a",      // 29/May/2026 06:15:09 PM
+                        "M/d/yyyy hh:mm:ss a",         // 5/29/2026 6:24:06 PM (after strip)
+                        "M/d/yyyy hh:mm:ss a z",        // 5/29/2026 6:24:06 PM +05:30 ✅ NEW
+                    )
+
+                    var serverDate: Date? = null
+                    for (format in fallbackFormats) {
+                        try {
+                            val sdf = SimpleDateFormat(format, Locale.ENGLISH)
+                            sdf.isLenient = false
+                            serverDate = sdf.parse(state.serverTime.serverTime)
+                            if (serverDate != null) break
+                        } catch (e: Exception) {
+                            continue
+                        }
+                    }
+
+                    if (serverDate == null) {
+                        showToast("Unable to parse server time")
+                        FirebaseCrashlytics.getInstance().recordException(
+                            Exception("Unparseable server time: ${state.serverTime.serverTime}")
+                        )
+                        return@observe
+                    }
+
+                    val cal = Calendar.getInstance().apply { time = serverDate }
+                    serverYear = cal.get(Calendar.YEAR)
+                    serverMonth = cal.get(Calendar.MONTH) + 1  // 0-indexed → 1-indexed
+                }*/
+
                 is GetServerTimeState.Error -> {
                     hideLoader()
                     showToast(state.message)
@@ -419,6 +458,7 @@ class PjcInsertPlanFragment : BaseFragment() {
 
         try {
 
+            Log.e("Server","month : $serverMonth, year : $serverYear")
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH)

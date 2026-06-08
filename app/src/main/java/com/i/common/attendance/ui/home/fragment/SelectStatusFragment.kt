@@ -15,7 +15,6 @@ import com.i.common.attendance.databinding.FragmentSelectStatusBinding
 import com.i.common.attendance.ui.home.activity.HomeActivity
 import com.i.common.attendance.ui.home.dealercheckin.viewmodel.PromotionalActivityViewModel
 import com.i.common.attendance.ui.home.dealercheckin.viewmodel.TargetOutstandingState
-import com.i.common.attendance.ui.home.tourvoucher.viewmodel.TourVoucherViewModel
 import com.i.common.attendance.utils.Constants.getTrimmedText
 import com.i.common.attendance.utils.Constants.hideKeyboard
 import com.i.common.attendance.utils.Constants.setSafeOnClickListener
@@ -23,7 +22,6 @@ import com.i.common.attendance.utils.EncryptedPrefHelper
 import com.i.common.attendance.utils.FragmentResultKeys
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlin.getValue
 
 @AndroidEntryPoint
 class SelectStatusFragment: BaseFragment() {

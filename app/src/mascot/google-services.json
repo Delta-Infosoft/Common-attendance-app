@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "964880982510",
-    "project_id": "unnati-iattendance",
-    "storage_bucket": "unnati-iattendance.appspot.com"
+    "project_number": "962303684289",
+    "project_id": "mascot-iattendance-pro",
+    "storage_bucket": "mascot-iattendance-pro.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:964880982510:android:5d712cb260a9809088eeff",
+        "mobilesdk_app_id": "1:962303684289:android:9cc6102961783411046e40",
         "android_client_info": {
-          "package_name": "com.i.unatti.attendanceapp"
+          "package_name": "com.i.mascot.attendanceapp.pro"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "964880982510-f1hje3tmkls8g701bs35h04h69a9952u.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBYv9vZ3TLNFG-tEi3-MKcb6g8wMmkqUfk"
+          "current_key": "AIzaSyDcE-ONCkXrmv_kjmi4cV_P6Yxjug-G9nM"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "964880982510-f1hje3tmkls8g701bs35h04h69a9952u.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

@@ -2,7 +2,10 @@ package com.i.common.attendance.drawer
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.i.common.attendance.BuildConfig
+import com.i.common.attendance.R
 import com.i.common.attendance.databinding.ItemDrawerMenuBinding
 import com.i.common.attendance.ui.home.activity.DrawerMenuConfig
 
@@ -22,8 +25,18 @@ class DrawerMenuAdapter(
 
         fun bind(item: DrawerMenuConfig.MenuItem) {
             binding.txtViewMenuLabel.setText(
-                DrawerMenuConfig.menuItemLabel[item]
+                DrawerMenuConfig.labelFor(BuildConfig.FLAVOR, item)
                     ?: throw IllegalStateException("No label registered for $item")
+            )
+            // Change text color for ACTION_REQUIRED
+            val colorRes = if (item == DrawerMenuConfig.MenuItem.ACTION_REQUIRED) {
+                R.color.red_1
+            } else {
+                R.color.black // your default text color
+            }
+
+            binding.txtViewMenuLabel.setTextColor(
+                ContextCompat.getColor(binding.root.context, colorRes)
             )
             binding.root.setOnClickListener { onItemClick(item) }
         }
