@@ -11,6 +11,8 @@ import com.i.common.attendance.network.response.DailTourListResponse
 import com.i.common.attendance.network.response.DailyTourDealerCategoryResponse
 import com.i.common.attendance.network.response.DailyTourDealerNameResponse
 import com.i.common.attendance.network.response.DailyTourDistrictResponse
+import com.i.common.attendance.network.response.DealerDetailsAccountResponse
+import com.i.common.attendance.network.response.DealerWiseTargetResponse
 import com.i.common.attendance.network.response.DistrictTourAgendaTrackingResponse
 import com.i.common.attendance.network.response.EmployeeDukeResponse
 import com.i.common.attendance.network.response.EmployeeResponse
@@ -368,6 +370,15 @@ interface ApiService {
 
     @POST(URLFactory.Url.API_VIEW_LEAVE_APPROVAL_UPDATE)
     suspend fun viewLeaveListApprovalUpdateUnnati(@Body request: MultipartBody): Response<FileUploadResponse>
+
+    @POST(URLFactory.Url.API_DEALER_DETAILS)
+    suspend fun dealerDetailsAccount(@Body request: MultipartBody): Response<DealerDetailsAccountResponse>
+
+    @POST(URLFactory.Url.API_GET_MONTH_FOR_TARGET)
+    suspend fun getMonthForTarget(@Body request: MultipartBody): Response<MonthListResponse>
+
+    @POST(URLFactory.Url.API_DEALER_WISE_TARGET_TYPE)
+    suspend fun dealerWiseTargetType(): Response<DealerWiseTargetResponse>
 
 
 }

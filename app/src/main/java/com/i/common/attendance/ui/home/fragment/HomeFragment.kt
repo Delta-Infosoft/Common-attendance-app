@@ -34,6 +34,8 @@ import com.i.common.attendance.base.BaseFragment
 import com.i.common.attendance.databinding.FragmentHomeBinding
 import com.i.common.attendance.ui.home.activity.HomeActivity
 import com.i.common.attendance.ui.home.adapter.LastFiveDayRecordsAdapter
+import com.i.common.attendance.ui.home.dealercheckin.viewmodel.PromotionalActivityViewModel
+import com.i.common.attendance.ui.home.dealercheckin.viewmodel.TargetOutstandingState
 import com.i.common.attendance.ui.home.pjc.fragment.SelectPjcEventBottomSheetFragment
 import com.i.common.attendance.ui.home.pjc.viewmodel.CalendarViewModel
 import com.i.common.attendance.ui.home.pjc.viewmodel.PjcEventState
@@ -56,6 +58,7 @@ class HomeFragment : BaseFragment() {
     private val homeViewModel: com.i.common.attendance.ui.viewmodel.HomeViewModel by viewModels()
     private val viewModel: HomeViewModel by viewModels()
     private val calViewmodel: CalendarViewModel by viewModels()
+    private val targetOutStandingViewModel: PromotionalActivityViewModel by viewModels()
 
     @Inject lateinit var sharedPref: EncryptedPrefHelper
     @Inject lateinit var fusedClient: FusedLocationProviderClient
@@ -395,6 +398,16 @@ class HomeFragment : BaseFragment() {
         observeAttendanceCheckInOutApi()
         listenForStatusResult()
         observePjcEventApi()
+        manageCheckInDetailsInfoForUnnati()
+        observeTargetOutstanding()
+    }
+    private fun manageCheckInDetailsInfoForUnnati() = with(binding) {
+        if (BuildConfig.FLAVOR == "unnati") {
+            cardViewSummary.visibility = View.VISIBLE
+            targetOutStandingViewModel.getTargetOutstanding(sharedPref.getUser()?.EmpID ?: "")
+        } else {
+            cardViewSummary.visibility = View.GONE
+        }
     }
     private fun observeAttendanceCheckInOutApi() = with(binding){
         viewModel.attendanceCheckInOutState.observe(viewLifecycleOwner) { state ->
@@ -727,6 +740,41 @@ class HomeFragment : BaseFragment() {
                     hideLoader(); showToast(state.message)
                 }
                 else -> Unit
+            }
+        }
+    }
+    private fun observeTargetOutstanding() = with(binding){
+        targetOutStandingViewModel.targetOutstandingState.observe(viewLifecycleOwner) { state ->
+
+            when (state) {
+                is TargetOutstandingState.Idle -> {
+                }
+
+                is TargetOutstandingState.Loading -> {
+                    showLoader()
+                }
+
+                is TargetOutstandingState.Success -> {
+                    hideLoader()
+                    val data = state.list.firstOrNull()
+
+                    val target = data?.targetAmt?.ifBlank { "0" } ?: "0"
+                    val achieved = data?.achievedAmt?.ifBlank { "0" } ?: "0"
+                    val outstanding = data?.outstandingAmt?.ifBlank { "0" } ?: "0"
+
+                    txtScanCount.text = "₹$target"
+                    txtVerifiedCount.text = "₹$achieved"
+                    txtRejectedCount.text = "₹$outstanding"
+                }
+                is TargetOutstandingState.ApiError -> {
+                    hideLoader()
+                    showToast(state.message)
+                }
+
+                is TargetOutstandingState.NetworkError -> {
+                    hideLoader()
+                    showToast(state.message)
+                }
             }
         }
     }

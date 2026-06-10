@@ -140,45 +140,29 @@ class PromotionalActivityViewModel @Inject constructor(private val repository: P
     fun getTargetOutstanding(empId: String) {
 
         _targetOutstandingState.value = TargetOutstandingState.Loading
-
         viewModelScope.launch {
-
             try {
-
                 val request = GetTargetOutStandingRequest(empId = empId)
-
                 val response = repository.getTargetOutstanding(request)
 
                 if (!response.isSuccessful) {
-
-                    _targetOutstandingState.value =
-                        TargetOutstandingState.ApiError(
-                            "Server error : ${response.code()}"
-                        )
-
+                    _targetOutstandingState.value = TargetOutstandingState.ApiError("Server error : ${response.code()}")
+                    _targetOutstandingState.value = TargetOutstandingState.Idle
                     return@launch
                 }
 
                 val body = response.body()
-
                 if (body == null) {
-
-                    _targetOutstandingState.value =
-                        TargetOutstandingState.ApiError(
-                            "Empty server response"
-                        )
-
+                    _targetOutstandingState.value = TargetOutstandingState.ApiError("Empty server response")
+                    _targetOutstandingState.value = TargetOutstandingState.Idle
                     return@launch
                 }
 
                 when (body.status) {
 
                     "200" -> {
-
                         try {
-
                             val list: List<TargetOutstandingData> =
-
                                 if (body.result != null && body.result.isJsonArray) {
                                     Gson().fromJson(body.result, object : TypeToken<List<TargetOutstandingData>>() {}.type)
                                 } else {
@@ -186,58 +170,36 @@ class PromotionalActivityViewModel @Inject constructor(private val repository: P
                                 }
 
                             if (list.isNotEmpty()) {
-
                                 _targetOutstandingState.value = TargetOutstandingState.Success(list)
-
+                                _targetOutstandingState.value = TargetOutstandingState.Idle
                             } else {
-
-                                _targetOutstandingState.value =
-                                    TargetOutstandingState.ApiError(
-                                        "No record found"
-                                    )
+                                _targetOutstandingState.value = TargetOutstandingState.ApiError("No record found")
+                                _targetOutstandingState.value = TargetOutstandingState.Idle
                             }
 
                         } catch (e: Exception) {
-
-                            _targetOutstandingState.value =
-                                TargetOutstandingState.ApiError(
-                                    "Data parsing error"
-                                )
+                            _targetOutstandingState.value = TargetOutstandingState.ApiError("Data parsing error")
+                            _targetOutstandingState.value = TargetOutstandingState.Idle
                         }
                     }
 
                     "209" -> {
-
-                        _targetOutstandingState.value =
-                            TargetOutstandingState.ApiError(
-                                body.message ?: "No record found"
-                            )
+                        _targetOutstandingState.value = TargetOutstandingState.ApiError(body.message ?: "No record found")
+                        _targetOutstandingState.value = TargetOutstandingState.Idle
                     }
 
                     else -> {
-
-                        _targetOutstandingState.value =
-                            TargetOutstandingState.ApiError(
-                                body.message ?: "Something went wrong"
-                            )
+                        _targetOutstandingState.value = TargetOutstandingState.ApiError(body.message ?: "Something went wrong")
+                        _targetOutstandingState.value = TargetOutstandingState.Idle
                     }
                 }
 
             } catch (e: IOException) {
-
-                _targetOutstandingState.value =
-                    TargetOutstandingState.NetworkError(
-                        "Please check your internet connection"
-                    )
-
+                _targetOutstandingState.value = TargetOutstandingState.NetworkError("Please check your internet connection")
+                _targetOutstandingState.value = TargetOutstandingState.Idle
             } catch (e: Exception) {
-
                 FirebaseCrashlytics.getInstance().recordException(e)
-
-                _targetOutstandingState.value =
-                    TargetOutstandingState.ApiError(
-                        e.message ?: "Something went wrong"
-                    )
+                _targetOutstandingState.value = TargetOutstandingState.ApiError(e.message ?: "Something went wrong")
             }
         }
     }

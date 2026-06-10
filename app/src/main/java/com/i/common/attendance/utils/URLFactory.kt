@@ -14,6 +14,10 @@ object URLFactory {
         const val BASE_URL_MASCOT_DELTA_ACCOUNT: String = "https://mascot.nishainfotech.com:90/DeltaiAccount/API/" //Live
         const val BASE_URL_FLOTECH_DELTA_ACCOUNT: String = "http://flotech.deltaierp.com:91//DeltaiAccount/API/"  //Live
 
+
+        const val BASE_URL_UNNATI_DELTA_ACCOUNT: String = "http://117.247.81.73/DeltaiAccount/API/"  //Live
+        const val BASE_URL_UNNATI_VIEWER: String = "http://117.247.81.73/DeltaViewerAPI/"
+
         /*========================================================================================*/
         /* ================= AUTH ================= */
         const val CHECK_USER_API = "API_UserValid.aspx"
@@ -178,6 +182,9 @@ object URLFactory {
         const val API_VIEW_LEAVE_LIST: String = "API_LeaveRequestView.aspx"
         const val API_VIEW_LEAVE_APPROVAL: String = "API_LeaveApproval.aspx"
         const val API_VIEW_LEAVE_APPROVAL_UPDATE: String = "API_LeaveApprovalUpdate.aspx"
+        const val API_DEALER_DETAILS: String = "API_DealerDetails.aspx"
+        const val API_GET_MONTH_FOR_TARGET: String = "API_GetMonthForTarget.aspx"
+        const val API_DEALER_WISE_TARGET_TYPE: String = "API_DealerWiseTargetTypes.aspx"
 
 
     }

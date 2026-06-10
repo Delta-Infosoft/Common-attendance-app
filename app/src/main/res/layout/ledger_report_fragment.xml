@@ -29,7 +29,7 @@
                 android:background="@color/primary"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:text="Mascot Pump LTD - Kanpur"
+                tools:text="Mascot Pump LTD - Kanpur"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"

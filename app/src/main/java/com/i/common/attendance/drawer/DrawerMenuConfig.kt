@@ -1,5 +1,6 @@
 package com.i.common.attendance.ui.home.activity
 
+import android.view.Menu
 import com.i.common.attendance.R
 
 /**
@@ -145,6 +146,7 @@ object DrawerMenuConfig {
         MenuItem.NEW_CUSTOMER_DEALER,
         MenuItem.MY_PORTFOLIO,
         MenuItem.DEALER_WISE_TARGET_ENTRY,
+        MenuItem.LEDGER_REPORT,
         MenuItem.DISTRICT_WISE_REPORT,
         MenuItem.DEALER_WISE_REPORT,
     )

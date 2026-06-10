@@ -16,6 +16,11 @@ sealed class FacetUiState {
         val message: String
     ) : FacetUiState()
 
+    data class Empty(
+        val type: FacetType,
+        val message: String
+    ) : FacetUiState()
+
     data class NetworkError(
         val type: FacetType,
         val message: String

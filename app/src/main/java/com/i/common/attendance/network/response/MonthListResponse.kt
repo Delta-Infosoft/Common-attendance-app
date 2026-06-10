@@ -11,5 +11,9 @@ data class MonthListResponse (
 
 @Parcelize
 data class MonthList (
-  @SerializedName("Month") var Month : String? = null
+  @SerializedName(
+    value = "Month",
+    alternate = ["MonthYear"]
+  )
+  var Month: String? = null
 ): Parcelable

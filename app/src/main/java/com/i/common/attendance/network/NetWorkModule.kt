@@ -166,6 +166,29 @@ object NetWorkModule {
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .build()
+
+    @Singleton
+    @Provides
+    @Named("UNNATI_DELTA_CLIENT")
+    fun provideUnnatiDeltaOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor,
+        networkConnectionInterceptor: NetworkConnectionInterceptor
+    ): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(networkConnectionInterceptor)
+            // ❌ NO BaseUrlInterceptor here
+            .addInterceptor {
+                val request = it.request().newBuilder()
+                    .header("Accept", "application/json")
+                    .build()
+                it.proceed(request)
+            }
+            .addInterceptor(HtmlStripInterceptor())
+            .addInterceptor(loggingInterceptor)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .build()
     /* -------------------------------- */
     /* RETROFIT (DEFAULT BASE URL)      */
     /* -------------------------------- */
@@ -221,6 +244,42 @@ object NetWorkModule {
             .baseUrl(URLFactory.Url.BASE_URL_MASCOT_DELTA_ACCOUNT)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+    @Singleton
+    @Provides
+    @Named("UNNATI_DELTA_ACCOUNT")
+    fun provideUnnatiDeltaAccountRetrofit(
+        @Named("UNNATI_DELTA_CLIENT") okHttpClient: OkHttpClient
+    ): Retrofit =
+        Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(URLFactory.Url.BASE_URL_UNNATI_DELTA_ACCOUNT)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+
+    @Singleton
+    @Provides
+    @Named("UNNATI_VIEWER_CLIENT")
+    fun provideUnnatiViewerOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor,
+        networkConnectionInterceptor: NetworkConnectionInterceptor
+    ): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(networkConnectionInterceptor)
+            .addInterceptor {
+                val request = it.request().newBuilder()
+                    .header("Accept", "application/json")
+                    .build()
+                it.proceed(request)
+            }
+            .addInterceptor(HtmlStripInterceptor())
+            .addInterceptor(loggingInterceptor)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .build()
+
 
     @Singleton
     @Provides
@@ -287,6 +346,34 @@ object NetWorkModule {
         @Named("UNNATI_LOCALHOST") retrofit: Retrofit
     ): ApiService = retrofit.create(ApiService::class.java)
 
+    @Singleton
+    @Provides
+    @Named("UNNATI_DELTA_ACCOUNT")
+    fun provideUnnatiDeltaAccountApiService(
+        @Named("UNNATI_DELTA_ACCOUNT") retrofit: Retrofit
+    ): ApiService = retrofit.create(ApiService::class.java)
+
+    @Singleton
+    @Provides
+    @Named("UNNATI_VIEWER")
+    fun provideUnnatiViewerRetrofit(
+        @Named("UNNATI_VIEWER_CLIENT") okHttpClient: OkHttpClient
+    ): Retrofit =
+        Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(URLFactory.Url.BASE_URL_UNNATI_VIEWER)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+
+    @Singleton
+    @Provides
+    @Named("UNNATI_VIEWER")
+    fun provideUnnatiViewerApiService(
+        @Named("UNNATI_VIEWER") retrofit: Retrofit
+    ): ApiService = retrofit.create(ApiService::class.java)
+
+
     // Add this ApiService provider
     @Singleton
     @Provides
@@ -302,9 +389,14 @@ object NetWorkModule {
     @Named("FLAVOR_API")
     fun provideFlavorApiService(
         @Named("MASCOT") mascotApi: ApiService,
-        @Named("FLOTECH_ACCOUNT") flotechAccountApi: ApiService
+        @Named("FLOTECH_ACCOUNT") flotechAccountApi: ApiService,
+        @Named("UNNATI_DELTA_ACCOUNT") unnatiDeltaApi: ApiService
     ): ApiService {
-        return if (BuildConfig.FLAVOR == "flotech") flotechAccountApi else mascotApi
+        return when (BuildConfig.FLAVOR) {
+            "flotech" -> flotechAccountApi
+            "unnati"  -> unnatiDeltaApi       // ✅ add this
+            else      -> mascotApi
+        }
     }
 
 }

@@ -1,6 +1,346 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayDealerName"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                app:endIconDrawable="@drawable/ic_arrow_drop_down"
+                app:endIconMode="custom"
+                app:endIconTint="@color/primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtDealerName"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="@string/hint_dealer_name"
+                    android:inputType="none"
+                    tools:text="Car" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayDealerGroupCode"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayDealerName"
+                app:layout_constraintStart_toStartOf="@id/txtLayDealerName"
+                app:layout_constraintTop_toBottomOf="@id/txtLayDealerName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtDealerGroupCode"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="@string/hint_dealer_group_code"
+                    android:inputType="none"
+                    tools:text="Car" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayDealerGroup"
+                style="@style/CommonTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/txtLayDealerGroupCode"
+                app:layout_constraintStart_toStartOf="@id/txtLayDealerGroupCode"
+                app:layout_constraintTop_toBottomOf="@id/txtLayDealerGroupCode">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtDealerGroup"
+                    style="@style/CommonTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="@string/hint_dealer_group"
+                    android:inputType="none"
+                    tools:text="Car" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constViewMonthRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtLayDealerGroup">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtLayMonth"
+                    style="@style/CommonTextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginTop="8dp"
+                    app:endIconDrawable="@drawable/ic_arrow_drop_down"
+                    app:endIconMode="custom"
+                    app:endIconTint="@color/primary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtMonth"
+                        style="@style/CommonTextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:hint="@string/hint_month"
+                        android:inputType="none"
+                        tools:text="22-Jan-2026" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutData"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:visibility="visible"
+                    android:paddingVertical="1dp"
+                    android:paddingHorizontal="1dp"
+                    android:background="@drawable/bg_target_dealer"
+                    app:layout_constraintEnd_toEndOf="@id/txtLayMonth"
+                    app:layout_constraintStart_toStartOf="@id/txtLayMonth"
+                    app:layout_constraintTop_toBottomOf="@id/txtLayMonth">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtViewTypeHeader"
+                        style="@style/kumbh.regular.black.14"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:background="@color/gray_4"
+                        android:gravity="center"
+                        android:text="Type"
+                        app:layout_constraintEnd_toStartOf="@id/txtViewAvgRateHeader"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.25" />
+
+                    <View
+                        android:id="@+id/viewTypeHeaderDivider"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:background="@color/gray"
+                        app:layout_constraintEnd_toEndOf="@id/txtViewTypeHeader"
+                        app:layout_constraintTop_toTopOf="@id/txtViewTypeHeader"
+                        app:layout_constraintBottom_toBottomOf="@id/txtViewTypeHeader"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtViewAvgRateHeader"
+                        style="@style/kumbh.regular.black.14"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="Avg Rate"
+                        android:background="@color/gray_4"
+                        app:layout_constraintEnd_toStartOf="@id/txtViewQtyHeader"
+                        app:layout_constraintStart_toEndOf="@id/txtViewTypeHeader"
+                        app:layout_constraintTop_toTopOf="@id/txtViewTypeHeader"
+                        app:layout_constraintWidth_percent="0.25" />
+
+                    <View
+                        android:id="@+id/viewAvgRateHeaderDivider"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:background="@color/gray"
+                        app:layout_constraintEnd_toEndOf="@id/txtViewAvgRateHeader"
+                        app:layout_constraintTop_toTopOf="@id/txtViewAvgRateHeader"
+                        app:layout_constraintBottom_toBottomOf="@id/txtViewAvgRateHeader"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtViewQtyHeader"
+                        style="@style/kumbh.regular.black.14"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="Qty"
+                        android:background="@color/gray_4"
+                        app:layout_constraintEnd_toStartOf="@id/txtViewTotalHeader"
+                        app:layout_constraintStart_toEndOf="@id/txtViewAvgRateHeader"
+                        app:layout_constraintTop_toTopOf="@id/txtViewAvgRateHeader"
+                        app:layout_constraintWidth_percent="0.25" />
+
+                    <View
+                        android:id="@+id/viewQtyHeaderDivider"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:background="@color/gray"
+                        app:layout_constraintEnd_toEndOf="@id/txtViewQtyHeader"
+                        app:layout_constraintTop_toTopOf="@id/txtViewQtyHeader"
+                        app:layout_constraintBottom_toBottomOf="@id/txtViewQtyHeader"/>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtViewTotalHeader"
+                        style="@style/kumbh.regular.black.14"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="Total"
+                        android:background="@color/gray_4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/txtViewQtyHeader"
+                        app:layout_constraintTop_toTopOf="@id/txtViewQtyHeader"
+                        app:layout_constraintWidth_percent="0.25" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewRecords"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        tools:itemCount="5"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toTopOf="@id/layoutTotalRow"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txtViewTypeHeader"
+                        app:layout_constraintVertical_bias="0"
+                        tools:listitem="@layout/row_item_dealer_wise_report" />
+
+                    <!-- ✅ Add this Total Row below the recycler -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layoutTotalRow"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/recyclerViewRecords">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txtViewTotalLabel"
+                            style="@style/kumbh.regular.black.14"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Total"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toStartOf="@id/txtViewTotalAvgRate"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.24" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txtViewTotalAvgRate"
+                            style="@style/kumbh.regular.black.14"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text=""
+                            app:layout_constraintEnd_toStartOf="@id/txtViewTotalQty"
+                            app:layout_constraintStart_toEndOf="@id/txtViewTotalLabel"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.24" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txtViewTotalQty"
+                            style="@style/kumbh.regular.black.14"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text=""
+                            app:layout_constraintEnd_toStartOf="@id/txtViewGrandTotal"
+                            app:layout_constraintStart_toEndOf="@id/txtViewTotalAvgRate"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.24" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txtViewGrandTotal"
+                            style="@style/kumbh.regular.black.14"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="0.00"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/txtViewTotalQty"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.24" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnFillData"
+                    style="@style/button_primary_rounded"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="Fill Data"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/constraintLayoutData"
+                    app:layout_constraintVertical_bias="1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBarPJC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_primary_rounded_18"
+        android:elevation="5dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/white"
+        android:indeterminateTintMode="src_in"
+        android:padding="10dp"
+        android:translationZ="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</FrameLayout>
+

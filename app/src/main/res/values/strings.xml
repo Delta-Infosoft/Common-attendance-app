@@ -360,4 +360,7 @@
     <string name="btn_reject">Reject</string>
     <string name="label_leave_view">Leave View</string>
 
+    <string name="hint_dealer_group_code">Dealer Group Code</string>
+    <string name="hint_dealer_group">Dealer Group</string>
+
 </resources>

@@ -95,8 +95,8 @@ android {
             dimension = "app"
             applicationId = "com.i.singla.iattendanceapp"
 
-            versionCode = 3
-            versionName = "1.0.2"
+            versionCode = 4
+            versionName = "1.0.3"
 
             resValue("string", "app_name", "Singla iAttendance")
             buildConfigField("String", "BASE_PATH", "\"DeltaAttendanceAPI/\"")
@@ -137,6 +137,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    implementation(libs.androidx.constraintlayout)
     implementation("androidx.work:work-runtime-ktx:2.9.0")
 
     implementation("androidx.fragment:fragment-ktx:1.6.2")

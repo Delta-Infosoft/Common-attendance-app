@@ -129,6 +129,8 @@
     <string name="toolbar_title_select_district">Select District</string>
     <string name="hint_agenda">Agenda</string>
     <string name="hint_dealer_name">Dealer Name</string>
+    <string name="hint_dealer_group_code">Dealer Group Code</string>
+    <string name="hint_dealer_group">Dealer Group</string>
     <string name="hint_issue">Issue</string>
     <string name="hint_initial_order_value">Initial order value</string>
     <string name="hint_order_collected">Order collected</string>

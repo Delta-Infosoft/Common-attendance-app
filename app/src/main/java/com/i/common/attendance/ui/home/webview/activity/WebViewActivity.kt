@@ -58,6 +58,10 @@ class WebViewActivity : BaseActivity() {
             // Enable JavaScript if needed
             settings.javaScriptEnabled = true
 
+            settings.setSupportZoom(true)
+            settings.builtInZoomControls = true
+            settings.displayZoomControls = false
+
             // Handle SSL errors gracefully
             webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
