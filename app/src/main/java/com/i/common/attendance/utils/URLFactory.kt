@@ -185,6 +185,7 @@ object URLFactory {
         const val API_DEALER_DETAILS: String = "API_DealerDetails.aspx"
         const val API_GET_MONTH_FOR_TARGET: String = "API_GetMonthForTarget.aspx"
         const val API_DEALER_WISE_TARGET_TYPE: String = "API_DealerWiseTargetTypes.aspx"
+        const val API_SUBMIT_DEALER_WISE_TARGET= "API_InsertDealerWiseTarget.aspx"
 
 
     }

@@ -10,28 +10,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.i.common.attendance.R
 import com.i.common.attendance.base.BaseFragment
-import com.i.common.attendance.databinding.FragmentDealerwiseTargetEntryBinding
-import com.i.common.attendance.network.request.DealerDetailsAccountRequest
+import com.i.common.attendance.databinding.FragmentNewDealerwiseTargetEntryBinding
 import com.i.common.attendance.network.request.GetMonthForTargetRequest
 import com.i.common.attendance.network.response.DealerWiseTarget
 import com.i.common.attendance.ui.home.activity.HomeActivity
 import com.i.common.attendance.ui.home.attendancereport.fragment.SelectMonthBottomSheetFragment
 import com.i.common.attendance.ui.home.attendancereport.viewmodel.MonthUiState
 import com.i.common.attendance.ui.home.dealerwisereport.adapter.DealerWiseTargetAdapter
-import com.i.common.attendance.ui.home.dealerwisereport.viewmodel.DealerDetailsUiState
 import com.i.common.attendance.ui.home.dealerwisereport.viewmodel.DealerWiseTargetUiState
 import com.i.common.attendance.ui.home.dealerwisereport.viewmodel.DealerWiseTargetViewModel
-import com.i.common.attendance.ui.home.dealerwisereport.viewmodel.SubmitDealerWiseTargetUiState
-import com.i.common.attendance.utils.Constants
 import com.i.common.attendance.utils.Constants.setSafeOnClickListener
 import com.i.common.attendance.utils.EncryptedPrefHelper
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DealerWiseTargetEntryFragment : BaseFragment() {
+class NewDealerWiseTargetEntryFragment : BaseFragment() {
 
-    private lateinit var binding : FragmentDealerwiseTargetEntryBinding
+    private lateinit var binding : FragmentNewDealerwiseTargetEntryBinding
     private val reportViewmodel: DealerWiseTargetViewModel by viewModels()
     @Inject lateinit var sharedPref: EncryptedPrefHelper
     private val dealerTargetList = mutableListOf<DealerWiseTarget>()
@@ -53,7 +49,7 @@ class DealerWiseTargetEntryFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentDealerwiseTargetEntryBinding.inflate(inflater,container,false)
+        binding = FragmentNewDealerwiseTargetEntryBinding.inflate(inflater,container,false)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,10 +58,8 @@ class DealerWiseTargetEntryFragment : BaseFragment() {
         moveOnClickListeners()
         manageInitVisibility()
         setUpAdapter()
-        observeDealerApiData()
         observeMonthList()
         observeTargetTypeList()
-        observeSubmitTargetState()
     }
 
     private fun setUpAdapter() = with(binding){
@@ -76,10 +70,10 @@ class DealerWiseTargetEntryFragment : BaseFragment() {
     }
 
     private fun manageInitVisibility() = with(binding) {
-        reportViewmodel.loadDealerList(DealerDetailsAccountRequest(sharedPref.getUser()?.InsertedByUserId?:""))
-        //reportViewmodel.loadDealerList(DealerDetailsAccountRequest("b7911d7a-b389-4d9a-9cb5-a10a75ae4659"))
+        //reportViewmodel.loadDealerList(DealerDetailsAccountRequest(sharedPref.getUser()?.InsertedByUserId?:""))
+        reportViewmodel.loadMonthList(GetMonthForTargetRequest(userId = "b7911d7a-b389-4d9a-9cb5-a10a75ae4659"))
 
-        constViewMonthRecyclerView.visibility = View.GONE
+        constViewMonthRecyclerView.visibility = View.VISIBLE
         constraintLayoutData.visibility = View.GONE
         btnFillData.visibility = View.GONE
     }
@@ -87,39 +81,13 @@ class DealerWiseTargetEntryFragment : BaseFragment() {
     private fun manageToolBar() {
         (activity as HomeActivity).apply {
             manageToolBar(isVisible = true)
-            manageToolBarTitle(getString(R.string.toolbar_title_dealer_wise_target_entry))
+            manageToolBarTitle(getString(R.string.toolbar_title_new_dealer_wise_target_entry))
             manageBackButtonClick(true)
             setDrawerEnabled(false)
             manageInfo(false)
         }
     }
     private fun moveOnClickListeners() = with(binding) {
-        txtDealerName.setSafeOnClickListener {
-            val list = reportViewmodel.getCachedDealerList() ?: return@setSafeOnClickListener
-            SelectDealerNameBottomSheetFragment.newInstance(list).also { sheet ->
-                sheet.setDismissCallback { selected ->
-                    Constants.hideKeyboard(it)
-
-                    selectedDealerId = selected.DealerId
-
-                    if (selectedDealerId.isNullOrEmpty()) {
-                        showToast("Please select a dealer first")
-                        return@setDismissCallback
-                    }
-                    reportViewmodel.loadMonthList(GetMonthForTargetRequest(userId = sharedPref.getUser()?.InsertedByUserId?:"", dealerId = selectedDealerId?:""))
-                    //reportViewmodel.loadMonthList(GetMonthForTargetRequest(userId = "b7911d7a-b389-4d9a-9cb5-a10a75ae4659", dealerId = selectedDealerId?:""))
-
-                    txtDealerName.setText(selected.DealerName)
-                    txtDealerGroupCode.setText(selected.DealerCode)
-                    txtDealerGroup.setText(selected.DealerGroup)
-
-                    constViewMonthRecyclerView.visibility = View.VISIBLE
-                    constraintLayoutData.visibility = View.GONE
-                    btnFillData.visibility = View.GONE
-                }
-            }.show(childFragmentManager, "SelectPlanFor")
-        }
-
         txtMonth.setSafeOnClickListener {
             val list = reportViewmodel.getCachedMonthList()
             val bottomSheet = list?.let { it1 -> SelectMonthBottomSheetFragment.Companion.newInstance(it1) }
@@ -132,46 +100,6 @@ class DealerWiseTargetEntryFragment : BaseFragment() {
                 btnFillData.visibility = View.VISIBLE
             }
             bottomSheet?.show(childFragmentManager, "SelectPlanFor")
-        }
-
-        btnFillData.setSafeOnClickListener {
-            if(selectedDealerId.isNullOrEmpty()){
-                showToast("Please select a dealer first")
-                return@setSafeOnClickListener
-            }
-            if(txtMonth.text.isNullOrEmpty()){
-                showToast("Please select month first")
-                return@setSafeOnClickListener
-            }
-
-            //reportViewmodel.submitDealerWiseTarget(userId = "b7911d7a-b389-4d9a-9cb5-a10a75ae4659", dealerId = selectedDealerId ?: "", month = txtMonth.text.toString(), items = dealerTargetList)
-            reportViewmodel.submitDealerWiseTarget(userId = sharedPref.getUser()?.InsertedByUserId?:"", dealerId = selectedDealerId ?: "", month = txtMonth.text.toString(), items = dealerTargetList)
-        }
-    }
-
-    private fun observeDealerApiData() {
-        reportViewmodel.dealerState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is DealerDetailsUiState.Loading -> {
-                    showLoader()
-                }
-
-                is DealerDetailsUiState.Success -> {
-                    hideLoader()
-                }
-
-                is DealerDetailsUiState.ApiError -> {
-                    hideLoader()
-                    showToast(state.message)
-                }
-
-                is DealerDetailsUiState.NetworkError -> {
-                    hideLoader()
-                    showToast(state.message)
-                }
-
-                else -> Unit
-            }
         }
     }
     private fun observeMonthList() {
@@ -230,27 +158,6 @@ class DealerWiseTargetEntryFragment : BaseFragment() {
                     dealerTargetTypeAdapter.submitList(emptyList())
                 }
 
-                else -> Unit
-            }
-        }
-    }
-    private fun observeSubmitTargetState() {
-        reportViewmodel.submitTargetState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is SubmitDealerWiseTargetUiState.Loading -> showLoader()
-                is SubmitDealerWiseTargetUiState.Success -> {
-                    hideLoader()
-                    showToast(state.message)
-                    parentFragmentManager.popBackStackImmediate()
-                }
-                is SubmitDealerWiseTargetUiState.ApiError -> {
-                    hideLoader()
-                    showToast(state.message)
-                }
-                is SubmitDealerWiseTargetUiState.NetworkError -> {
-                    hideLoader()
-                    showToast(state.message)
-                }
                 else -> Unit
             }
         }

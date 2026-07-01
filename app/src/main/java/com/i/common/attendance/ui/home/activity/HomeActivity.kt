@@ -41,6 +41,7 @@ import com.i.common.attendance.ui.home.dealercheckin.fragment.DealerCheckInUnnat
 import com.i.common.attendance.ui.home.dealercheckin.fragment.PromotionalActivityFormFragment
 import com.i.common.attendance.ui.home.dealerwisereport.data.FacetType
 import com.i.common.attendance.ui.home.dealerwisereport.fragment.DealerWiseTargetEntryFragment
+import com.i.common.attendance.ui.home.dealerwisereport.fragment.NewDealerWiseTargetEntryFragment
 import com.i.common.attendance.ui.home.dealerwisereport.viewmodel.FacetUiState
 import com.i.common.attendance.ui.home.dealerwisereport.viewmodel.ReportViewModel
 import com.i.common.attendance.ui.home.fragment.ActionRequiredFragment
@@ -271,6 +272,9 @@ class HomeActivity : BaseActivity() {
 
             DrawerMenuConfig.MenuItem.DEALER_WISE_TARGET_ENTRY ->
                 loadFragment(DealerWiseTargetEntryFragment(), isAdd = false, isAddBackStack = true)
+
+            DrawerMenuConfig.MenuItem.NEW_DEALER_WISE_TARGET_ENTRY ->
+                loadFragment(NewDealerWiseTargetEntryFragment(), isAdd = false, isAddBackStack = true)
 
             DrawerMenuConfig.MenuItem.DISTRICT_WISE_REPORT ->
                 factViewmodel.loadReport(FacetType.DISTRICT_WISE)

@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.i.common.attendance.network.response.MonthList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -54,7 +56,10 @@ class AttendanceReportViewModel @Inject constructor(
                 when (body.status) {
 
                     "200" -> {
-                        val list = body.result.filterNotNull()
+                        val list: List<MonthList> = Gson().fromJson(
+                            body.result?.toString(),
+                            object : TypeToken<List<MonthList>>() {}.type
+                        ) ?: emptyList()
 
                         if (list.isEmpty()) {
                             _monthListState.value =

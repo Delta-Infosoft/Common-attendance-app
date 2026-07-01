@@ -2,8 +2,10 @@ package com.i.common.attendance.ui.home.dealerwisereport.viewmodel
 
 import com.i.common.attendance.network.request.DealerDetailsAccountRequest
 import com.i.common.attendance.network.request.GetMonthForTargetRequest
+import com.i.common.attendance.network.request.SubmitDealerWiseTargetRequest
 import com.i.common.attendance.network.response.DealerDetailsAccountResponse
 import com.i.common.attendance.network.response.DealerWiseTargetResponse
+import com.i.common.attendance.network.response.FileUploadResponse
 import com.i.common.attendance.network.response.MonthListResponse
 import com.i.common.attendance.network.service.ApiService
 import retrofit2.Response
@@ -22,6 +24,10 @@ class DealerWiseTargetEntryRepository @Inject constructor(@Named("UNNATI_VIEWER"
 
     suspend fun dealerWiseTargetType(): Response<DealerWiseTargetResponse> {
         return unnatiViewerApi.dealerWiseTargetType()
+    }
+
+    suspend fun submitDealerWiseTarget(request: SubmitDealerWiseTargetRequest): Response<FileUploadResponse> {
+        return unnatiViewerApi.submitDealerWiseTarget(request.toMultipartBody())
     }
 
 }

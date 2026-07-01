@@ -19,6 +19,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,6 +50,7 @@ import com.i.common.attendance.utils.Constants.setSafeOnClickListener
 import com.i.common.attendance.utils.EncryptedPrefHelper
 import com.i.common.attendance.utils.FragmentResultKeys
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -401,6 +403,57 @@ class HomeFragment : BaseFragment() {
         manageCheckInDetailsInfoForUnnati()
         observeTargetOutstanding()
     }
+
+    fun getLocationPermissionStatus(context: Context): String {
+
+        val fineLocation =
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+
+        val backgroundLocation =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            } else {
+                false
+            }
+
+        return when {
+            !fineLocation -> "Don't Allow"
+
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && backgroundLocation ->
+                "Allow All The Time"
+
+            fineLocation ->
+                "Allow Only While Using The App"
+
+            else ->
+                "Unknown"
+        }
+    }
+
+    fun getUnusedAppSettingStatus(context: Context): String {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (context.packageManager.isAutoRevokeWhitelisted) {
+                "Pause App Activity: OFF"
+            } else {
+                "Pause App Activity: ON"
+            }
+        } else {
+            "Not Supported"
+        }
+    }
+
+    fun isNotificationEnabled(context: Context): Boolean {
+        return NotificationManagerCompat
+            .from(context)
+            .areNotificationsEnabled()
+    }
+
     private fun manageCheckInDetailsInfoForUnnati() = with(binding) {
         if (BuildConfig.FLAVOR == "unnati") {
             cardViewSummary.visibility = View.VISIBLE
@@ -758,13 +811,9 @@ class HomeFragment : BaseFragment() {
                     hideLoader()
                     val data = state.list.firstOrNull()
 
-                    val target = data?.targetAmt?.ifBlank { "0" } ?: "0"
-                    val achieved = data?.achievedAmt?.ifBlank { "0" } ?: "0"
-                    val outstanding = data?.outstandingAmt?.ifBlank { "0" } ?: "0"
-
-                    txtScanCount.text = "₹$target"
-                    txtVerifiedCount.text = "₹$achieved"
-                    txtRejectedCount.text = "₹$outstanding"
+                    txtScanCount.text = "₹${data?.targetAmt.toCurrencyFormat()}"
+                    txtVerifiedCount.text = "₹${data?.achievedAmt.toCurrencyFormat()}"
+                    txtRejectedCount.text = "₹${data?.outstandingAmt.toCurrencyFormat()}"
                 }
                 is TargetOutstandingState.ApiError -> {
                     hideLoader()
@@ -776,6 +825,15 @@ class HomeFragment : BaseFragment() {
                     showToast(state.message)
                 }
             }
+        }
+    }
+
+    fun String?.toCurrencyFormat(): String {
+        return try {
+            val value = this?.toDoubleOrNull() ?: 0.0
+            DecimalFormat("#,##0.0").format(value)
+        } catch (e: Exception) {
+            "0.0"
         }
     }
     private fun showLoader() {

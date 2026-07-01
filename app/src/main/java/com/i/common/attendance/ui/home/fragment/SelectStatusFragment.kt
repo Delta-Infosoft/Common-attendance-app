@@ -5,16 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.activity.addCallback
-import androidx.fragment.app.viewModels
-import com.i.common.attendance.BuildConfig
 import com.i.common.attendance.R
 import com.i.common.attendance.base.BaseFragment
 import com.i.common.attendance.databinding.FragmentSelectStatusBinding
 import com.i.common.attendance.ui.home.activity.HomeActivity
-import com.i.common.attendance.ui.home.dealercheckin.viewmodel.PromotionalActivityViewModel
-import com.i.common.attendance.ui.home.dealercheckin.viewmodel.TargetOutstandingState
 import com.i.common.attendance.utils.Constants.getTrimmedText
 import com.i.common.attendance.utils.Constants.hideKeyboard
 import com.i.common.attendance.utils.Constants.setSafeOnClickListener
@@ -27,7 +22,6 @@ import javax.inject.Inject
 class SelectStatusFragment: BaseFragment() {
     private lateinit var binding: FragmentSelectStatusBinding
     @Inject lateinit var shredPref: EncryptedPrefHelper
-    private val targetOutStandingViewModel: PromotionalActivityViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,17 +37,6 @@ class SelectStatusFragment: BaseFragment() {
         moveOnClickListeners()
         manageToolBar()
         handleBackPress()
-        manageCheckInDetailsInfoForUnnati()
-        observeTargetOutstanding()
-    }
-
-    private fun manageCheckInDetailsInfoForUnnati() = with(binding) {
-        if (BuildConfig.FLAVOR == "unnati") {
-            cardViewCheckInDetailsUnnati.visibility = View.VISIBLE
-            targetOutStandingViewModel.getTargetOutstanding(shredPref.getUser()?.EmpID ?: "")
-        } else {
-            cardViewCheckInDetailsUnnati.visibility = View.GONE
-        }
     }
     private fun manageToolBar() {
         (activity as HomeActivity).apply {
@@ -123,55 +106,6 @@ class SelectStatusFragment: BaseFragment() {
             "OUTDOOR DUTY" -> "OOD"
             else -> "A" // default fallback
         }
-    }
-
-    private fun observeTargetOutstanding() = with(binding){
-        targetOutStandingViewModel.targetOutstandingState.observe(viewLifecycleOwner) { state ->
-
-            when (state) {
-                is TargetOutstandingState.Idle -> {
-                }
-
-                is TargetOutstandingState.Loading -> {
-                    showLoader()
-                }
-
-                is TargetOutstandingState.Success -> {
-                    hideLoader()
-                    val data = state.list.firstOrNull()
-
-                    val target = data?.targetAmt ?: "0"
-                    val achieved = data?.achievedAmt ?: "0"
-                    val outstanding = data?.outstandingAmt ?: "0"
-
-                    txtViewTotalTarget.text = "Total Target : ₹$target"
-                    txtViewAchievement.text = "Achievement : ₹$achieved"
-                    txtViewOutstanding.text = "Outstanding : ₹$outstanding"
-                }
-                is TargetOutstandingState.ApiError -> {
-                    hideLoader()
-                    showToast(state.message)
-                }
-
-                is TargetOutstandingState.NetworkError -> {
-                    hideLoader()
-                    showToast(state.message)
-                }
-            }
-        }
-    }
-
-    private fun showLoader() {
-        requireActivity().window?.setFlags(
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-        )
-        binding.progressBarPJC.visibility = View.VISIBLE
-    }
-
-    private fun hideLoader() {
-        requireActivity().window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        binding.progressBarPJC.visibility = View.GONE
     }
 
 }

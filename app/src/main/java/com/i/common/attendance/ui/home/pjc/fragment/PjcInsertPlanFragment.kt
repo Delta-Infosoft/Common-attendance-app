@@ -238,7 +238,6 @@ class PjcInsertPlanFragment : BaseFragment() {
                 }
 
                 else -> {
-
                     val user = sharedPref.getUser()
 
                     val request = InsertPjcEventRequest(
@@ -257,14 +256,16 @@ class PjcInsertPlanFragment : BaseFragment() {
                     )
 
                     Log.e("request", request.toString())
-                    val isMascot = BuildConfig.FLAVOR == "mascot"
-                    val isAlgo = BuildConfig.FLAVOR == "algo"
+                    viewmodel.insertPjcEvent(request)
 
-                    val hasValidationRight = user?.IsAllowPJCWOValidation.equals("True", true)
-                    val today = LocalDate.now()
 
-                    val isAllowedDate = today.year == serverYear && today.monthValue == serverMonth && today.dayOfMonth in 1..4
-                    when {
+                    //val isMascot = BuildConfig.FLAVOR == "mascot"
+                    //val isAlgo = BuildConfig.FLAVOR == "algo"
+
+                    //val hasValidationRight = user?.IsAllowPJCWOValidation.equals("True", true)
+                    //val today = LocalDate.now()
+                    //val isAllowedDate = today.year == serverYear && today.monthValue == serverMonth && today.dayOfMonth in 1..4
+                    /*when {
                         isMascot || isAlgo -> {
                             viewmodel.insertPjcEvent(request)
                         }
@@ -273,15 +274,10 @@ class PjcInsertPlanFragment : BaseFragment() {
                             viewmodel.insertPjcEvent(request)
                         }
 
-                        isAllowedDate -> {
-                            viewmodel.insertPjcEvent(request)
-                        }
-
                         else -> {
                             viewmodel.insertPjcEvent(request)
-                            showToast("Not Fill PJC After Current Month 1 To 4 Date")
                         }
-                    }
+                    }*/
                 }
             }
         }

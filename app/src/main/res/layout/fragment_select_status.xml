@@ -42,68 +42,6 @@
         app:layout_constraintStart_toStartOf="@id/editTextStatus"
         app:layout_constraintTop_toBottomOf="@id/editTextStatus" />
 
-    <!--===================================================-->
-    <!--===== THis Card View For Unnati Only=========-->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewCheckInDetailsUnnati"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        app:cardCornerRadius="12dp"
-        android:visibility="gone"
-        android:layout_marginHorizontal="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextRemark"
-        app:cardElevation="4dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!-- Total Target -->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txtViewTotalTarget"
-                style="@style/kumbh.regular.black.14"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="15dp"
-                tools:text="Total Target : 50000"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!-- Achievement -->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txtViewAchievement"
-                style="@style/kumbh.regular.black.14"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                tools:text="Achievement : 25000"
-                app:layout_constraintEnd_toEndOf="@id/txtViewTotalTarget"
-                app:layout_constraintStart_toStartOf="@id/txtViewTotalTarget"
-                app:layout_constraintTop_toBottomOf="@id/txtViewTotalTarget" />
-
-            <!-- Outstanding -->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txtViewOutstanding"
-                style="@style/kumbh.regular.black.14"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="15dp"
-                tools:text="Outstanding : 10000"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/txtViewAchievement"
-                app:layout_constraintStart_toStartOf="@id/txtViewAchievement"
-                app:layout_constraintTop_toBottomOf="@id/txtViewAchievement" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSubmit"
@@ -117,7 +55,7 @@
         app:layout_constraintVertical_bias="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardViewCheckInDetailsUnnati"
+        app:layout_constraintTop_toBottomOf="@id/editTextRemark"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar

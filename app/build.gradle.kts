@@ -69,8 +69,8 @@ android {
             dimension = "app"
             applicationId = "com.i.unatti.attendanceapp.pro"
 
-            versionCode = 1
-            versionName = "1.0"
+            versionCode = 2
+            versionName = "1.0.1"
 
             resValue("string", "app_name", "Unnati iHR Pro")
             buildConfigField("String", "BASE_PATH", "\"Unnati/DeltaAttendanceAPI/\"")
@@ -138,10 +138,10 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.androidx.constraintlayout)
-    implementation("androidx.work:work-runtime-ktx:2.9.0")
+    implementation("androidx.work:work-runtime-ktx:2.11.2")
 
-    implementation("androidx.fragment:fragment-ktx:1.6.2")
-    implementation("androidx.activity:activity-ktx:1.8.2")
+    implementation("androidx.fragment:fragment-ktx:1.8.9")
+    implementation("androidx.activity:activity-ktx:1.13.0")
 
     // For hilt Implementation
     implementation ("com.google.dagger:hilt-android:2.57.2")
@@ -157,7 +157,7 @@ dependencies {
         exclude(group = "com.android.support", module = "support-v4")
     }
     //Security Crypto for Encryption Decryption
-    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation("androidx.security:security-crypto:1.1.0")
     // Location
     implementation("com.google.android.gms:play-services-location:21.0.1")
     // WorkManager

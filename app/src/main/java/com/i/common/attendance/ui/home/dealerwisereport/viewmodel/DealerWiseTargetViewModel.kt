@@ -9,7 +9,10 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.i.common.attendance.network.request.DealerDetailsAccountRequest
+import com.i.common.attendance.network.request.DealerWiseTargetItemRequest
 import com.i.common.attendance.network.request.GetMonthForTargetRequest
+import com.i.common.attendance.network.request.SubmitDealerWiseTargetData
+import com.i.common.attendance.network.request.SubmitDealerWiseTargetRequest
 import com.i.common.attendance.network.response.DealerDetailsAccount
 import com.i.common.attendance.network.response.DealerWiseTarget
 import com.i.common.attendance.network.response.MonthList
@@ -113,15 +116,13 @@ class DealerWiseTargetViewModel @Inject constructor(private val repository: Deal
                 when (body.status) {
 
                     "200" -> {
-                        val list = body.result.filterNotNull()
+                        val list: List<MonthList> = Gson().fromJson(body.result?.toString(), object : TypeToken<List<MonthList>>() {}.type) ?: emptyList()
 
                         if (list.isEmpty()) {
-                            _monthListState.value =
-                                MonthUiState.ApiError(body.message ?: "No months found")
+                            _monthListState.value = MonthUiState.ApiError(body.message ?: "No Record Found")
                             return@launch
                         }
 
-                        // ✅ Cache result
                         cachedMonthList = list
                         _monthListState.value = MonthUiState.Success(list)
                     }
@@ -198,6 +199,72 @@ class DealerWiseTargetViewModel @Inject constructor(private val repository: Deal
             } catch (e: Exception) {
                 FirebaseCrashlytics.getInstance().recordException(e)
                 _dealerWiseTargetState.value = DealerWiseTargetUiState.ApiError("Something went wrong")
+            }
+        }
+    }
+    /*==========================================================================================*/
+
+    private val _submitTargetState = MutableLiveData<SubmitDealerWiseTargetUiState>(SubmitDealerWiseTargetUiState.Idle)
+    val submitTargetState: LiveData<SubmitDealerWiseTargetUiState> = _submitTargetState
+
+    fun submitDealerWiseTarget(userId: String, dealerId: String, month: String, items: List<DealerWiseTarget>) {
+        _submitTargetState.value = SubmitDealerWiseTargetUiState.Loading
+        viewModelScope.launch {
+            try {
+                val grandTotal = items.sumOf { (it.AvgRate?.toDoubleOrNull() ?: 0.0) * it.qty }
+
+                val itemList = mutableListOf<DealerWiseTargetItemRequest>()
+                // First entry: Sum
+                itemList.add(DealerWiseTargetItemRequest(Sum = String.format("%.2f", grandTotal)))
+
+                // Item entries
+                items.forEach { item ->
+                    val total = (item.AvgRate?.toDoubleOrNull() ?: 0.0) * item.qty
+                    itemList.add(
+                        DealerWiseTargetItemRequest(
+                            Type = item.Text,
+                            AvgRate = item.AvgRate,
+                            Qty = item.qty.toString(),
+                            Total = String.format("%.2f", total)
+                        )
+                    )
+                }
+
+                val request = SubmitDealerWiseTargetRequest(
+                    userId = userId,
+                    data = SubmitDealerWiseTargetData(
+                        dealerId = dealerId,
+                        months = mapOf(month to itemList)
+                    )
+                )
+
+                val response = repository.submitDealerWiseTarget(request)
+
+                if (!response.isSuccessful) {
+                    _submitTargetState.value = SubmitDealerWiseTargetUiState.ApiError("Server error : ${response.code()}")
+                    return@launch
+                }
+
+                val body = response.body()
+                if (body == null) {
+                    _submitTargetState.value = SubmitDealerWiseTargetUiState.ApiError("Empty server response")
+                    return@launch
+                }
+
+                when (body.status) {
+                    "200" -> {
+                        _submitTargetState.value = SubmitDealerWiseTargetUiState.Success(body.message ?: "Data submitted successfully")
+                    }
+                    else -> {
+                        _submitTargetState.value = SubmitDealerWiseTargetUiState.ApiError(body.message ?: "Something went wrong")
+                    }
+                }
+
+            } catch (e: IOException) {
+                _submitTargetState.value = SubmitDealerWiseTargetUiState.NetworkError("Please check your internet connection")
+            } catch (e: Exception) {
+                FirebaseCrashlytics.getInstance().recordException(e)
+                _submitTargetState.value = SubmitDealerWiseTargetUiState.ApiError("Something went wrong")
             }
         }
     }

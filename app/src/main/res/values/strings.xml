@@ -297,7 +297,9 @@
     <string name="hint_month">Month</string>
     <string name="toolbar_title_attendance_report">Attendance Report</string>
     <string name="toolbar_title_dealer_wise_target_entry">Dealer Wise Target Entry</string>
+    <string name="toolbar_title_new_dealer_wise_target_entry">New Dealer Wise Target Entry</string>
     <string name="toolbar_title_dealer_wise_report_entry">Dealer Wise Report Entry</string>
+    <string name="toolbar_title_new_dealer_wise_report_entry">New Dealer Wise Report Entry</string>
     <string name="toolbar_title_week_off_day">Week Off Day</string>
     <string name="toolbar_title_week_off_list">Week Off List</string>
     <string name="toolbar_title_car_air_approval">Car / AIR Approval</string>

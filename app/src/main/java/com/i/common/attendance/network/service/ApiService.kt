@@ -380,5 +380,8 @@ interface ApiService {
     @POST(URLFactory.Url.API_DEALER_WISE_TARGET_TYPE)
     suspend fun dealerWiseTargetType(): Response<DealerWiseTargetResponse>
 
+    @POST(URLFactory.Url.API_SUBMIT_DEALER_WISE_TARGET)
+    suspend fun submitDealerWiseTarget(@Body request: MultipartBody): Response<FileUploadResponse>
+
 
 }
