@@ -436,7 +436,7 @@ class DealerCheckInUnnatiFragment : BaseFragment() {
                 is DealerCheckInState.Success      -> {
                     hideLoader()
                     showToast(state.response.message)
-                    parentFragmentManager.popBackStackImmediate()
+                    parentFragmentManager.popBackStack()
                 }
             }
         }

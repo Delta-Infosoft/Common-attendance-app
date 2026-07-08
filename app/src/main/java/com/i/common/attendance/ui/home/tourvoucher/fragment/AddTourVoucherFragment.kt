@@ -767,7 +767,7 @@ class AddTourVoucherFragment: BaseFragment() {
                     manageButtonVisibility(false)
                     hideLoader()
                     showToast(state.message)
-                    parentFragmentManager.popBackStackImmediate()
+                    parentFragmentManager.popBackStack()
                 }
 
                 is SaveTourVoucherUiState.ApiError -> {
@@ -800,7 +800,7 @@ class AddTourVoucherFragment: BaseFragment() {
                     manageButtonVisibility(false)
                     hideLoader()
                     showToast(state.message)
-                    parentFragmentManager.popBackStackImmediate()
+                    parentFragmentManager.popBackStack()
                 }
 
                 is SaveTourVoucherUiEditState.ApiError -> {
