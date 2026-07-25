@@ -177,11 +177,19 @@ class PjcInsertPlanFragment : BaseFragment() {
         }
 
         txtDate.setSafeOnClickListener {
-            if(BuildConfig.FLAVOR == "duke" || BuildConfig.FLAVOR == "mascot"){
+        /*    if(BuildConfig.FLAVOR == "duke" || BuildConfig.FLAVOR == "mascot"){
                 openDatePicker()
-            }else{
+            } else if(BuildConfig.FLAVOR == "unnati"){
+                openDatePickerHalfMonth()
+            } else{
                 openDatePickerCurrentMonth()
+            }*/
+            when (BuildConfig.FLAVOR) {
+                "duke", "mascot" -> openDatePicker()
+                "unnati" -> openDatePickerHalfMonth()
+                else -> openDatePickerCurrentMonth()
             }
+
         }
 
        /* btnSubmit.setOnClickListener {
@@ -509,6 +517,81 @@ class PjcInsertPlanFragment : BaseFragment() {
             FirebaseCrashlytics.getInstance().recordException(e)
         }
     }
+    private fun openDatePickerHalfMonth() {
+
+        try {
+
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val today = calendar.get(Calendar.DAY_OF_MONTH)
+            val lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+
+            // 🔹 Decide the range based on which half of the month "today" falls in
+            val startDay: Int
+            val endDay: Int
+
+            if (today in 1..15) {
+                startDay = 1
+                endDay = 15
+            } else {
+                startDay = 16
+                endDay = lastDayOfMonth
+            }
+
+            Log.e("HalfMonth", "today: $today, range: $startDay - $endDay")
+
+            // 🔹 Min date
+            val startCalendar = Calendar.getInstance().apply {
+                set(year, month, startDay, 0, 0, 0)
+                set(Calendar.MILLISECOND, 0)
+            }
+
+            // 🔹 Max date
+            val endCalendar = Calendar.getInstance().apply {
+                set(year, month, endDay, 23, 59, 59)
+                set(Calendar.MILLISECOND, 999)
+            }
+
+            val startMillis = startCalendar.timeInMillis
+            val endMillis = endCalendar.timeInMillis
+
+            val constraints = CalendarConstraints.Builder()
+                .setStart(startMillis)
+                .setEnd(endMillis)
+                .setOpenAt(startMillis) // open at start of the allowed half
+                .setValidator(object : CalendarConstraints.DateValidator {
+                    override fun isValid(date: Long): Boolean {
+                        return date in startMillis..endMillis
+                    }
+                    override fun describeContents() = 0
+                    override fun writeToParcel(dest: android.os.Parcel, flags: Int) {}
+                })
+                .build()
+
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select Date")
+                .setSelection(startMillis)
+                .setCalendarConstraints(constraints)
+                .build()
+
+            datePicker.show(childFragmentManager, "DATE_PICKER")
+
+            datePicker.addOnPositiveButtonClickListener { selection ->
+
+                val selectedDate = SimpleDateFormat(
+                    "dd-MMM-yyyy",
+                    Locale.getDefault()
+                ).format(Date(selection))
+
+                binding.txtDate.setText(selectedDate)
+            }
+
+        } catch (e: Exception) {
+            FirebaseCrashlytics.getInstance().recordException(e)
+        }
+    }
+
     private fun openDatePicker() {
 
         val today = MaterialDatePicker.todayInUtcMilliseconds()

@@ -69,8 +69,8 @@ android {
             dimension = "app"
             applicationId = "com.i.unatti.attendanceapp.pro"
 
-            versionCode = 2
-            versionName = "1.0.1"
+            versionCode = 5
+            versionName = "1.0.4"
 
             resValue("string", "app_name", "Unnati iHR Pro")
             buildConfigField("String", "BASE_PATH", "\"Unnati/DeltaAttendanceAPI/\"")

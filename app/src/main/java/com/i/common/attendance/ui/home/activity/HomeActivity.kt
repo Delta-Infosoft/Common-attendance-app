@@ -32,6 +32,7 @@ import com.i.common.attendance.R
 import com.i.common.attendance.base.BaseActivity
 import com.i.common.attendance.databinding.ActivityHomeBinding
 import com.i.common.attendance.drawer.DrawerMenuAdapter
+import com.i.common.attendance.network.request.PjcDateRequest
 import com.i.common.attendance.ui.authentication.activity.AuthenticationActivity
 import com.i.common.attendance.ui.home.attendancereport.fragment.AttendanceReportFragment
 import com.i.common.attendance.ui.home.carairapproval.fragment.CarAirApprovalFragment
@@ -62,6 +63,7 @@ import com.i.common.attendance.ui.home.touragendatracking.fragment.WeekOffListDu
 import com.i.common.attendance.ui.home.tourvoucher.fragment.TourVoucherListFragment
 import com.i.common.attendance.ui.home.tourvoucherapproval.fragment.TourVoucherApprovalListFragment
 import com.i.common.attendance.ui.home.viewmodel.HomeViewModel
+import com.i.common.attendance.ui.home.viewmodel.LeaveCounterUiState
 import com.i.common.attendance.ui.home.webview.activity.WebViewActivity
 import com.i.common.attendance.ui.home.webview.activity.WebViewActivity.Companion.WEB_VIEW_TITLE
 import com.i.common.attendance.ui.home.webview.activity.WebViewActivity.Companion.WEB_VIEW_URL
@@ -69,6 +71,7 @@ import com.i.common.attendance.utils.Constants
 import com.i.common.attendance.utils.Constants.setSafeOnClickListener
 import com.i.common.attendance.utils.Constants.showConfirmDialog
 import com.i.common.attendance.utils.EncryptedPrefHelper
+import com.i.common.attendance.utils.PrefKeys
 import com.i.delta.attendanceappv2.ui.home.viewmodel.LogoutState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -129,6 +132,10 @@ class HomeActivity : BaseActivity() {
         observeLogOutApiData()
         showAutoStartDialogIfNeeded()
         observeFactData()
+        if(BuildConfig.FLAVOR == "unnati") {
+            getLeaveCount()
+            observeLeaveCounterState()
+        }
     }
 
     // ─── Drawer setup ─────────────────────────────────────────────────────────
@@ -439,6 +446,7 @@ class HomeActivity : BaseActivity() {
                     hideLoader()
                     sharedPref.clear()
                     homeViewModel.clearLocalData()
+                    sharedPref.putBoolean(PrefKeys.IS_TUTORIAL_COMPLETED, true)
                     val intent = Intent(this, AuthenticationActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
@@ -612,6 +620,46 @@ class HomeActivity : BaseActivity() {
                 }
 
                 else -> Unit
+            }
+        }
+    }
+
+    private fun getLeaveCount() {
+        val request = PjcDateRequest(empId = sharedPref.getUser()?.MobileNo?:"")
+        sharedViewModel.loadLeaveCounter(request)
+    }
+
+    private fun observeLeaveCounterState() {
+        //Log.d("LEAVE_BADGE", "4️⃣ HomeActivity observer registered, sharedViewModel=${sharedViewModel.hashCode()}")
+
+        sharedViewModel.leaveCounterState.observe(this) { state ->
+
+            when (state) {
+
+                is LeaveCounterUiState.Idle -> Unit
+
+                is LeaveCounterUiState.Loading -> {
+                    showLoader()
+                }
+
+                is LeaveCounterUiState.Success -> {
+                    //Log.d("Leave Counter Unnati", "Leave Count: ${state.list.firstOrNull()?.LeaveCount}")
+                    hideLoader()
+                    val pendingCount = state.list.firstOrNull()?.LeaveCount?.toString()?.toIntOrNull() ?: 0
+                    //Log.d("LEAVE_BADGE", "5️⃣ Activity observer received count=$pendingCount")
+
+                    drawerMenuAdapter.updateBadgeCount(DrawerMenuConfig.MenuItem.LEAVE_APPROVAL, pendingCount)
+                }
+
+                is LeaveCounterUiState.ApiError -> {
+                    hideLoader()
+                    showToast(state.message)
+                }
+
+                is LeaveCounterUiState.NetworkError -> {
+                    hideLoader()
+                    showToast(state.message)
+                }
             }
         }
     }

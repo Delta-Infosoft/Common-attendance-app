@@ -1,6 +1,7 @@
 package com.i.common.attendance.ui.home.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,8 +14,10 @@ import com.i.common.attendance.network.request.DeviceTrackingRequest
 import com.i.common.attendance.network.request.GetAttendanceInOutRequest
 import com.i.common.attendance.network.request.GetRecordsRequest
 import com.i.common.attendance.network.request.LogoutRequest
+import com.i.common.attendance.network.request.PjcDateRequest
 import com.i.common.attendance.network.request.TextListRequest
 import com.i.common.attendance.network.response.AttendanceRecord
+import com.i.common.attendance.network.response.LeaveCounter
 import com.i.common.attendance.network.response.Records
 import com.i.common.attendance.utils.Constants
 import com.i.common.attendance.utils.EncryptedPrefHelper
@@ -399,6 +402,84 @@ class HomeViewModel @Inject constructor(
 
             } catch (e: Exception) {
                 _logoutState.value = LogoutState.Error("Something went wrong")
+            }
+        }
+    }
+
+
+    // =========================================================================================
+    // ========================== Leave counter Unnati =============================================
+    private val _leaveCounterState = MutableLiveData<LeaveCounterUiState>(LeaveCounterUiState.Idle)
+    val leaveCounterState: LiveData<LeaveCounterUiState> = _leaveCounterState
+
+    private var cachedLeaveCounter: List<LeaveCounter> = emptyList()
+    fun getCachedLeaveCounter(): List<LeaveCounter> = cachedLeaveCounter
+
+    fun loadLeaveCounter(request: PjcDateRequest) {
+        //Log.d("LEAVE_BADGE", "2️⃣ ViewModel.loadLeaveCounter() invoked, empId=${request.empId}")
+
+        _leaveCounterState.value = LeaveCounterUiState.Loading
+        viewModelScope.launch {
+
+            try {
+
+                val response = repository.getLeaveCount(request)
+
+                if (!response.isSuccessful) {
+                    _leaveCounterState.value = LeaveCounterUiState.ApiError("Server error : ${response.code()}")
+                    _leaveCounterState.value = LeaveCounterUiState.Idle
+                    return@launch
+                }
+
+                val body = response.body()
+
+                if (body == null) {
+                    _leaveCounterState.value = LeaveCounterUiState.ApiError("Empty server response")
+                    _leaveCounterState.value = LeaveCounterUiState.Idle
+                    return@launch
+                }
+
+                when (body.status) {
+                    "200" -> {
+                        val list: List<LeaveCounter> = try {
+                            if (body.result != null && body.result!!.isJsonArray && body.result!!.asJsonArray.size() > 0) {
+                                Gson().fromJson(
+                                    body.result!!.asJsonArray,
+                                    object : TypeToken<List<LeaveCounter>>() {}.type
+                                ) ?: emptyList()
+                            } else {
+                                emptyList()
+                            }
+                        } catch (e: Exception) {
+                            emptyList()
+                        }
+
+                        cachedLeaveCounter = list
+                        _leaveCounterState.value = LeaveCounterUiState.Success(list)
+                        //Log.d("LEAVE_BADGE", "3️⃣ ViewModel posting Success, count=${list.firstOrNull()?.LeaveCount}")
+                        _leaveCounterState.value = LeaveCounterUiState.Idle
+                    }
+
+                    "209" -> {
+                        cachedLeaveCounter = emptyList()
+                        _leaveCounterState.value = LeaveCounterUiState.ApiError(body.message ?: "No Record Found")
+                        _leaveCounterState.value = LeaveCounterUiState.Idle
+                    }
+
+                    else -> {
+                        _leaveCounterState.value = LeaveCounterUiState.ApiError(body.message ?: "Something went wrong")
+                        _leaveCounterState.value = LeaveCounterUiState.Idle
+                    }
+                }
+
+            } catch (e: IOException) {
+                _leaveCounterState.value = LeaveCounterUiState.NetworkError("Please check your internet connection")
+                _leaveCounterState.value = LeaveCounterUiState.Idle
+
+            } catch (e: Exception) {
+                FirebaseCrashlytics.getInstance().recordException(e)
+                _leaveCounterState.value = LeaveCounterUiState.ApiError(e.message ?: "Something went wrong")
+                _leaveCounterState.value = LeaveCounterUiState.Idle
             }
         }
     }

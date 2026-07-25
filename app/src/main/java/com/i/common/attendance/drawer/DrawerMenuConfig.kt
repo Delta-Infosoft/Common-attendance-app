@@ -195,6 +195,7 @@ object DrawerMenuConfig {
         MenuItem.PJC_CALENDAR,
         MenuItem.DAILY_TOUR,
         MenuItem.TOUR_VOUCHER,
+        MenuItem.DEALER_CHECK_IN,
         MenuItem.TOUR_ADVANCE_EXPENSE,
         MenuItem.NEW_CUSTOMER_DEALER,
         MenuItem.MY_PORTFOLIO,

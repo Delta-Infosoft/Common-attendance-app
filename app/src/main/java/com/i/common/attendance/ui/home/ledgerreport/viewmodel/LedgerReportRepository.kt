@@ -1,8 +1,12 @@
 package com.i.common.attendance.ui.home.ledgerreport.viewmodel
 
 import com.i.common.attendance.network.request.GetCustomerRequest
+import com.i.common.attendance.network.request.GetDistrictRequest
+import com.i.common.attendance.network.request.GetDivisionRequest
 import com.i.common.attendance.network.request.GetLedgerPdfRequest
 import com.i.common.attendance.network.response.GetCustomerResponse
+import com.i.common.attendance.network.response.GetDistrictRespose
+import com.i.common.attendance.network.response.GetDivisionRespose
 import com.i.common.attendance.network.response.GetLedgerPdfResponse
 import com.i.common.attendance.network.response.LedgerPdfDataShowResponse
 import com.i.common.attendance.network.service.ApiService
@@ -22,4 +26,13 @@ class LedgerReportRepository @Inject constructor(@Named("FLAVOR_API") private va
     suspend fun ledgerReportShowPdf(request: GetLedgerPdfRequest): Response<LedgerPdfDataShowResponse> {
         return apiService.ledgerReportShowPdf(request.toMultipartBody())
     }
+
+    suspend fun ledgerDistrictList(request: GetDistrictRequest): Response<GetDistrictRespose> {
+        return apiService.getDistrictList(request.toMultipartBody())
+    }
+
+    suspend fun ledgerDivisionList(request: GetDivisionRequest): Response<GetDivisionRespose> {
+        return apiService.getDivisionList(request.toMultipartBody())
+    }
+
 }

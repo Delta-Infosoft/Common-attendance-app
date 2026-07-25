@@ -11,7 +11,7 @@ object URLFactory {
 
         const val BASE_URL_UNNATI_LOCAL_HOST = "http://localhost:13605/"
 
-        const val BASE_URL_MASCOT_DELTA_ACCOUNT: String = "https://mascot.nishainfotech.com:90/DeltaiAccount/API/" //Live
+        const val BASE_URL_MASCOT_DELTA_ACCOUNT: String = "http://mascot.nishainfotech.com:90/DeltaiAccount/API/" //Live
         const val BASE_URL_FLOTECH_DELTA_ACCOUNT: String = "http://flotech.deltaierp.com:91//DeltaiAccount/API/"  //Live
 
 
@@ -186,6 +186,10 @@ object URLFactory {
         const val API_GET_MONTH_FOR_TARGET: String = "API_GetMonthForTarget.aspx"
         const val API_DEALER_WISE_TARGET_TYPE: String = "API_DealerWiseTargetTypes.aspx"
         const val API_SUBMIT_DEALER_WISE_TARGET= "API_InsertDealerWiseTarget.aspx"
+
+        const val API_GET_DISTRICT: String = "API_GetDistricts.aspx"
+        const val API_GET_DIVISION: String = "API_GetDivisions.aspx"
+        const val API_LEAVE_COUNTER: String = "API_LeaveCouter.aspx"
 
 
     }

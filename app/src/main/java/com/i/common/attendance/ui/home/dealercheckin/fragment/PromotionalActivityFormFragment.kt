@@ -429,7 +429,7 @@ class PromotionalActivityFormFragment : BaseFragment() {
                 is PromotionalActivityUiState.Success -> {
                     hideLoader()
                     showToast(state.response.message)
-                    parentFragmentManager.popBackStackImmediate()
+                    parentFragmentManager.popBackStack()
                 }
 
                 is PromotionalActivityUiState.ApiError -> {

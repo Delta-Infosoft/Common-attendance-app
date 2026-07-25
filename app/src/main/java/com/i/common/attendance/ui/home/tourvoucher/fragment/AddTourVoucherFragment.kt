@@ -160,6 +160,7 @@ class AddTourVoucherFragment: BaseFragment() {
         manageToolBar()
         manageOnClickListeners()
         initApiCall()
+        setupExpenseWatchers()
 
         observeTravelByData()
         observeSaveTourVoucherData()
@@ -233,14 +234,14 @@ class AddTourVoucherFragment: BaseFragment() {
         }
 
         txtFromDate.setSafeOnClickListener {
-            if(BuildConfig.FLAVOR == "mascot"){
+            if(BuildConfig.FLAVOR == "mascot" || BuildConfig.FLAVOR=="unnati"){
                 openDatePicker(true)
             }else{
                 openDatePicker(true,noOfDays)
             }
         }
         txtToDate.setSafeOnClickListener {
-            if(BuildConfig.FLAVOR == "mascot"){
+            if(BuildConfig.FLAVOR == "mascot" || BuildConfig.FLAVOR=="unnati"){
                 openDatePicker(false)
             }else{
                 openDatePicker(false,noOfDays)
@@ -912,6 +913,23 @@ class AddTourVoucherFragment: BaseFragment() {
         txtViewTotalExpense.text = getString(R.string.place_holder_total_expense,total.toInt().toString())
         return total.toInt().toString()
     }
+
+    private fun setupExpenseWatchers() = with(binding) {
+        val watcher = object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                calculateTotalExpense()
+            }
+            override fun afterTextChanged(s: android.text.Editable?) {}
+        }
+
+        txtFareAmount.addTextChangedListener(watcher)
+        txtAutoCharges.addTextChangedListener(watcher)
+        txtLodging.addTextChangedListener(watcher)
+        txtDailyAllowance.addTextChangedListener(watcher)
+        txtOtherExpense.addTextChangedListener(watcher)
+    }
+
 
     private fun validateFormWithToast(): Boolean = with(binding)  {
 

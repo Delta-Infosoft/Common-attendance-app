@@ -21,6 +21,7 @@ import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +34,8 @@ import com.i.common.attendance.BuildConfig
 import com.i.common.attendance.R
 import com.i.common.attendance.base.BaseFragment
 import com.i.common.attendance.databinding.FragmentHomeBinding
+import com.i.common.attendance.network.request.PjcDateRequest
+import com.i.common.attendance.ui.home.activity.DrawerMenuConfig
 import com.i.common.attendance.ui.home.activity.HomeActivity
 import com.i.common.attendance.ui.home.adapter.LastFiveDayRecordsAdapter
 import com.i.common.attendance.ui.home.dealercheckin.viewmodel.PromotionalActivityViewModel
@@ -61,6 +64,8 @@ class HomeFragment : BaseFragment() {
     private val viewModel: HomeViewModel by viewModels()
     private val calViewmodel: CalendarViewModel by viewModels()
     private val targetOutStandingViewModel: PromotionalActivityViewModel by viewModels()
+    // NEW: same HomeViewModel instance that HomeActivity uses — for leave counter refresh only
+    private val sharedViewModel: HomeViewModel by activityViewModels()
 
     @Inject lateinit var sharedPref: EncryptedPrefHelper
     @Inject lateinit var fusedClient: FusedLocationProviderClient
@@ -402,6 +407,15 @@ class HomeFragment : BaseFragment() {
         observePjcEventApi()
         manageCheckInDetailsInfoForUnnati()
         observeTargetOutstanding()
+        if(BuildConfig.FLAVOR=="unnati"){
+            refreshLeaveCounter()
+        }
+    }
+
+    private fun refreshLeaveCounter() {
+        //Log.d("LEAVE_BADGE", "1️⃣ HomeFragment.refreshLeaveCounter() called, empId=${sharedPref.getUser()?.MobileNo ?: ""}, sharedViewModel=${sharedViewModel.hashCode()}")
+        val request = PjcDateRequest(empId = sharedPref.getUser()?.MobileNo ?: "")
+        sharedViewModel.loadLeaveCounter(request)
     }
 
     fun getLocationPermissionStatus(context: Context): String {

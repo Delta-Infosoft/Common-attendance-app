@@ -218,38 +218,45 @@ class PromotionalActivityViewModel @Inject constructor(private val repository: P
                     repository.insertDealerCheckIn(request = request, context = context)
                 if (!response.isSuccessful) {
                     _dealerCheckInState.value = DealerCheckInState.ApiError("Server error : ${response.code()}")
+                    _dealerCheckInState.value = DealerCheckInState.Idle
                     return@launch
                 }
 
                 val body = response.body()
                 if (body == null) {
                     _dealerCheckInState.value = DealerCheckInState.ApiError("Empty server response")
+                    _dealerCheckInState.value = DealerCheckInState.Idle
                     return@launch
                 }
 
                 when (body.status) {
                     "200" -> {
                         _dealerCheckInState.value = DealerCheckInState.Success(body)
+                        _dealerCheckInState.value = DealerCheckInState.Idle
                     }
 
                     "209" -> {
                         _dealerCheckInState.value =
                             DealerCheckInState.ApiError(body.message.ifEmpty { "No record found" })
+                        _dealerCheckInState.value = DealerCheckInState.Idle
                     }
 
                     else -> {
                         _dealerCheckInState.value =
                             DealerCheckInState.ApiError(body.message.ifEmpty { "Something went wrong" })
+                        _dealerCheckInState.value = DealerCheckInState.Idle
                     }
                 }
 
             } catch (e: IOException) {
                 _dealerCheckInState.value = DealerCheckInState.NetworkError("Something went wrong")
+                _dealerCheckInState.value = DealerCheckInState.Idle
 
             } catch (e: Exception) {
                 FirebaseCrashlytics.getInstance().recordException(e)
                 _dealerCheckInState.value =
                     DealerCheckInState.ApiError(e.message ?: "Something went wrong")
+                _dealerCheckInState.value = DealerCheckInState.Idle
             }
         }
     }
@@ -269,12 +276,14 @@ class PromotionalActivityViewModel @Inject constructor(private val repository: P
                 val response = repository.checkDealerInOutStatus(request)
                 if (!response.isSuccessful) {
                     _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.ApiError("Server error : ${response.code()}")
+                    _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.Idle
                     return@launch
                 }
 
                 val body = response.body()
                 if (body == null) {
                     _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.ApiError("Empty server response")
+                    _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.Idle
                     return@launch
                 }
 
@@ -294,27 +303,33 @@ class PromotionalActivityViewModel @Inject constructor(private val repository: P
                             } else {
                                 _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.ApiError("No record found")
                             }
+                            _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.Idle
 
                         } catch (e: Exception) {
                             _checkDealerInOutStatusState.value =
                                 CheckDealerInOutStatusState.ApiError("Data parsing error")
+                            _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.Idle
                         }
                     }
 
                     "209" -> {
                         _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.ApiError(body.message ?: "No record found")
+                        _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.Idle
                     }
 
                     else -> {
                         _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.ApiError(body.message ?: "Something went wrong")
+                        _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.Idle
                     }
                 }
 
             } catch (e: IOException) {
                 _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.NetworkError(e.message ?: "Something went wrong")
+                _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.Idle
             } catch (e: Exception) {
                 FirebaseCrashlytics.getInstance().recordException(e)
                 _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.ApiError(e.message ?: "Something went wrong")
+                _checkDealerInOutStatusState.value = CheckDealerInOutStatusState.Idle
             }
         }
     }

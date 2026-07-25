@@ -23,6 +23,8 @@ import com.i.common.attendance.network.response.GetCarAirApprovalListResponse
 import com.i.common.attendance.network.response.GetCitiesResponse
 import com.i.common.attendance.network.response.GetCustomerResponse
 import com.i.common.attendance.network.response.GetDistrictPjcResponse
+import com.i.common.attendance.network.response.GetDistrictRespose
+import com.i.common.attendance.network.response.GetDivisionRespose
 import com.i.common.attendance.network.response.GetInOutDetailsResponse
 import com.i.common.attendance.network.response.GetLedgerPdfResponse
 import com.i.common.attendance.network.response.GetRatePerKMApiResponse
@@ -32,6 +34,7 @@ import com.i.common.attendance.network.response.GetTeamAttendanceResponse
 import com.i.common.attendance.network.response.GetUserRightsResponse
 import com.i.common.attendance.network.response.HolidayWeekOffResponse
 import com.i.common.attendance.network.response.InsertPjcEventResponse
+import com.i.common.attendance.network.response.LeaveCounterResponse
 import com.i.common.attendance.network.response.LedgerPdfDataShowResponse
 import com.i.common.attendance.network.response.LoadDropDownListResponse
 import com.i.common.attendance.network.response.LocationTrackingResponse
@@ -383,5 +386,12 @@ interface ApiService {
     @POST(URLFactory.Url.API_SUBMIT_DEALER_WISE_TARGET)
     suspend fun submitDealerWiseTarget(@Body request: MultipartBody): Response<FileUploadResponse>
 
+    @POST(URLFactory.Url.API_GET_DISTRICT)
+    suspend fun getDistrictList(@Body request: MultipartBody): Response<GetDistrictRespose>
+    @POST(URLFactory.Url.API_GET_DIVISION)
+    suspend fun getDivisionList(@Body request: MultipartBody): Response<GetDivisionRespose>
+
+    @POST(URLFactory.Url.API_LEAVE_COUNTER)
+    suspend fun getLeaveCount(@Body request: MultipartBody): Response<LeaveCounterResponse>
 
 }

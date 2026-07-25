@@ -267,8 +267,8 @@
                     android:hint="@string/hint_mobile_no"
                     android:imeOptions="actionDone"
                     android:inputType="number"
-                    android:maxLength="10"
-                    tools:text="Car" />
+                    android:maxLength="14"
+                    tools:text="+91 8140909930" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

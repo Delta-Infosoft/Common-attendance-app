@@ -8,8 +8,12 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.i.common.attendance.network.request.GetCustomerRequest
+import com.i.common.attendance.network.request.GetDistrictRequest
+import com.i.common.attendance.network.request.GetDivisionRequest
 import com.i.common.attendance.network.request.GetLedgerPdfRequest
 import com.i.common.attendance.network.response.CustomerData
+import com.i.common.attendance.network.response.GetDistrict
+import com.i.common.attendance.network.response.GetDivision
 import com.i.common.attendance.network.response.LedgerPdfData
 import com.i.common.attendance.network.response.LedgerPdfDataShow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -227,6 +231,205 @@ class LedgerReportViewModel @Inject constructor(
         return convertString?.replace("u0027", "'")?.replace("u0026", "&")?.replace("u005B", "[")
             ?.replace("u005D", "]")
             ?: ""
+    }
+
+    /*=========================================================================================*/
+    /*============================ Ledger Report Get District ======================================*/
+    private val _districtState = MutableLiveData<DistrictUiState>(DistrictUiState.Idle)
+    val districtState: LiveData<DistrictUiState> = _districtState
+
+    private var cachedDistrictList: List<GetDistrict> = emptyList()
+    fun getCachedDistrictList(): List<GetDistrict> = cachedDistrictList
+    fun loadDistrictList(request: GetDistrictRequest) {
+
+        _districtState.value = DistrictUiState.Loading
+
+        viewModelScope.launch {
+
+            try {
+
+                val response = repository.ledgerDistrictList(request)
+
+                if (!response.isSuccessful) {
+                    _districtState.value =
+                        DistrictUiState.ApiError("Server error : ${response.code()}")
+                    return@launch
+                }
+
+                val body = response.body()
+
+                if (body == null) {
+                    _districtState.value =
+                        DistrictUiState.ApiError("Empty server response")
+                    return@launch
+                }
+
+                when (body.status) {
+
+                    "200" -> {
+
+                        val list: List<GetDistrict> = try {
+
+                            if (body.result != null &&
+                                body.result!!.isJsonArray &&
+                                body.result!!.asJsonArray.size() > 0
+                            ) {
+
+                                Gson().fromJson(
+                                    body.result!!.asJsonArray,
+                                    object : TypeToken<List<GetDistrict>>() {}.type
+                                ) ?: emptyList()
+
+                            } else {
+                                emptyList()
+                            }
+
+                        } catch (e: Exception) {
+                            emptyList()
+                        }
+
+                        cachedDistrictList = list
+                        _districtState.value =
+                            DistrictUiState.Success(list)
+
+                    }
+
+                    "209" -> {
+
+                        cachedDistrictList = emptyList()
+
+                        _districtState.value =
+                            DistrictUiState.ApiError(
+                                body.message ?: "No Record Found"
+                            )
+                    }
+
+                    else -> {
+
+                        _districtState.value =
+                            DistrictUiState.ApiError(
+                                body.message ?: "Something went wrong"
+                            )
+                    }
+                }
+
+            } catch (e: IOException) {
+
+                _districtState.value =
+                    DistrictUiState.NetworkError(
+                        "Please check your internet connection"
+                    )
+
+            } catch (e: Exception) {
+
+                FirebaseCrashlytics.getInstance().recordException(e)
+
+                _districtState.value =
+                    DistrictUiState.ApiError(
+                        e.message ?: "Something went wrong"
+                    )
+            }
+        }
+    }
+
+    /*=========================================================================================*/
+    /*============================ Ledger Report Get Division ======================================*/
+    private val _divisionState = MutableLiveData<DivisionUiState>(DivisionUiState.Idle)
+    val divisionState: LiveData<DivisionUiState> = _divisionState
+
+    private var cachedDivisionList: List<GetDivision> = emptyList()
+
+    fun getCachedDivisionList(): List<GetDivision> = cachedDivisionList
+    fun loadDivisionList(request: GetDivisionRequest) {
+
+        _divisionState.value = DivisionUiState.Loading
+
+        viewModelScope.launch {
+
+            try {
+
+                val response = repository.ledgerDivisionList(request)
+
+                if (!response.isSuccessful) {
+                    _divisionState.value =
+                        DivisionUiState.ApiError("Server error : ${response.code()}")
+                    return@launch
+                }
+
+                val body = response.body()
+
+                if (body == null) {
+                    _divisionState.value =
+                        DivisionUiState.ApiError("Empty server response")
+                    return@launch
+                }
+
+                when (body.status) {
+
+                    "200" -> {
+
+                        val list: List<GetDivision> = try {
+
+                            if (body.result != null &&
+                                body.result!!.isJsonArray &&
+                                body.result!!.asJsonArray.size() > 0
+                            ) {
+
+                                Gson().fromJson(
+                                    body.result!!.asJsonArray,
+                                    object : TypeToken<List<GetDivision>>() {}.type
+                                ) ?: emptyList()
+
+                            } else {
+                                emptyList()
+                            }
+
+                        } catch (e: Exception) {
+                            emptyList()
+                        }
+
+                        cachedDivisionList = list
+                        _divisionState.value =
+                            DivisionUiState.Success(list)
+
+                    }
+
+                    "209" -> {
+
+                        cachedDivisionList = emptyList()
+
+                        _divisionState.value =
+                            DivisionUiState.ApiError(
+                                body.message ?: "No Record Found"
+                            )
+                    }
+
+                    else -> {
+
+                        _divisionState.value =
+                            DivisionUiState.ApiError(
+                                body.message ?: "Something went wrong"
+                            )
+                    }
+                }
+
+            } catch (e: IOException) {
+
+                _divisionState.value =
+                    DivisionUiState.NetworkError(
+                        "Please check your internet connection"
+                    )
+
+            } catch (e: Exception) {
+
+                FirebaseCrashlytics.getInstance().recordException(e)
+
+                _divisionState.value =
+                    DivisionUiState.ApiError(
+                        e.message ?: "Something went wrong"
+                    )
+            }
+        }
     }
 
 }

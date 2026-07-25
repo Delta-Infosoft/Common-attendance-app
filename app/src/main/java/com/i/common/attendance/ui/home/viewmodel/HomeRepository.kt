@@ -5,9 +5,11 @@ import com.i.common.attendance.network.request.DeviceTrackingRequest
 import com.i.common.attendance.network.request.GetAttendanceInOutRequest
 import com.i.common.attendance.network.request.GetRecordsRequest
 import com.i.common.attendance.network.request.LogoutRequest
+import com.i.common.attendance.network.request.PjcDateRequest
 import com.i.common.attendance.network.request.TextListRequest
 import com.i.common.attendance.network.response.AttendanceRecordResponse
 import com.i.common.attendance.network.response.GetRecords
+import com.i.common.attendance.network.response.LeaveCounterResponse
 import com.i.common.attendance.network.response.LocationTrackingResponse
 import com.i.common.attendance.network.response.LogoutResponse
 import com.i.common.attendance.network.response.Status
@@ -41,5 +43,10 @@ class HomeRepository @Inject constructor( @Named("DEFAULT")private val apiServic
     suspend fun logOutWithFCMIdAPI(request : LogoutRequest): Response<LogoutResponse> {
         return apiService.logOutWithFCMIdAPI(request.toMultipartBody())
     }
+
+    suspend fun getLeaveCount(request : PjcDateRequest): Response<LeaveCounterResponse> {
+        return apiService.getLeaveCount(request.toMultipartBody())
+    }
+
 
 }

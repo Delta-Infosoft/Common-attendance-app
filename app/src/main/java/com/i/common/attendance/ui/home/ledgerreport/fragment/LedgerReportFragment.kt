@@ -8,25 +8,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.i.common.attendance.BuildConfig
 import com.i.common.attendance.R
 import com.i.common.attendance.base.BaseFragment
 import com.i.common.attendance.databinding.LedgerReportFragmentBinding
 import com.i.common.attendance.network.request.GetCustomerRequest
+import com.i.common.attendance.network.request.GetDistrictRequest
+import com.i.common.attendance.network.request.GetDivisionRequest
 import com.i.common.attendance.network.request.GetLedgerPdfRequest
 import com.i.common.attendance.ui.home.activity.HomeActivity
+import com.i.common.attendance.ui.home.ledgerreport.adapter.LedgerReportAdapter
 import com.i.common.attendance.ui.home.ledgerreport.data.LedgerPdfGenerator
 import com.i.common.attendance.ui.home.ledgerreport.data.LedgerPdfParams
 import com.i.common.attendance.ui.home.ledgerreport.data.LedgerRowItem
 import com.i.common.attendance.ui.home.ledgerreport.data.PdfResult
 import com.i.common.attendance.ui.home.ledgerreport.viewmodel.CustomerUiState
+import com.i.common.attendance.ui.home.ledgerreport.viewmodel.DistrictUiState
+import com.i.common.attendance.ui.home.ledgerreport.viewmodel.DivisionUiState
 import com.i.common.attendance.ui.home.ledgerreport.viewmodel.LedgerPdfShowUiState
 import com.i.common.attendance.ui.home.ledgerreport.viewmodel.LedgerPdfUiState
 import com.i.common.attendance.ui.home.ledgerreport.viewmodel.LedgerReportViewModel
 import com.i.common.attendance.utils.Constants
+import com.i.common.attendance.utils.Constants.getTrimmedText
 import com.i.common.attendance.utils.Constants.setSafeOnClickListener
+import com.i.common.attendance.utils.EncryptedPrefHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,11 +44,6 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import androidx.core.view.isVisible
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.i.common.attendance.BuildConfig
-import com.i.common.attendance.ui.home.ledgerreport.adapter.LedgerReportAdapter
-import com.i.common.attendance.utils.EncryptedPrefHelper
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -52,9 +57,10 @@ class LedgerReportFragment : BaseFragment() {
     }
     private var selectedCustomerId   = ""
     private var selectedDivisionId   = ""
+    private var selectedLgrId   = ""
+    private var selectedDistrictId   = ""
     private var selectedDivisionName = ""
     private var pdfViewLink = ""
-
     // Keep the last successful raw balance value so the PDF can decide colour
     private var currentBalanceRaw = 0.0
 
@@ -74,22 +80,49 @@ class LedgerReportFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.apply {
-            txtFromDate.setText(Constants.getCurrentTimestamp("dd-MMM-yyyy"))
-            txtToDate.setText(Constants.getCurrentTimestamp("dd-MMM-yyyy"))
-            txtLayDivision.visibility    = View.GONE
-            txtLayEmployeeName.visibility = View.GONE
-            txtLayDistrict.visibility    = View.GONE
-            btnPDFView.visibility = View.GONE
-        }
+        setUpInitialUiState()
+        setUpFlavorSpecificData()
 
-        callCustomerApi()
         observeCustomerState()
         observeLedgerPdfState()
         observeLedgerPdfShowState()
+
         manageToolBar()
         setupClickListeners()
         setRecyclerViewAdapter()
+    }
+
+// ─────────────────────────────────────────────────────────────────────────
+// Setup
+// ─────────────────────────────────────────────────────────────────────────
+
+    private fun setUpInitialUiState() = with(binding) {
+        txtFromDate.setText(Constants.getCurrentTimestamp("dd-MMM-yyyy"))
+        txtToDate.setText(Constants.getCurrentTimestamp("dd-MMM-yyyy"))
+        txtLayDivision.visibility     = View.GONE
+        txtLayEmployeeName.visibility = View.GONE
+        txtLayDistrict.visibility     = View.GONE
+        btnPDFView.visibility         = View.GONE
+    }
+
+    /**
+     * District/Division selection is an "unnati"-only flow — visibility,
+     * API calls, and their observers are all gated together here so the
+     * flavor logic lives in one place instead of being scattered.
+     */
+    private fun setUpFlavorSpecificData() = with(binding) {
+        if (BuildConfig.FLAVOR == "unnati") {
+            txtLayDistrict.visibility = View.VISIBLE
+            txtLayDivision.visibility = View.VISIBLE
+
+            observeDistrictState()
+            observeDivisionState()
+
+            callGetDistricctApi()
+            callCustomerApi()
+        } else {
+            callCustomerApi()
+        }
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -114,6 +147,8 @@ class LedgerReportFragment : BaseFragment() {
         }
 
         txtCustomerName.setSafeOnClickListener {
+            selectedDivisionId = ""
+            txtDivision.setText("")
             val list = ledgerReportViewModel.getCachedCustomerList() ?: return@setSafeOnClickListener
             SelectCustomerNameBottomSheetFragment.newInstance(list)
                 .also { sheet ->
@@ -121,13 +156,49 @@ class LedgerReportFragment : BaseFragment() {
                         Constants.hideKeyboard(it)
                         txtViewPartyName.text = selected.Name
                         txtCustomerName.setText(selected.Name)
-                        selectedCustomerId = selected.LgrId ?: ""
+                        selectedLgrId = selected.LgrId ?: ""
+                        if (BuildConfig.FLAVOR == "unnati"){
+                            callGetDivisonApi()
+                        }
+                    }
+                }
+                .show(childFragmentManager, "SelectPlanFor")
+        }
+
+        txtDistrict.setSafeOnClickListener {
+            val listDistrict = ledgerReportViewModel.getCachedDistrictList() ?: return@setSafeOnClickListener
+            SelectDistrictBottomSheetFragment.newInstance(listDistrict)
+                .also { sheet ->
+                    sheet.setDismissCallback { selected ->
+                        Constants.hideKeyboard(it)
+                        txtDistrict.setText(selected.Name)
+                        selectedDistrictId = selected.DistrictId ?: ""
+                        callCustomerApi()
+                    }
+                }
+                .show(childFragmentManager, "SelectPlanFor")
+        }
+
+        txtDivision.setSafeOnClickListener {
+            val listDivision = ledgerReportViewModel.getCachedDivisionList() ?: return@setSafeOnClickListener
+            SelectDivisionBottomSheetFragment.newInstance(listDivision)
+                .also { sheet ->
+                    sheet.setDismissCallback { selected ->
+                        Constants.hideKeyboard(it)
+                        txtDivision.setText(selected.BranchName)
+                        selectedDivisionId = selected.DivisionId ?: ""
                     }
                 }
                 .show(childFragmentManager, "SelectPlanFor")
         }
 
         btnFilter.setSafeOnClickListener {
+            if(BuildConfig.FLAVOR=="unnati"){
+                if(txtCustomerName.getTrimmedText().isEmpty()){
+                    showToast("Please select customer name")
+                    return@setSafeOnClickListener
+                }
+            }
             pdfViewLink = ""
             btnPDFView.visibility = View.GONE
             btnPDFViewEyes.visibility = View.GONE
@@ -174,19 +245,38 @@ class LedgerReportFragment : BaseFragment() {
     // ─────────────────────────────────────────────────────────────────────────
 
     private fun callCustomerApi() {
-        val request = GetCustomerRequest(
-            customerName = "",
-            districtId = "",
-            cityId = "",
-            empId = if (BuildConfig.FLAVOR == "flotech") {
-                sharedPref.getUser()?.EmpID
-            } else {
-                null
-            }
-        )
+        if(BuildConfig.FLAVOR=="unnati"){
+            val request = GetCustomerRequest(
+                customerName = sharedPref.getUser()?.UsersName?:"",
+                districtId = selectedDistrictId,
+                cityId = "",
+                empId = sharedPref.getUser()?.AutoId
+            )
+            ledgerReportViewModel.loadCustomerList(request)
+        }else{
+            val request = GetCustomerRequest(
+                customerName = "",
+                districtId = "",
+                cityId = "",
+                empId = if (BuildConfig.FLAVOR == "flotech") {
+                    sharedPref.getUser()?.EmpID
+                } else {
+                    null
+                }
+            )
+            ledgerReportViewModel.loadCustomerList(request)
+        }
 
-        ledgerReportViewModel.loadCustomerList(request)
+    }
 
+    private fun callGetDistricctApi() {
+        val request = GetDistrictRequest(empId = sharedPref.getUser()?.AutoId, empName = sharedPref.getUser()?.UsersName)
+        ledgerReportViewModel.loadDistrictList(request)
+    }
+
+    private fun callGetDivisonApi() {
+        val request = GetDivisionRequest(lgrId = selectedLgrId)
+        ledgerReportViewModel.loadDivisionList(request)
     }
 
     private fun callLedgerPdfApi() {
@@ -199,9 +289,9 @@ class LedgerReportFragment : BaseFragment() {
     }
 
     private fun buildLedgerRequest(showPdf: String = "") = GetLedgerPdfRequest(
-        lgrId      = selectedCustomerId,
+        lgrId      = selectedLgrId,
         divisionId = selectedDivisionId,
-        branchName = selectedDivisionName,
+        branchName = binding.txtDivision.getTrimmedText(),
         fromDt     = binding.txtFromDate.text.toString(),
         toDt       = binding.txtToDate.text.toString(),
         showPdf    = showPdf
@@ -210,6 +300,68 @@ class LedgerReportFragment : BaseFragment() {
     // ─────────────────────────────────────────────────────────────────────────
     // Observers
     // ─────────────────────────────────────────────────────────────────────────
+    private fun observeDistrictState() {
+        ledgerReportViewModel.districtState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is DistrictUiState.Idle -> Unit
+
+                is DistrictUiState.Loading -> {
+                    showLoader()
+                }
+
+                is DistrictUiState.Success -> {
+                    hideLoader()
+                    Log.d(TAG, "District loaded: ${state.list.size}")
+
+                    // Update your district adapter/spinner here
+                    // districtList.clear()
+                    // districtList.addAll(state.list)
+                    // districtAdapter.notifyDataSetChanged()
+                }
+
+                is DistrictUiState.ApiError -> {
+                    hideLoader()
+                    showToast(state.message)
+                }
+
+                is DistrictUiState.NetworkError -> {
+                    hideLoader()
+                    showToast(state.message)
+                }
+            }
+        }
+    }
+    private fun observeDivisionState() = with(binding) {
+        ledgerReportViewModel.divisionState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is DivisionUiState.Idle -> Unit
+
+                is DivisionUiState.Loading -> {
+                    showLoader()
+                }
+
+                is DivisionUiState.Success -> {
+                    hideLoader()
+                    Log.d(TAG, "Division loaded: ${state.list.size}")
+                    if (state.list.size == 1) {
+                        selectedDivisionId = state.list[0].DivisionId ?: ""
+                        txtDivision.setText(state.list[0].BranchName ?: "")
+                    }
+                }
+
+                is DivisionUiState.ApiError -> {
+                    hideLoader()
+                    showToast(state.message)
+                }
+
+                is DivisionUiState.NetworkError -> {
+                    hideLoader()
+                    showToast(state.message)
+                }
+            }
+        }
+    }
+
 
     private fun observeCustomerState() {
         ledgerReportViewModel.customerState.observe(viewLifecycleOwner) { state ->
