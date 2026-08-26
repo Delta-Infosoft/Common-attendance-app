@@ -712,7 +712,9 @@ class AddDailyTourDetailsFragment : BaseFragment() {
             calendar.get(Calendar.DAY_OF_MONTH)
         )
 
-        datePicker.datePicker.minDate = System.currentTimeMillis() - 1000
+        if (!BuildConfig.FLAVOR.equals("unnati", true)) {
+            datePicker.datePicker.minDate = System.currentTimeMillis() - 1000
+        }
 
         datePicker.show()
     }
@@ -1049,7 +1051,7 @@ class AddDailyTourDetailsFragment : BaseFragment() {
                     hideLoader()
                     val response = state.data
                     showToast(response.message ?: "Saved successfully")
-                    parentFragmentManager.popBackStackImmediate()
+                    parentFragmentManager.popBackStack()
                 }
 
                 is InsertDailyDetailsState.ApiError -> {
