@@ -65,10 +65,10 @@ object Constants {
         Toast.makeText(context,msg, Toast.LENGTH_SHORT).show()
     }
 
-    fun getCurrentFormattedDate(): String {
+        fun getCurrentFormattedDate(): String {
         val formatter = DateTimeFormatter.ofPattern(
             "EEEE, dd MMMM yyyy",
-            Locale.getDefault()
+            Locale.ENGLISH
         )
         return LocalDate.now().format(formatter)
     }

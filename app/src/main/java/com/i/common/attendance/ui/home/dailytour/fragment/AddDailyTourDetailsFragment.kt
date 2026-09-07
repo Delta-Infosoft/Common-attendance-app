@@ -702,7 +702,7 @@ class AddDailyTourDetailsFragment : BaseFragment() {
                 val selectedCalendar = Calendar.getInstance()
                 selectedCalendar.set(year, month, day)
 
-                val sdf = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+                val sdf = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH)
                 val formattedDate = sdf.format(selectedCalendar.time)
 
                 editText.setText(formattedDate)
@@ -754,7 +754,7 @@ class AddDailyTourDetailsFragment : BaseFragment() {
 
         datePicker.addOnPositiveButtonClickListener { selection ->
             val selectedDate =
-                SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(Date(selection))
+                SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH).format(Date(selection))
             binding.txtDate.setText(selectedDate)
             checkPJCEntry()
            /* if (BuildConfig.FLAVOR != "mascot") {

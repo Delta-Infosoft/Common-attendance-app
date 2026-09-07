@@ -134,7 +134,7 @@ class CarAirApprovalFragment : BaseFragment() {
         datePicker.show(childFragmentManager, "DATE_PICKER")
 
         datePicker.addOnPositiveButtonClickListener { selection ->
-            val selectedDate = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(Date(selection))
+            val selectedDate = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH).format(Date(selection))
             if(isFromDate){
                 binding.txtJourneyFrom.setText(selectedDate)
             }else{

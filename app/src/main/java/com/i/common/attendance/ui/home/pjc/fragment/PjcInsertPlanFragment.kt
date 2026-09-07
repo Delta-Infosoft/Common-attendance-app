@@ -507,7 +507,7 @@ class PjcInsertPlanFragment : BaseFragment() {
 
                 val selectedDate = SimpleDateFormat(
                     "dd-MMM-yyyy",
-                    Locale.getDefault()
+                    Locale.ENGLISH
                 ).format(Date(selection))
 
                 binding.txtDate.setText(selectedDate)
@@ -581,7 +581,7 @@ class PjcInsertPlanFragment : BaseFragment() {
 
                 val selectedDate = SimpleDateFormat(
                     "dd-MMM-yyyy",
-                    Locale.getDefault()
+                    Locale.ENGLISH
                 ).format(Date(selection))
 
                 binding.txtDate.setText(selectedDate)
@@ -610,7 +610,7 @@ class PjcInsertPlanFragment : BaseFragment() {
         datePicker.show(childFragmentManager, "DATE_PICKER")
 
         datePicker.addOnPositiveButtonClickListener { selection ->
-            val selectedDate = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+            val selectedDate = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH)
                 .format(Date(selection))
             binding.txtDate.setText(selectedDate)
         }

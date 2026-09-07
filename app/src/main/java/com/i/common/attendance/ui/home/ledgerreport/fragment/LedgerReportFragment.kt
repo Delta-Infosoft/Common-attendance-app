@@ -548,7 +548,7 @@ class LedgerReportFragment : BaseFragment() {
             .also { picker ->
                 picker.show(childFragmentManager, "DATE_PICKER")
                 picker.addOnPositiveButtonClickListener { millis ->
-                    val formatted = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+                    val formatted = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH)
                         .format(Date(millis))
                     if (isFromDate) binding.txtFromDate.setText(formatted)
                     else            binding.txtToDate.setText(formatted)

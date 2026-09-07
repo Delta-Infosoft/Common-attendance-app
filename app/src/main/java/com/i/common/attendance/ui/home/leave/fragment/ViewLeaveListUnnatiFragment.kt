@@ -24,6 +24,7 @@ import com.i.common.attendance.utils.EncryptedPrefHelper
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.GregorianCalendar
 import java.util.Locale
 import javax.inject.Inject
 import kotlin.getValue
@@ -145,7 +146,10 @@ class ViewLeaveListUnnatiFragment : BaseFragment() {
 
         datePicker.addOnPositiveButtonClickListener { selection ->
 
-            val formatter = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+            // NEW — forces Gregorian calendar, fixes the actual crash
+            val formatter = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH).apply {
+                calendar = GregorianCalendar(Locale.ENGLISH)
+            }
 
             val selectedDate = formatter.format(Date(selection))
 

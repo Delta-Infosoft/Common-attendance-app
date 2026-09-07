@@ -749,7 +749,7 @@ class TourAgendaTrackingFragment : BaseFragment() {
                             "Yes" -> {
                                 val pjcInsertPlanFragment = PjcInsertPlanFragment()
                                 val bundle = Bundle()
-                                val todayDate = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(Date())
+                                val todayDate = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH).format(Date())
                                 bundle.putString("selected_date", todayDate)
                                 pjcInsertPlanFragment.arguments = bundle
                                 loadFragment(fragment = pjcInsertPlanFragment, isAdd = false, isAddBackStack = true)

@@ -122,7 +122,7 @@ class TourAdvanceExpenseFragment: BaseFragment() {
         datePicker.show(childFragmentManager, "DATE_PICKER")
 
         datePicker.addOnPositiveButtonClickListener { selection ->
-            val sdf = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+            val sdf = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH)
             val selectedDate = sdf.format(Date(selection))
 
             if(isFromDate){

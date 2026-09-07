@@ -606,7 +606,7 @@ class AddTourVoucherFragment: BaseFragment() {
 
         datePicker.addOnPositiveButtonClickListener { selection ->
 
-            val selectedDate = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(Date(selection))
+            val selectedDate = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH).format(Date(selection))
             if (isFromDate) {
                 binding.txtFromDate.setText(selectedDate)
             } else {
@@ -637,7 +637,7 @@ class AddTourVoucherFragment: BaseFragment() {
 
             val selectedDate = SimpleDateFormat(
                 "dd-MMM-yyyy",
-                Locale.getDefault()
+                Locale.ENGLISH
             ).format(Date(selection))
 
             if (isFromDate) {

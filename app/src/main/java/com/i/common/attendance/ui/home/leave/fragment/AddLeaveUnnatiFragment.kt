@@ -134,7 +134,7 @@ class AddLeaveUnnatiFragment : BaseFragment() {
 
         datePicker.addOnPositiveButtonClickListener { selection ->
 
-            val selectedDate = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(Date(selection))
+            val selectedDate = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH).format(Date(selection))
             if (isFromDate) {
                 binding.txtFromDate.setText(selectedDate)
             } else {

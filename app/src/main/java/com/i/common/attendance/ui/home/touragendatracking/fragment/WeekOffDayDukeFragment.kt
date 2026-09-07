@@ -103,7 +103,7 @@ class WeekOffDayDukeFragment : BaseFragment() {
         datePicker.show(childFragmentManager, "DATE_PICKER")
 
         datePicker.addOnPositiveButtonClickListener { selection ->
-            val selectedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val selectedDate = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .format(Date(selection))
             binding.txtDate.setText(selectedDate)
         }

@@ -417,7 +417,7 @@ class AddDailyTourDetailsFlotechFragment : BaseFragment() {
                 val selectedCalendar = Calendar.getInstance()
                 selectedCalendar.set(year, month, day)
 
-                val sdf = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+                val sdf = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH)
                 val formattedDate = sdf.format(selectedCalendar.time)
 
                 editText.setText(formattedDate)
@@ -474,7 +474,7 @@ class AddDailyTourDetailsFlotechFragment : BaseFragment() {
         datePicker.show(childFragmentManager, "DATE_PICKER")
 
         datePicker.addOnPositiveButtonClickListener { selection ->
-            val formattedDate = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+            val formattedDate = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH)
                 .format(Date(selection))
 
             binding.txtDate.setText(formattedDate)
