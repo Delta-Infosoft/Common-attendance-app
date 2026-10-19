@@ -48,17 +48,42 @@ class DealerWiseTargetViewModel @Inject constructor(private val repository: Deal
                 when (body.status) {
 
                     "200" -> {
-
-                        val list = if (body.result != null && body.result!!.isJsonArray) {
-                            Gson().fromJson<List<DealerDetailsAccount>>(
-                                body.result!!.asJsonArray,
-                                object : TypeToken<List<DealerDetailsAccount>>() {}.type
-                            )
-                        } else {
+                        val list: List<DealerDetailsAccount> = try {
+                            when {
+                                body.result == null -> emptyList()
+                                body.result!!.isJsonArray -> {
+                                    Gson().fromJson(
+                                        body.result!!.asJsonArray,
+                                        object : TypeToken<List<DealerDetailsAccount>>() {}.type
+                                    ) ?: emptyList()
+                                }
+                                body.result!!.isJsonPrimitive && body.result!!.asJsonPrimitive.isString -> {
+                                    val jsonStr = body.result!!.asString
+                                    if (jsonStr.isNullOrBlank()) emptyList()
+                                    else {
+                                        Gson().fromJson(
+                                            jsonStr,
+                                            object : TypeToken<List<DealerDetailsAccount>>() {}.type
+                                        ) ?: emptyList()
+                                    }
+                                }
+                                else -> {
+                                    val jsonStr = body.result.toString()
+                                    if (jsonStr.isNullOrBlank()) emptyList()
+                                    else {
+                                        Gson().fromJson(
+                                            jsonStr,
+                                            object : TypeToken<List<DealerDetailsAccount>>() {}.type
+                                        ) ?: emptyList()
+                                    }
+                                }
+                            }
+                        } catch (e: Exception) {
                             emptyList()
                         }
 
                         if (list.isEmpty()) {
+                            cachedDealerList = emptyList()
                             _dealerState.value = DealerDetailsUiState.ApiError(body.message ?: "No dealer found")
                         } else {
                             cachedDealerList = list

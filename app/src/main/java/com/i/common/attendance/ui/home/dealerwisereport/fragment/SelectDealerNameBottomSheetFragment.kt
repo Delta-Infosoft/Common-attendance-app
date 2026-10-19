@@ -1,11 +1,17 @@
 package com.i.common.attendance.ui.home.dealerwisereport.fragment
 
+import android.app.Dialog
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.i.common.attendance.databinding.BottomSheetFragmentSelectDailyTourDealerCategoryBinding
 import com.i.common.attendance.network.response.DealerDetailsAccount
@@ -36,9 +42,43 @@ class SelectDealerNameBottomSheetFragment : BottomSheetDialogFragment() {
         dismissCallback = callback
     }
 
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.let { window ->
+            WindowInsetsControllerCompat(window, window.decorView).apply {
+                isAppearanceLightStatusBars = true
+            }
+        }
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+        dialog.setOnShowListener {
+            val bottomSheet = dialog.findViewById<FrameLayout>(
+                com.google.android.material.R.id.design_bottom_sheet
+            )
+            bottomSheet?.let {
+                val behavior = BottomSheetBehavior.from(it)
+                behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                behavior.skipCollapsed = true
+                // Give the sheet container a concrete height to measure against
+                it.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+                it.requestLayout()
+            }
+        }
+
+        return dialog
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dealerCategoryList = arguments?.getParcelableArrayList(ARG_LIST) ?: arrayListOf()
+        dealerCategoryList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelableArrayList(ARG_LIST, DealerDetailsAccount::class.java) ?: arrayListOf()
+        } else {
+            arguments?.classLoader = DealerDetailsAccount::class.java.classLoader
+            @Suppress("DEPRECATION")
+            arguments?.getParcelableArrayList(ARG_LIST) ?: arrayListOf()
+        }
     }
 
     override fun onCreateView(
@@ -94,7 +134,8 @@ class SelectDealerNameBottomSheetFragment : BottomSheetDialogFragment() {
             return
         }
         val filteredList = fullList.filter {
-            it.DealerName?.contains(query, ignoreCase = true) == true
+            it.DealerName?.contains(query, ignoreCase = true) == true ||
+            it.DealerCode?.contains(query, ignoreCase = true) == true
         }
         selectDailyTourDealerCategoryAdapter.submitList(filteredList)
     }

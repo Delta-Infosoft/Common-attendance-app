@@ -76,8 +76,7 @@ class DealerWiseTargetEntryFragment : BaseFragment() {
     }
 
     private fun manageInitVisibility() = with(binding) {
-        reportViewmodel.loadDealerList(DealerDetailsAccountRequest(sharedPref.getUser()?.InsertedByUserId?:""))
-        //reportViewmodel.loadDealerList(DealerDetailsAccountRequest("b7911d7a-b389-4d9a-9cb5-a10a75ae4659"))
+        reportViewmodel.loadDealerList(DealerDetailsAccountRequest((sharedPref.getUser()?.AutoId?:"")))
 
         constViewMonthRecyclerView.visibility = View.GONE
         constraintLayoutData.visibility = View.GONE
@@ -106,8 +105,7 @@ class DealerWiseTargetEntryFragment : BaseFragment() {
                         showToast("Please select a dealer first")
                         return@setDismissCallback
                     }
-                    reportViewmodel.loadMonthList(GetMonthForTargetRequest(userId = sharedPref.getUser()?.InsertedByUserId?:"", dealerId = selectedDealerId?:""))
-                    //reportViewmodel.loadMonthList(GetMonthForTargetRequest(userId = "b7911d7a-b389-4d9a-9cb5-a10a75ae4659", dealerId = selectedDealerId?:""))
+                    reportViewmodel.loadMonthList(GetMonthForTargetRequest(userId = sharedPref.getUser()?.AutoId?:"", dealerId = selectedDealerId ?: ""))
 
                     txtDealerName.setText(selected.DealerName)
                     txtDealerGroupCode.setText(selected.DealerCode)
@@ -144,8 +142,7 @@ class DealerWiseTargetEntryFragment : BaseFragment() {
                 return@setSafeOnClickListener
             }
 
-            //reportViewmodel.submitDealerWiseTarget(userId = "b7911d7a-b389-4d9a-9cb5-a10a75ae4659", dealerId = selectedDealerId ?: "", month = txtMonth.text.toString(), items = dealerTargetList)
-            reportViewmodel.submitDealerWiseTarget(userId = sharedPref.getUser()?.InsertedByUserId?:"", dealerId = selectedDealerId ?: "", month = txtMonth.text.toString(), items = dealerTargetList)
+            reportViewmodel.submitDealerWiseTarget(userId = sharedPref.getUser()?.AutoId?:"", dealerId = selectedDealerId ?: "", month = txtMonth.text.toString(), items = dealerTargetList)
         }
     }
 
