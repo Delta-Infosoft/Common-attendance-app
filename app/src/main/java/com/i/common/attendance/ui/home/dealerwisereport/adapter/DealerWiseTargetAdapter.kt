@@ -17,6 +17,8 @@ class DealerWiseTargetAdapter(
         private val binding: RowItemDealerWiseReportBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        private var textWatcher: android.text.TextWatcher? = null
+
         fun bind(data: DealerWiseTarget) = with(binding) {
 
             txtViewType.text = data.Text
@@ -24,19 +26,25 @@ class DealerWiseTargetAdapter(
 
             val avgRate = data.AvgRate?.toDoubleOrNull() ?: 0.0
 
-            // Default Qty = 0
-            txtViewQty.setText("0")
+            textWatcher?.let { txtViewQty.removeTextChangedListener(it) }
 
-            // Initial Total
-            txtViewTotal.text = String.format("%.2f", avgRate * 0)
+            val qtyText = if (data.qty == 0.0) "0" else {
+                if (data.qty % 1.0 == 0.0) data.qty.toLong().toString() else data.qty.toString()
+            }
+            if (txtViewQty.text.toString() != qtyText) {
+                txtViewQty.setText(qtyText)
+            }
 
-            txtViewQty.doAfterTextChanged { editable ->
+            val total = avgRate * data.qty
+            txtViewTotal.text = String.format("%.2f", total)
+
+            textWatcher = txtViewQty.doAfterTextChanged { editable ->
 
                 val qty = editable?.toString()?.toDoubleOrNull() ?: 0.0
+                data.qty = qty
+                val calculatedTotal = avgRate * qty
 
-                val total = avgRate * qty
-
-                txtViewTotal.text = String.format("%.2f", total)
+                txtViewTotal.text = String.format("%.2f", calculatedTotal)
 
                 onQtyChanged(data, editable?.toString().orEmpty())
             }

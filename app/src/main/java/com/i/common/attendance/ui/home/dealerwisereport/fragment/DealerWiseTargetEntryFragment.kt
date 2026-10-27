@@ -110,6 +110,10 @@ class DealerWiseTargetEntryFragment : BaseFragment() {
                     txtDealerName.setText(selected.DealerName)
                     txtDealerGroupCode.setText(selected.DealerCode)
                     txtDealerGroup.setText(selected.DealerGroup)
+                    txtMonth.setText("")
+                    dealerTargetList.clear()
+                    dealerTargetTypeAdapter.submitList(emptyList())
+                    txtViewGrandTotal.text = "0.00"
 
                     constViewMonthRecyclerView.visibility = View.VISIBLE
                     constraintLayoutData.visibility = View.GONE
@@ -139,6 +143,16 @@ class DealerWiseTargetEntryFragment : BaseFragment() {
             }
             if(txtMonth.text.isNullOrEmpty()){
                 showToast("Please select month first")
+                return@setSafeOnClickListener
+            }
+
+            val totalQty = dealerTargetList.sumOf { it.qty }
+            val grandTotal = dealerTargetList.sumOf {
+                (it.AvgRate?.toDoubleOrNull() ?: 0.0) * it.qty
+            }
+
+            if (dealerTargetList.isEmpty() || totalQty <= 0.0 || grandTotal <= 0.0) {
+                showToast("You have not changed anything")
                 return@setSafeOnClickListener
             }
 
@@ -209,6 +223,7 @@ class DealerWiseTargetEntryFragment : BaseFragment() {
                     dealerTargetList.clear()
                     dealerTargetList.addAll(state.list)
                     dealerTargetTypeAdapter.submitList(state.list)
+                    binding.txtViewGrandTotal.text = "0.00"
                 }
 
                 is DealerWiseTargetUiState.ApiError -> {
